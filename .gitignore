@@ -1,0 +1,4 @@
+.vagrant/
+.idea/
+*-dest/
+cmake-build-debug/

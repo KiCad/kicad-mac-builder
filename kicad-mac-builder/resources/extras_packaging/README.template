@@ -1,0 +1,24 @@
+KiCad Extras
+============
+
+KiCad supports many types of footprints, but by default, it is set up to use footprints maintained by KiCad volunteers on GitHub.  This requires an active internet connection.
+
+Alternatively, you can use these same footprints and install them to your system locally, removing the need for an active internet connection.  This DMG contains an archive of those footprints and the configuration to use them.
+
+Installation
+============
+Before you can install KiCad's footprints for offline use, you need to install KiCad and open it at least once.
+
+Click and drag the folder icons to the target pointed at by the arrows.  You may be asked to authenticate with an administrator username and password.
+
+Additionally, you need to configure your library table.  This DMG includes a library table that knows about all the footprint libraries in this DMG.  To use it, copy the fp-lib-table from the DMG to ~/Library/Preferences/kicad/.  You can do this in a terminal, or through the Finder.  In the Finder, you can do this by opening a new Finder window, clicking on Go -> Go to Folder..., and then entering ~/Library/Preferences/kicad into the dialog box.  Then, drag fp-lib-table from this DMG into the Finder window you just opened.
+
+(We know this is onerous, and have a plan to fix it!)
+
+At this point, if you open (or reopen, if it was already open) PCBNew, you should be able to browse and add footprints without needing internet access.
+
+Reporting Issues
+================
+The KiCad developers are working hard to provide quality, binary releases to our users.  Please let us know if you have any problems so we can work to make them better for everyone.
+
+If you encounter issues with this software, please report a bug at https://bugs.launchpad.net/kicad.
