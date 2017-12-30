@@ -11,11 +11,13 @@ When I run on MacOS, I need to do the following:
 
 and then I need to
 
-````export PATH=$PATH:/usr/local/Cellar/gettext/*/bin
+```
+export PATH=$PATH:/usr/local/Cellar/gettext/*/bin
 mkdir -p build
 cd build
 cmake ../
-make```
+make
+```
 
 
 
