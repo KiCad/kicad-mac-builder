@@ -12,7 +12,7 @@ cd /vagrant
 mkdir -p build
 cd build
 
-export PATH=$PATH:/usr/local/Cellar/gettext/*/bin
+export PATH=$PATH:/usr/local/opt/gettext//bin
 cmake -DMACOS_MIN_VERSION=`sw_vers -productVersion | cut -d. -f1-2` ../kicad-mac-builder
-make -j4
-make
+make -j4 || make
+echo "build succeeded."

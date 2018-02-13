@@ -3,8 +3,7 @@ cmake_minimum_required(VERSION 3.8)
 ExternalProject_Add(
         templates
         PREFIX  templates
-        GIT_REPOSITORY https://github.com/SchrodingersGat/kicad-templates.git
-        GIT_TAG copy-templates
+        GIT_REPOSITORY https://github.com/kicad/templates.git
         UPDATE_DISCONNECTED 1
         PATCH_COMMAND ""
         CONFIGURE_COMMAND ""
