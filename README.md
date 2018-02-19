@@ -12,7 +12,7 @@ When I run on MacOS, I need to do the following:
 and then I need to
 
 ```
-export PATH=$PATH:/usr/local/Cellar/gettext/*/bin
+export PATH=$PATH:/usr/local/opt/gettext/bin
 mkdir -p build
 cd build
 cmake ../
@@ -32,8 +32,7 @@ TODO:
 * Figure out if we need to include library tables.
 * Setup on Wayne and Layne Jenkins with a 10.11 VM.
 * Setup output name and path for package-kicad and package-extras
-* Update the patch list.
-* Watch the templates repo and change to the main one once the PR is approved.
+
 
 Future things:
 * Investigate bringing KiCad source in via a submodule or something.

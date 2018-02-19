@@ -6,8 +6,8 @@ ExternalProject_Add(
         docs
         PREFIX  docs
         DOWNLOAD_DIR     ${CMAKE_BINARY_DIR}/docs/src
-        DOWNLOAD_COMMAND ${BIN_DIR}/download_docs.sh <INSTALL_DIR>
-        UPDATE_COMMAND   ${BIN_DIR}/download_docs.sh <INSTALL_DIR>
+        DOWNLOAD_COMMAND ${BIN_DIR}/download-docs.sh <INSTALL_DIR>
+        UPDATE_COMMAND   ${BIN_DIR}/download-docs.sh <INSTALL_DIR>
         UPDATE_DISCONNECTED 1
         PATCH_COMMAND ""
         CONFIGURE_COMMAND ""
