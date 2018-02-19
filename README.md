@@ -33,6 +33,7 @@ TODO:
 * Setup on Wayne and Layne Jenkins with a 10.11 VM.
 * Setup output name and path for package-kicad and package-extras
 
+
 Future things:
 * Investigate bringing KiCad source in via a submodule or something.
 * Investigate using CPack.
