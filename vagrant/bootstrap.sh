@@ -2,14 +2,15 @@
 set -x
 set -e
 
-if ! command -v brew >/dev/null; then
-  echo "Installing Homebrew ..."
-  sleep 5
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null
-else
-  echo "Homebrew already installed. Skipping."
-fi
-
+for i in 1 2 3; do
+  if ! command -v brew >/dev/null; then
+    echo "Installing Homebrew ..."
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null || echo "failed."
+  else
+    echo "Homebrew installed."
+    break
+  fi
+done
 
 PATH=$PATH:/usr/local/bin
 export HOMEBREW_NO_ANALYTICS=1
