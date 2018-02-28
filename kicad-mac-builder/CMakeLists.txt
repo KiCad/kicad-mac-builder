@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.6.2)
 include(ExternalProject)
-set(MACOS_MIN_VERSION 10.13 CACHE STRING "")
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
