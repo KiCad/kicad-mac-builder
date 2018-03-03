@@ -1,7 +1,3 @@
-cmake_minimum_required(VERSION 3.8)
-
-
-
 ExternalProject_Add(
         package-kicad
         DEPENDS kicad symbols translations docs footprints templates
