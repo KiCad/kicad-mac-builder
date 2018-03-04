@@ -1,6 +1,3 @@
-cmake_minimum_required(VERSION 3.8)
-
-
 # I don't like how I have to recreate <BINARY_DIR> of other targets here,
 # but I didn't like it when the install aspect of this installed it into a temp directory either
 # Maybe a better long term solution is to actually mount the DMG before we do this, and install directly into the DMG

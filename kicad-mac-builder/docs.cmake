@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.8)
-
 set( DOCS_OUTPUT_DIR ${CMAKE_BINARY_DIR}/docs/help)
 
 ExternalProject_Add(
