@@ -22,3 +22,7 @@ There can be value in building inside a VM.  This can help increase isolation an
 I do this, however, to make sure that people can build using 10.11, 10.12, and 10.13.  To do this, setup a macOS Vagrant machine.  I use https://github.com/timsutton/osx-vm-templates.  Please note, that as of early 2018, to create a 10.13 VM you must start with a 10.12 VM and upgrade it.
 
 There is an example Vagrantfile and scripts in `vagrant/`.
+
+Issues
+======
+In early 2018, I'm noticing that sometimes wxPython doesn't download properly from Sourceforge, so I've included a mirror in this repository.
