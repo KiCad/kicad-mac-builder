@@ -3,6 +3,12 @@
 set -e
 set -x
 
+cd /vagrant
+
+#if [ -e build ] ; then
+#  rm -r build
+#fi
+
 mkdir -p build
 cd build
 

@@ -5,36 +5,20 @@ This is the 2017+ KiCad Mac builder and packager.  It does not yet work.  Do not
 
 It's close, though.
 
+Setup
+=====
 When I run on MacOS, I need to do the following:
 
 `brew install cmake swig glew glm cairo boost doxygen gettext wget`
 
-and then I need to
+Building by hand
+================
+To get up and running the absolute fastest, just use `build.sh`.  However, it builds everything and uses "reasonable" settings.  If you want something special, for now at least, run `cmake` and `make` by hand.  Better documentation is definitely welcomed, but for now, you can look at `build.sh` for reference.
 
-```
-export PATH=$PATH:/usr/local/opt/gettext/bin
-mkdir -p build
-cd build
-cmake ../
-make
-```
+Building inside a VM
+====================
+There can be value in building inside a VM.  This can help increase isolation and repeatability, by reducing the chances that something "sticks around" between builds, and helps reduce the chances of undocumented steps.  However, it can be slower and take more resources.
 
+I do this, however, to make sure that people can build using 10.11, 10.12, and 10.13.  To do this, setup a macOS Vagrant machine.  I use https://github.com/timsutton/osx-vm-templates.  Please note, that as of early 2018, to create a 10.13 VM you must start with a 10.12 VM and upgrade it.
 
-
-TODO:
-* Setup "stable" mode, where it produces stable release builds.
-* Setup "build-only" mode, where it doesn't package.
-* Review how footprints/symbols/templates/3D models/demos/scripts are packaged, and make sure it works.
-* Test on 10.11.
-* Work on *this* README, adding usage docs for all the applicable use cases.
-* Work on the main DMG README and logs.
-* Work on the extras DMG README and logs.
-* Figure out if we need to include library tables.
-* Setup on Wayne and Layne Jenkins with a 10.11 VM.
-* Setup output name and path for package-kicad and package-extras
-
-
-Future things:
-* Investigate bringing KiCad source in via a submodule or something.
-* Investigate using CPack.
-* Review for consistent style.
+There is an example Vagrantfile and scripts in `vagrant/`.
