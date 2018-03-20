@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    options { disableConcurrentBuilds() }
+    stages {
+        stage('setting up clean environment') {
+            steps {
+                sh 'PATH=$PATH:/usr/local/bin vagrant destroy -f || true'
+                sh 'PATH=$PATH:/usr/local/bin vagrant up'
+            }
+        }
+        stage('build') {
+            steps {
+                sh 'PATH=$PATH:/usr/local/bin vagrant up'
+            }
+        }
+    }
+    post {
+        always {
+                sh 'PATH=$PATH:/usr/local/bin vagrant halt'
+                #sh 'PATH=$PATH:/usr/local/bin vagrant destroy -f'
+        }
+    }
+}
