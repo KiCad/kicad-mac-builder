@@ -4,20 +4,26 @@ pipeline {
     stages {
         stage('setting up clean environment') {
             steps {
-                sh 'pwd; ls'
-                sh 'PATH=$PATH:/usr/local/bin vagrant destroy -f || true'
-                sh 'PATH=$PATH:/usr/local/bin vagrant up'
+                dir('ci/10.11') {
+                  sh 'pwd; ls'
+                  sh 'PATH=$PATH:/usr/local/bin vagrant destroy -f || true'
+                  sh 'PATH=$PATH:/usr/local/bin vagrant up'
+                }
             }
         }
         stage('build') {
             steps {
-                sh 'PATH=$PATH:/usr/local/bin vagrant up'
+                dir('ci/10.11') {
+                  sh 'PATH=$PATH:/usr/local/bin vagrant up'
+                }
             }
         }
     }
     post {
         always {
-                sh 'PATH=$PATH:/usr/local/bin vagrant halt'
+                dir('ci/10.11') {
+                  sh 'PATH=$PATH:/usr/local/bin vagrant halt'
+                }
         }
     }
 }
