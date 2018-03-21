@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'macos10.12' }
     options { disableConcurrentBuilds() }
     stages {
         stage('setting up clean environment') {
