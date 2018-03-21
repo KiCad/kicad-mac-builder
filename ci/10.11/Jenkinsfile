@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('setting up clean environment') {
             steps {
+                sh 'pwd; ls'
                 sh 'PATH=$PATH:/usr/local/bin vagrant destroy -f || true'
                 sh 'PATH=$PATH:/usr/local/bin vagrant up'
             }
