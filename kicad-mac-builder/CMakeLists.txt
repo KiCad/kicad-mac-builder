@@ -40,5 +40,6 @@ include(symbols.cmake)
 include(templates.cmake)
 include(packages3d.cmake)
 
-include(package_kicad.cmake)
+include(package_kicad_nightly.cmake)
+include(package_kicad_unified.cmake)
 include(package_extras.cmake)

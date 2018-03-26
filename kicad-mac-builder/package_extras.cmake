@@ -3,7 +3,6 @@
 # Maybe a better long term solution is to actually mount the DMG before we do this, and install directly into the DMG
 
 
-
 ExternalProject_Add(
         package-extras
         DEPENDS packages3d footprints
@@ -20,6 +19,8 @@ ExternalProject_Add(
                       ${BIN_DIR}/package-extras.sh
 )
 
+SET_TARGET_PROPERTIES(package-extras PROPERTIES EXCLUDE_FROM_DEFAULT_BUILD True)
+
 ExternalProject_Add_Step(
         package-extras
         install-packages3d-to-extras
@@ -32,7 +33,7 @@ ExternalProject_Add_Step(
 
 ExternalProject_Add_Step(
         package-extras
-        instal-footprints-to-extras
+        install-footprints-to-extras
         COMMENT "Installing footprints into extras"
         DEPENDEES build
         DEPENDERS install
