@@ -9,11 +9,11 @@ ExternalProject_Add(
         CONFIGURE_COMMAND ""
         BUILD_COMMAND mkdir -p ${SUPPORT_DIR}
         INSTALL_COMMAND VERBOSE=1
-                      PACKAGING_DIR=${CMAKE_SOURCE_DIR}/packaging
+                      PACKAGING_DIR=${CMAKE_SOURCE_DIR}/unified-packaging
                       KICAD_INSTALL_DIR=${KICAD_INSTALL_DIR}
                       TEMPLATE=kicadtemplate.dmg
                       SUPPORT_DIR=${SUPPORT_DIR}
-                      ${BIN_DIR}/package-kicad.sh
+                      ${BIN_DIR}/package-kicad-unified.sh
 )
 
 # I don't like how I have to recreate <INSTALL_DIR> of other targets here,
