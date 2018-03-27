@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "macos_10.11.6_15G1217"
+  config.vm.box = "macos_10.11"
 
   config.vm.synced_folder "../../", "/vagrant", type: "rsync"  # the normal sharing uses guest extensions, which don't exist for macOS and virtualbox
 #  config.vm.provision "shell", path: "update-os.sh"
