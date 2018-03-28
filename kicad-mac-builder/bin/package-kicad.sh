@@ -63,7 +63,7 @@ if [ ! -e $TEMPLATE ]; then
 fi
 
 # resize the template, and mount it
-hdiutil resize -size 2.5G $TEMPLATE
+hdiutil resize -size 7G $TEMPLATE
 hdiutil attach $TEMPLATE -noautoopen -mountpoint $MOUNTPOINT
 
 mkdir -p $MOUNTPOINT/Kicad # TODO: do we switch this to KiCad?
