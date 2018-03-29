@@ -12,6 +12,7 @@ echo "PACKAGING_DIR: $PACKAGING_DIR"
 echo "VERBOSE: $VERBOSE"
 echo "TEMPLATE: $TEMPLATE"
 echo "EXTRAS_DIR: $EXTRAS_DIR"
+echo "DMG_DIR: $DMG_DIR"
 echo "pwd: `pwd`"
 
 if [ ! -e "${PACKAGING_DIR}" ]; then
@@ -32,12 +33,10 @@ fi
 
 NOW=`date +%Y%m%d-%H%M%S`
 
-FINAL_DMG_DEST=../dmg
-KICAD_REVNO=abc
 KICAD_APPS=./bin
 NEW_DMG=kicad.uncompressed.dmg
 MOUNTPOINT=kicad-extras-mnt
-FINAL_DMG=kicad-extras.$NOW-KMB.dmg
+FINAL_DMG=kicad-extras.$NOW.dmg
 
 # make the mountpoint
 if [ -e $MOUNTPOINT ]; then
@@ -145,7 +144,7 @@ hdiutil convert $TEMPLATE  -format UDZO -imagekey zlib-level=9 -o $FINAL_DMG #Th
 # cleanup the template file
 rm $TEMPLATE
 
-mkdir -p $FINAL_DMG_DEST
-mv $FINAL_DMG $FINAL_DMG_DEST/
+mkdir -p $DMG_DIR
+mv $FINAL_DMG $DMG_DIR/
 
-echo "Done creating $FINAL_DMG in $FINAL_DMG_DEST"
+echo "Done creating $FINAL_DMG in $DMG_DIR"
