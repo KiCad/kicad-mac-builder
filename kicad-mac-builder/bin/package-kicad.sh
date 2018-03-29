@@ -9,14 +9,21 @@ set -e
 #fi
 
 echo "PACKAGING_DIR: $PACKAGING_DIR"
+echo "KICAD_SOURCE_DIR: $KICAD_SOURCE_DIR"
 echo "KICAD_INSTALL_DIR: $KICAD_INSTALL_DIR"
 echo "VERBOSE: $VERBOSE"
 echo "TEMPLATE: $TEMPLATE"
 echo "SUPPORT_DIR: $SUPPORT_DIR"
+echo "DMG_DIR: $DMG_DIR"
 echo "pwd: `pwd`"
 
 if [ ! -e "${PACKAGING_DIR}" ]; then
     echo "PACKAGING_DIR must be set and exist."
+    exit 1
+fi
+
+if [ ! -e "${KICAD_SOURCE_DIR}" ]; then
+    echo "KICAD_SOURCE_DIR must be set and exist."
     exit 1
 fi
 
@@ -37,12 +44,11 @@ fi
 
 NOW=`date +%Y%m%d-%H%M%S`
 
-FINAL_DMG_DEST=../dmg
-KICAD_REVNO=abc
+KICAD_GIT_REV=`cd $KICAD_SOURCE_DIR && git rev-parse --short HEAD`
 KICAD_APPS=./bin
 NEW_DMG=kicad.uncompressed.dmg
 MOUNTPOINT=kicad-mnt
-FINAL_DMG=kicad-$NOW.$KICAD_REVNO-KMB.dmg
+FINAL_DMG=kicad-$NOW-$KICAD_GIT_REV.dmg
 
 # make the mountpoint
 if [ -e $MOUNTPOINT ]; then
@@ -77,7 +83,7 @@ cp $PACKAGING_DIR/background.png $MOUNTPOINT/.
 SetFile -a V $MOUNTPOINT/background.png
 
 #copy in support files
-cp -r $SUPPORT_DIR $MOUNTPOINT/kicad
+cp -r $SUPPORT_DIR/* $MOUNTPOINT/kicad
 
 #support/modules is in the base package
 #extras/modules is in the extras package
@@ -158,7 +164,7 @@ hdiutil convert $TEMPLATE  -format UDZO -imagekey zlib-level=9 -o $FINAL_DMG #Th
 # cleanup the template file
 rm $TEMPLATE
 
-mkdir -p $FINAL_DMG_DEST
-mv $FINAL_DMG $FINAL_DMG_DEST/
+mkdir -p $DMG_DIR
+mv $FINAL_DMG $DMG_DIR/
 
-echo "Done creating $FINAL_DMG in $FINAL_DMG_DEST"
+echo "Done creating $FINAL_DMG in $DMG_DIR"
