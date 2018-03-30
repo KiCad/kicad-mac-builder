@@ -16,6 +16,7 @@ ExternalProject_Add(
                       PACKAGING_DIR=${CMAKE_SOURCE_DIR}/extras-packaging
                       TEMPLATE=kicad-extras-template.dmg
                       EXTRAS_DIR=${EXTRAS_DIR}
+                      DMG_DIR=${DMG_DIR}
                       ${BIN_DIR}/package-extras.sh
 )
 
