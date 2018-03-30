@@ -26,3 +26,16 @@ There is an example Vagrantfile and scripts in `vagrant/`.
 Issues
 ======
 In early 2018, I'm noticing that sometimes wxPython doesn't download properly from Sourceforge, so I've included a mirror in this repository.
+
+Test Procedure
+==============
+Before big releases, we should check to make sure all the component pieces work.
+
+Localization
+------------
+* Open up KiCad, and change the language via Preferences -> Language.  You should see the text in the menubars change.
+
+Help
+----
+* Open up KiCad, and open up the help documents via Help -> KiCad Manual and Help -> Getting Started in KiCad.  You should see a browser open with the documentation.
+* Open up KiCad, and change the languages to something not English via Preferences -> Language.  Then open up the manual via Help -> KiCad Manual.  You should see a browser open with the documentation in the matching language.
