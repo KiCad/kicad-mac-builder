@@ -14,7 +14,8 @@ ExternalProject_Add(
                       TEMPLATE=kicadtemplate.dmg
                       SUPPORT_DIR=${SUPPORT_DIR}
                       DMG_DIR=${DMG_DIR}
-                      ${BIN_DIR}/package-kicad.sh
+                      PACKAGE_TYPE=nightly
+                      ${BIN_DIR}/package.sh
 )
 
 # I don't like how I have to recreate <INSTALL_DIR> of other targets here,

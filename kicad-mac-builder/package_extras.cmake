@@ -18,7 +18,8 @@ ExternalProject_Add(
                       TEMPLATE=kicad-extras-template.dmg
                       EXTRAS_DIR=${EXTRAS_DIR}
                       DMG_DIR=${DMG_DIR}
-                      ${BIN_DIR}/package-extras.sh
+                      PACKAGE_TYPE=extras
+                      ${BIN_DIR}/package.sh
 )
 
 ExternalProject_Add_Step(
