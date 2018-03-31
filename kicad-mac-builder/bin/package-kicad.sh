@@ -72,10 +72,10 @@ fi
 hdiutil resize -size 2.5G $TEMPLATE
 hdiutil attach $TEMPLATE -noautoopen -mountpoint $MOUNTPOINT
 
-mkdir -p $MOUNTPOINT/Kicad # TODO: do we switch this to KiCad?
+mkdir -p $MOUNTPOINT/KiCad
 
 
-rsync -al $KICAD_INSTALL_DIR/* $MOUNTPOINT/Kicad/. # IMPORTANT: must preserve symlinks
+rsync -al $KICAD_INSTALL_DIR/* $MOUNTPOINT/KiCad/. # IMPORTANT: must preserve symlinks
 
 # update background of the DMG
 cp $PACKAGING_DIR/background.png $MOUNTPOINT/.
