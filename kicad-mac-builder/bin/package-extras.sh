@@ -36,7 +36,7 @@ NOW=`date +%Y%m%d-%H%M%S`
 KICAD_APPS=./bin
 NEW_DMG=kicad.uncompressed.dmg
 MOUNTPOINT=kicad-extras-mnt
-FINAL_DMG=kicad-extras.$NOW.dmg
+FINAL_DMG=kicad-extras-$NOW.dmg
 
 # make the mountpoint
 if [ -e $MOUNTPOINT ]; then
