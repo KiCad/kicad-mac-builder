@@ -1,7 +1,7 @@
 ExternalProject_Add(
-        package-kicad
+        package-kicad-nightly
         DEPENDS kicad symbols translations docs footprints templates
-        PREFIX package-kicad
+        PREFIX package-kicad-nightly
         DOWNLOAD_COMMAND ""
         UPDATE_COMMAND   ""
         PATCH_COMMAND ""
@@ -20,8 +20,10 @@ ExternalProject_Add(
 
 # I don't like how I have to recreate <INSTALL_DIR> of other targets here,
 
+SET_TARGET_PROPERTIES(package-kicad-nightly PROPERTIES EXCLUDE_FROM_DEFAULT_BUILD True)
+
 ExternalProject_Add_Step(
-        package-kicad
+        package-kicad-nightly
         install-docs-to-support
         COMMENT "Installing docs into Application Support directory for disk image"
         DEPENDEES build
@@ -32,7 +34,7 @@ ExternalProject_Add_Step(
 
 
 ExternalProject_Add_Step(
-        package-kicad
+        package-kicad-nightly
         install-translations-to-support
         COMMENT "Installing translations into support"
         DEPENDEES build
@@ -43,7 +45,7 @@ ExternalProject_Add_Step(
 )
 
 ExternalProject_Add_Step(
-        package-kicad
+        package-kicad-nightly
         install-templates-to-support
         COMMENT "Installing templates into support"
         DEPENDEES build
@@ -54,7 +56,7 @@ ExternalProject_Add_Step(
 )
 
 ExternalProject_Add_Step(
-        package-kicad
+        package-kicad-nightly
         install-symbols-to-support
         COMMENT "Installing symbols into support"
         DEPENDEES build
