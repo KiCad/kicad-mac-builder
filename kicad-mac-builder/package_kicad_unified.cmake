@@ -11,6 +11,7 @@ ExternalProject_Add(
         INSTALL_COMMAND VERBOSE=1
                       PACKAGING_DIR=${CMAKE_SOURCE_DIR}/packaging
                       KICAD_INSTALL_DIR=${KICAD_INSTALL_DIR}
+                      KICAD_SOURCE_DIR=${CMAKE_BINARY_DIR}/kicad/src/kicad
                       TEMPLATE=kicadtemplate.dmg
                       SUPPORT_DIR=${SUPPORT_DIR}
                       ${BIN_DIR}/package-kicad.sh
