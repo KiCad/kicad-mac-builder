@@ -1,7 +1,7 @@
 
 ExternalProject_Add(
         package-kicad-unified
-        DEPENDS kicad symbols translations docs footprints templates packages3d
+        DEPENDS kicad symbols translations docs footprints templates # packages3d
         PREFIX package-kicad-unified
         DOWNLOAD_COMMAND ""
         UPDATE_COMMAND   ""
@@ -66,15 +66,16 @@ ExternalProject_Add_Step(
         COMMAND cp -r ${CMAKE_BINARY_DIR}/symbols/src/symbols-build ${SUPPORT_DIR}/library
 )
 
-ExternalProject_Add_Step(
-        package-kicad-unified
-        install-packages3d-to-support
-        COMMENT "Installing packages3d into support"
-        DEPENDEES build
-        DEPENDERS install
-        DEPENDS packages3d
-        COMMAND cp -r ${CMAKE_BINARY_DIR}/packages3d/src/packages3d-build ${SUPPORT_DIR}/packages3d
-)
+# ExternalProject_Add_Step(
+#         package-kicad-unified
+#         install-packages3d-to-support
+#         COMMENT "Installing packages3d into support"
+#         DEPENDEES build
+#         DEPENDERS install
+#         DEPENDS packages3d
+#         STEP_TARGETS install-packages3d-to-support
+#         COMMAND cp -r ${CMAKE_BINARY_DIR}/packages3d/src/packages3d-build ${SUPPORT_DIR}/packages3d
+# )
 
 ExternalProject_Add_Step(
         package-kicad-unified
