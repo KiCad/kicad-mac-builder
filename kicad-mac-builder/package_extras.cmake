@@ -17,7 +17,8 @@ ExternalProject_Add(
                       TEMPLATE=kicad-extras-template.dmg
                       EXTRAS_DIR=${EXTRAS_DIR}
                       DMG_DIR=${DMG_DIR}
-                      ${BIN_DIR}/package-extras.sh
+                      PACKAGE_TYPE=extras
+                      ${BIN_DIR}/package.sh
 )
 
 SET_TARGET_PROPERTIES(package-extras PROPERTIES EXCLUDE_FROM_DEFAULT_BUILD True)

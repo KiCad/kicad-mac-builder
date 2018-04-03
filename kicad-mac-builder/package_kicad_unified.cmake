@@ -1,7 +1,7 @@
 
 ExternalProject_Add(
         package-kicad-unified
-        DEPENDS kicad symbols translations docs footprints templates
+        DEPENDS kicad symbols translations docs footprints templates packages3d
         PREFIX package-kicad-unified
         DOWNLOAD_COMMAND ""
         UPDATE_COMMAND   ""
@@ -10,14 +10,17 @@ ExternalProject_Add(
         BUILD_COMMAND mkdir -p ${SUPPORT_DIR}
         INSTALL_COMMAND VERBOSE=1
                       PACKAGING_DIR=${CMAKE_SOURCE_DIR}/packaging
-                      KICAD_INSTALL_DIR=${KICAD_INSTALL_DIR}
                       KICAD_SOURCE_DIR=${CMAKE_BINARY_DIR}/kicad/src/kicad
+                      KICAD_INSTALL_DIR=${KICAD_INSTALL_DIR}
                       TEMPLATE=kicadtemplate.dmg
                       SUPPORT_DIR=${SUPPORT_DIR}
-                      ${BIN_DIR}/package-kicad.sh
+                      DMG_DIR=${DMG_DIR}
+                      PACKAGE_TYPE=unified
+                      ${BIN_DIR}/package.sh
 )
 
 # I don't like how I have to recreate <INSTALL_DIR> of other targets here,
+
 SET_TARGET_PROPERTIES(package-kicad-unified PROPERTIES EXCLUDE_FROM_DEFAULT_BUILD True)
 
 ExternalProject_Add_Step(
