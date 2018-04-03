@@ -97,27 +97,27 @@ if [ -z "${DMG_DIR}" ]; then
     exit 1
 fi
 
-if [ "${PACKAGE_TYPE}" != "nightly" || "${PACKAGE_TYPE}" != "extras" ||  "${PACKAGE_TYPE}" != "unified" ]; then
+if [ "${PACKAGE_TYPE}" != "nightly" ] || [ "${PACKAGE_TYPE}" != "extras" ] || [ "${PACKAGE_TYPE}" != "unified" ]; then
     echo "PACKAGE_TYPE must be either \"nightly\", \"extras\", or \"unified\"."
     exit 1
 fi
 
-if [ "${PACKAGE_TYPE}" != "extras" && ! -e "${SUPPORT_DIR}" ]; then
+if [ "${PACKAGE_TYPE}" != "extras" ] && [ ! -e "${SUPPORT_DIR}" ]; then
     echo "In nightly and unified, SUPPORT_DIR must be set and exist."
     exit 1
 fi
 
-if [ "${PACKAGE_TYPE}" != "extras" && ! -e "${KICAD_SOURCE_DIR}" ]; then
+if [ "${PACKAGE_TYPE}" != "extras" ] && [ ! -e "${KICAD_SOURCE_DIR}" ]; then
     echo "In nightly and unified, KICAD_SOURCE_DIR must be set and exist."
     exit 1
 fi
 
-if [ "${PACKAGE_TYPE}" != "extras" && ! -e "${KICAD_INSTALL_DIR}" ]; then
+if [ "${PACKAGE_TYPE}" != "extras" ] && [ ! -e "${KICAD_INSTALL_DIR}" ]; then
     echo "In nightly and unified, KICAD_INSTALL_DIR must be set and exist."
     exit 1
 fi
 
-if [ "${PACKAGE_TYPE}" == "extras" &&  -e "${EXTRAS_DIR}" ]; then
+if [ "${PACKAGE_TYPE}" == "extras" ] && [ -e "${EXTRAS_DIR}" ]; then
     echo "In extras, EXTRAS_DIR must be set and exist."
     exit 1
 fi
