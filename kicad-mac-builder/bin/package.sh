@@ -74,14 +74,18 @@ echo "KICAD_SOURCE_DIR: $KICAD_SOURCE_DIR"
 echo "KICAD_INSTALL_DIR: $KICAD_INSTALL_DIR"
 echo "VERBOSE: $VERBOSE"
 echo "TEMPLATE: $TEMPLATE"
-echo "SUPPORT_DIR: $SUPPORT_DIR"
-echo "EXTRAS_DIR: $EXTRAS_DIR"
 echo "DMG_DIR: $DMG_DIR"
 echo "PACKAGE_TYPE: $PACKAGE_TYPE"
+echo "CMAKE_BINARY_DIR: $CMAKE_BINARY_DIR"
 echo "pwd: `pwd`"
 
 if [ ! -e "${PACKAGING_DIR}" ]; then
     echo "PACKAGING_DIR must be set and exist."
+    exit 1
+fi
+
+if [ ! -e "${CMAKE_BINARY_DIR}" ]; then
+    echo "CMAKE_BINARY_DIR must be set and exist."
     exit 1
 fi
 
@@ -97,13 +101,8 @@ if [ -z "${DMG_DIR}" ]; then
     exit 1
 fi
 
-if [ "${PACKAGE_TYPE}" != "nightly" ] || [ "${PACKAGE_TYPE}" != "extras" ] || [ "${PACKAGE_TYPE}" != "unified" ]; then
+if [ "${PACKAGE_TYPE}" != "nightly" ] && [ "${PACKAGE_TYPE}" != "extras" ] && [ "${PACKAGE_TYPE}" != "unified" ]; then
     echo "PACKAGE_TYPE must be either \"nightly\", \"extras\", or \"unified\"."
-    exit 1
-fi
-
-if [ "${PACKAGE_TYPE}" != "extras" ] && [ ! -e "${SUPPORT_DIR}" ]; then
-    echo "In nightly and unified, SUPPORT_DIR must be set and exist."
     exit 1
 fi
 
@@ -114,11 +113,6 @@ fi
 
 if [ "${PACKAGE_TYPE}" != "extras" ] && [ ! -e "${KICAD_INSTALL_DIR}" ]; then
     echo "In nightly and unified, KICAD_INSTALL_DIR must be set and exist."
-    exit 1
-fi
-
-if [ "${PACKAGE_TYPE}" == "extras" ] && [ -e "${EXTRAS_DIR}" ]; then
-    echo "In extras, EXTRAS_DIR must be set and exist."
     exit 1
 fi
 
@@ -152,19 +146,42 @@ case "${PACKAGE_TYPE}" in
     nightly)
         mkdir -p $MOUNTPOINT/KiCad
         rsync -al $KICAD_INSTALL_DIR/* $MOUNTPOINT/KiCad/. # IMPORTANT: must preserve symlinks
-        #copy in support files
-        cp -r $SUPPORT_DIR/* $MOUNTPOINT/kicad
+        mkdir -p $MOUNTPOINT/kicad
+        echo "Copying docs"
+        cp -r ${CMAKE_BINARY_DIR}/docs/kicad-doc-HEAD/share/doc/kicad/help $MOUNTPOINT/kicad/
+        echo "Copying translations"
+        mkdir -p $MOUNTPOINT/kicad/share
+        cp -r ${CMAKE_BINARY_DIR}/translations/src/translations-build/output/share/kicad/internat $MOUNTPOINT/kicad/share/
+        echo "Copying templates"
+        cp -r {CMAKE_BINARY_DIR}/templates/src/templates-build $MOUNTPOINT/kicad/templates
+        echo "Copying symbols"
+        cp -r ${CMAKE_BINARY_DIR}/symbols/src/symbols-build $MOUNTPOINT/kicad/library
         FINAL_DMG=kicad-nightly-$NOW-$KICAD_GIT_REV.dmg
     ;;
     extras)
-        cp -r $EXTRAS_DIR/* $MOUNTPOINT/
+        echo "Copying packages3d"
+        cp -r ${CMAKE_BINARY_DIR}/packages3d/src/packages3d-build $MOUNTPOINT/packages3d
+        echo "Copying footprints"
+        cp -r ${CMAKE_BINARY_DIR}/footprints/src/footprints-build $MOUNTPOINT/modules
         FINAL_DMG=kicad-extras-$NOW.dmg
     ;;
     unified)
         mkdir -p $MOUNTPOINT/KiCad
         rsync -al $KICAD_INSTALL_DIR/* $MOUNTPOINT/KiCad/. # IMPORTANT: must preserve symlinks
-        #copy in support files
-        cp -r $SUPPORT_DIR/* $MOUNTPOINT/kicad
+        mkdir -p $MOUNTPOINT/kicad
+        echo "Copying docs"
+        cp -r ${CMAKE_BINARY_DIR}/docs/kicad-doc-HEAD/share/doc/kicad/help $MOUNTPOINT/kicad/
+        echo "Copying translations"
+        mkdir -p $MOUNTPOINT/kicad/share
+        cp -r ${CMAKE_BINARY_DIR}/translations/src/translations-build/output/share/kicad/internat $MOUNTPOINT/kicad/share/
+        echo "Copying templates"
+        cp -r {CMAKE_BINARY_DIR}/templates/src/templates-build $MOUNTPOINT/kicad/templates
+        echo "Copying symbols"
+        cp -r ${CMAKE_BINARY_DIR}/symbols/src/symbols-build $MOUNTPOINT/kicad/library
+        echo "Copying packages3d"
+        cp -r ${CMAKE_BINARY_DIR}/packages3d/src/packages3d-build $MOUNTPOINT/kicad/packages3d
+        echo "Copying footprints"
+        cp -r ${CMAKE_BINARY_DIR}/footprints/src/footprints-build $MOUNTPOINT/kicad/modules
         FINAL_DMG=kicad-nightly-$NOW-$KICAD_GIT_REV.dmg
     ;;
     *)
