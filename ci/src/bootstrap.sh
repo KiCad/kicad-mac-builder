@@ -2,7 +2,7 @@
 set -x
 set -e
 
-for i in 1 2 3; do
+for _ in 1 2 3; do
   if ! command -v brew >/dev/null; then
     echo "Installing Homebrew ..."
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null || echo "failed."
