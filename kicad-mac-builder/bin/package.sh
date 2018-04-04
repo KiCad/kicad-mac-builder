@@ -2,11 +2,12 @@
 
 set -e
 
-crash_cleanup() {
+cleanup() {
+    echo "Making sure any mounts are unmounted."
     hdiutil detach $MOUNTPOINT || true
     hdiutil detach /Volumes/"${MOUNT_NAME}" || true
 }
-trap crash_cleanup EXIT
+trap cleanup EXIT
 
 setup_dmg()
 {
