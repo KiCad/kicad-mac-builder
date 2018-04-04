@@ -4,7 +4,7 @@ set -e
 
 cleanup() {
     echo "Making sure any mounts are unmounted."
-    hdiutil detach $MOUNTPOINT || true
+    hdiutil detach "${MOUNTPOINT}" || true
     hdiutil detach /Volumes/"${MOUNT_NAME}" || true
 }
 trap cleanup EXIT
@@ -12,73 +12,71 @@ trap cleanup EXIT
 setup_dmg()
 {
     # make the mountpoint
-    if [ -e $MOUNTPOINT ]; then
+    if [ -e "${MOUNTPOINT}" ]; then
         # it might be a leftover mount from a crashed previous run, so try to unmount it before removing it.
-        diskutil unmount $MOUNTPOINT || true
-        rm -r $MOUNTPOINT
+        diskutil unmount "${MOUNTPOINT}" || true
+        rm -r "${MOUNTPOINT}"
     fi
-    mkdir -p $MOUNTPOINT
+    mkdir -p "${MOUNTPOINT}"
     
     # untar the template
-    if [ -e $TEMPLATE ]; then
-        rm $TEMPLATE
+    if [ -e "${TEMPLATE}" ]; then
+        rm "${TEMPLATE}"
     fi
-    tar xf $PACKAGING_DIR/$TEMPLATE.tar.bz2
-    if [ ! -e $TEMPLATE ]; then
-        echo "Unable to find $TEMPLATE"
+    tar xf "${PACKAGING_DIR}"/"${TEMPLATE}".tar.bz2
+    if [ ! -e "${TEMPLATE}" ]; then
+        echo "Unable to find ${TEMPLATE}"
         exit 1
     fi
     
     # resize the template, and mount it
-    if ! hdiutil resize -size $DMG_SIZE $TEMPLATE; then
+    if ! hdiutil resize -size "${DMG_SIZE}" "${TEMPLATE}"; then
         echo "If hdituil failed to resize, saying the size is above a maximum, reboot.  If you know the root cause or a better way to fix this, please let us know."
         exit 1
     fi
-    hdiutil attach $TEMPLATE -noautoopen -mountpoint $MOUNTPOINT
+    hdiutil attach "${TEMPLATE}" -noautoopen -mountpoint "${MOUNTPOINT}"
 }
 
 
 fixup_and_cleanup()
 {
     # update background of the DMG
-    cp $PACKAGING_DIR/background.png $MOUNTPOINT/.
+    cp "${PACKAGING_DIR}"/background.png "${MOUNTPOINT}"/.
     # Rehide the background file
-    SetFile -a V $MOUNTPOINT/background.png
+    SetFile -a V "${MOUNTPOINT}"/background.png
 
-    hdiutil detach $MOUNTPOINT
-    rm -r $MOUNTPOINT
+    hdiutil detach "${MOUNTPOINT}"
+    rm -r "${MOUNTPOINT}"
 
     #set it so the DMG autoopens on download/mount
-    hdiutil attach $TEMPLATE -noautoopen -mountpoint /Volumes/"$MOUNT_NAME"
-    bless /Volumes/$MOUNT_NAME --openfolder /Volumes/"$MOUNT_NAME"
-    hdiutil detach /Volumes/"$MOUNT_NAME"
+    hdiutil attach "${TEMPLATE}" -noautoopen -mountpoint /Volumes/"${MOUNT_NAME}"
+    bless /Volumes/"${MOUNT_NAME}" --openfolder /Volumes/"${MOUNT_NAME}"
+    hdiutil detach /Volumes/"${MOUNT_NAME}"
 
-    if [ -e $FINAL_DMG ] ; then
-        rm -r $FINAL_DMG
+    if [ -e "${FINAL_DMG}" ] ; then
+        rm -r "${FINAL_DMG}"
     fi
-    #hdiutil convert $TEMPLATE  -format UDBZ -imagekey -o $FINAL_DMG #bzip2 based is a little bit smaller, but opens much, much slower.
-    hdiutil convert $TEMPLATE  -format UDZO -imagekey zlib-level=9 -o $FINAL_DMG #This used zlib, and bzip2 based (above) is slower but more compression
+    #hdiutil convert "${TEMPLATE}"  -format UDBZ -imagekey -o "${FINAL_DMG}" #bzip2 based is a little bit smaller, but opens much, much slower.
+    hdiutil convert "${TEMPLATE}"  -format UDZO -imagekey zlib-level=9 -o "${FINAL_DMG}" #This used zlib, and bzip2 based (above) is slower but more compression
 
-    rm $TEMPLATE
-    mkdir -p $DMG_DIR
-    mv $FINAL_DMG $DMG_DIR/
+    rm "${TEMPLATE}"
+    mkdir -p "${DMG_DIR}"
+    mv "${FINAL_DMG}" "${DMG_DIR}"/
 }
-
-#TODO: should most of this happen in a tempdir, rather than in the build dir? (I think so...?)
 
 #if [ "${VERBOSE}" ]; then
     set -x
 #fi
 
-echo "PACKAGING_DIR: $PACKAGING_DIR"
-echo "KICAD_SOURCE_DIR: $KICAD_SOURCE_DIR"
-echo "KICAD_INSTALL_DIR: $KICAD_INSTALL_DIR"
-echo "VERBOSE: $VERBOSE"
-echo "TEMPLATE: $TEMPLATE"
-echo "DMG_DIR: $DMG_DIR"
-echo "PACKAGE_TYPE: $PACKAGE_TYPE"
-echo "CMAKE_BINARY_DIR: $CMAKE_BINARY_DIR"
-echo "pwd: `pwd`"
+echo "PACKAGING_DIR: ${PACKAGING_DIR}"
+echo "KICAD_SOURCE_DIR: ${KICAD_SOURCE_DIR}"
+echo "KICAD_INSTALL_DIR: ${KICAD_INSTALL_DIR}"
+echo "VERBOSE: ${VERBOSE}"
+echo "TEMPLATE: ${TEMPLATE}"
+echo "DMG_DIR: ${DMG_DIR}"
+echo "PACKAGE_TYPE: ${PACKAGE_TYPE}"
+echo "CMAKE_BINARY_DIR: ${CMAKE_BINARY_DIR}"
+echo "pwd: $(pwd)"
 
 if [ ! -e "${PACKAGING_DIR}" ]; then
     echo "PACKAGING_DIR must be set and exist."
@@ -90,12 +88,10 @@ if [ ! -e "${CMAKE_BINARY_DIR}" ]; then
     exit 1
 fi
 
-
 if [ -z "${TEMPLATE}" ]; then
     echo "TEMPLATE must be set."
     exit 1
 fi
-
 
 if [ -z "${DMG_DIR}" ]; then
     echo "DMG_DIR must be set."
@@ -117,11 +113,11 @@ if [ "${PACKAGE_TYPE}" != "extras" ] && [ ! -e "${KICAD_INSTALL_DIR}" ]; then
     exit 1
 fi
 
-NOW=`date +%Y%m%d-%H%M%S`
+NOW=$(date +%Y%m%d-%H%M%S)
 
 case "${PACKAGE_TYPE}" in 
     nightly)
-        KICAD_GIT_REV=`cd $KICAD_SOURCE_DIR && git rev-parse --short HEAD`
+        KICAD_GIT_REV=$(cd "${KICAD_SOURCE_DIR}" && git rev-parse --short HEAD)
         MOUNT_NAME='KiCad'
         DMG_SIZE=1G
     ;;
@@ -130,7 +126,7 @@ case "${PACKAGE_TYPE}" in
         DMG_SIZE=9.5G
     ;;
     unified)
-        KICAD_GIT_REV=`cd $KICAD_SOURCE_DIR && git rev-parse --short HEAD`
+        KICAD_GIT_REV=$(cd "${KICAD_SOURCE_DIR}" && git rev-parse --short HEAD)
         MOUNT_NAME='KiCad'
         DMG_SIZE=10G
     ;;
@@ -145,45 +141,45 @@ setup_dmg
 
 case "${PACKAGE_TYPE}" in 
     nightly)
-        mkdir -p $MOUNTPOINT/KiCad
-        rsync -al $KICAD_INSTALL_DIR/* $MOUNTPOINT/KiCad/. # IMPORTANT: must preserve symlinks
-        mkdir -p $MOUNTPOINT/kicad
+        mkdir -p "${MOUNTPOINT}"/KiCad
+        rsync -al "${KICAD_INSTALL_DIR}"/* "${MOUNTPOINT}"/KiCad/. # IMPORTANT: must preserve symlinks
+        mkdir -p "${MOUNTPOINT}"/kicad
         echo "Copying docs"
-        cp -r ${CMAKE_BINARY_DIR}/docs/kicad-doc-HEAD/share/doc/kicad/help $MOUNTPOINT/kicad/
+        cp -r "${CMAKE_BINARY_DIR}"/docs/kicad-doc-HEAD/share/doc/kicad/help "${MOUNTPOINT}"/kicad/
         echo "Copying translations"
-        mkdir -p $MOUNTPOINT/kicad/share
-        cp -r ${CMAKE_BINARY_DIR}/translations/src/translations-build/output/share/kicad/internat $MOUNTPOINT/kicad/share/
+        mkdir -p "${MOUNTPOINT}"/kicad/share
+        cp -r "${CMAKE_BINARY_DIR}"/translations/src/translations-build/output/share/kicad/internat "${MOUNTPOINT}"/kicad/share/
         echo "Copying templates"
-        cp -r ${CMAKE_BINARY_DIR}/templates/src/templates-build $MOUNTPOINT/kicad/templates
+        cp -r "${CMAKE_BINARY_DIR}"/templates/src/templates-build "${MOUNTPOINT}"/kicad/templates
         echo "Copying symbols"
-        cp -r ${CMAKE_BINARY_DIR}/symbols/src/symbols-build $MOUNTPOINT/kicad/library
-        FINAL_DMG=kicad-nightly-$NOW-$KICAD_GIT_REV.dmg
+        cp -r "${CMAKE_BINARY_DIR}"/symbols/src/symbols-build "${MOUNTPOINT}"/kicad/library
+        FINAL_DMG=kicad-nightly-"${NOW}"-"${KICAD_GIT_REV}".dmg
     ;;
     extras)
         echo "Copying packages3d"
-        cp -r ${CMAKE_BINARY_DIR}/packages3d/src/packages3d-build $MOUNTPOINT/packages3d
+        cp -r "${CMAKE_BINARY_DIR}"/packages3d/src/packages3d-build "${MOUNTPOINT}"/packages3d
         echo "Copying footprints"
-        cp -r ${CMAKE_BINARY_DIR}/footprints/src/footprints-build $MOUNTPOINT/modules
-        FINAL_DMG=kicad-extras-$NOW.dmg
+        cp -r "${CMAKE_BINARY_DIR}"/footprints/src/footprints-build "${MOUNTPOINT}"/modules
+        FINAL_DMG=kicad-extras-"${NOW}".dmg
     ;;
     unified)
-        mkdir -p $MOUNTPOINT/KiCad
-        rsync -al $KICAD_INSTALL_DIR/* $MOUNTPOINT/KiCad/. # IMPORTANT: must preserve symlinks
-        mkdir -p $MOUNTPOINT/kicad
+        mkdir -p "${MOUNTPOINT}"/KiCad
+        rsync -al "${KICAD_INSTALL_DIR}"/* "${MOUNTPOINT}"/KiCad/. # IMPORTANT: must preserve symlinks
+        mkdir -p "${MOUNTPOINT}"/kicad
         echo "Copying docs"
-        cp -r ${CMAKE_BINARY_DIR}/docs/kicad-doc-HEAD/share/doc/kicad/help $MOUNTPOINT/kicad/
+        cp -r "${CMAKE_BINARY_DIR}"/docs/kicad-doc-HEAD/share/doc/kicad/help "${MOUNTPOINT}"/kicad/
         echo "Copying translations"
-        mkdir -p $MOUNTPOINT/kicad/share
-        cp -r ${CMAKE_BINARY_DIR}/translations/src/translations-build/output/share/kicad/internat $MOUNTPOINT/kicad/share/
+        mkdir -p "${MOUNTPOINT}"/kicad/share
+        cp -r "${CMAKE_BINARY_DIR}"/translations/src/translations-build/output/share/kicad/internat "${MOUNTPOINT}"/kicad/share/
         echo "Copying templates"
-        cp -r ${CMAKE_BINARY_DIR}/templates/src/templates-build $MOUNTPOINT/kicad/templates
+        cp -r "${CMAKE_BINARY_DIR}"/templates/src/templates-build "${MOUNTPOINT}"/kicad/templates
         echo "Copying symbols"
-        cp -r ${CMAKE_BINARY_DIR}/symbols/src/symbols-build $MOUNTPOINT/kicad/library
+        cp -r "${CMAKE_BINARY_DIR}"/symbols/src/symbols-build "${MOUNTPOINT}"/kicad/library
         echo "Copying packages3d"
-        cp -r ${CMAKE_BINARY_DIR}/packages3d/src/packages3d-build $MOUNTPOINT/kicad/packages3d
+        cp -r "${CMAKE_BINARY_DIR}"/packages3d/src/packages3d-build "${MOUNTPOINT}"/kicad/packages3d
         echo "Copying footprints"
-        cp -r ${CMAKE_BINARY_DIR}/footprints/src/footprints-build $MOUNTPOINT/kicad/modules
-        FINAL_DMG=kicad-nightly-$NOW-$KICAD_GIT_REV.dmg
+        cp -r "${CMAKE_BINARY_DIR}"/footprints/src/footprints-build "${MOUNTPOINT}"/kicad/modules
+        FINAL_DMG=kicad-nightly-"${NOW}"-"${KICAD_GIT_REV}".dmg
     ;;
     *)
         echo "PACKAGE_TYPE must be either \"nightly\", \"extras\", or \"unified\"."
@@ -192,4 +188,4 @@ esac
 
 fixup_and_cleanup
 
-echo "Done creating $FINAL_DMG in $DMG_DIR"
+echo "Done creating ${FINAL_DMG} in ${DMG_DIR}"
