@@ -6,6 +6,7 @@ pipeline {
         stage('build') {
             steps {
                 dir('ci/10.11') {
+                  setBuildStatus("In Progress", "PENDING", "10.11 Clean Build")
                   sh 'cp -r ../src/* .'
                   sh 'PATH=$PATH:/usr/local/bin vagrant destroy -f || true'
                   sh 'rm -rf .vagrant'
