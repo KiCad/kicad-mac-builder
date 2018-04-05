@@ -1,4 +1,4 @@
-set( DOCS_OUTPUT_DIR ${CMAKE_BINARY_DIR}/docs/help)
+set( DOCS_OUTPUT_DIR ${CMAKE_BINARY_DIR}/docs/help )
 
 ExternalProject_Add(
         docs
