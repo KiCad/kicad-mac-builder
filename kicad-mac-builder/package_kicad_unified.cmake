@@ -20,3 +20,4 @@ ExternalProject_Add(
 )
 
 SET_TARGET_PROPERTIES(package-kicad-unified PROPERTIES EXCLUDE_FROM_ALL True)
+

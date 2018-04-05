@@ -33,6 +33,8 @@ In early 2018, I'm noticing that sometimes wxPython doesn't download properly fr
 
 Linting
 =======
-To prescreen your changes for style issues, install shellcheck and run the following from the same directory as this README:
+To prescreen your changes for style issues, install shellcheck and cmakelint and run the following from the same directory as this README:
 
 `find . -path ./build -prune -o -name \*.sh -exec shellcheck {} \;`
+`cmakelint --filter=-linelength,-readability/wonkycase kicad-mac-builder/CMakeLists.txt`
+`find . -path ./build -prune -o -name \*.cmake -exec cmakelint --filter=-linelength,-readability/wonkycase {} \;`
