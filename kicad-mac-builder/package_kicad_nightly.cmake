@@ -1,4 +1,3 @@
-
 ExternalProject_Add(
         package-kicad-nightly
         DEPENDS kicad symbols translations docs footprints templates
@@ -19,4 +18,4 @@ ExternalProject_Add(
                       ${BIN_DIR}/package.sh
 )
 
-SET_TARGET_PROPERTIES(package-kicad-nightly PROPERTIES EXCLUDE_FROM_DEFAULT_BUILD True)
+SET_TARGET_PROPERTIES(package-kicad-nightly PROPERTIES EXCLUDE_FROM_ALL True)

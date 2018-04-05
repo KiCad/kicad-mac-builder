@@ -15,6 +15,10 @@ Building by hand
 ================
 To get up and running the absolute fastest, just use `build.sh`.  However, it builds everything and uses "reasonable" settings.  If you want something special, for now at least, run `cmake` and `make` by hand.  Better documentation is definitely welcomed, but for now, you can look at `build.sh` for reference.
 
+`build.sh package-kicad-nightly` creates a DMG of "mostly just KiCad" in `build/dmg`.
+`build.sh package-extras` creates a DMG of "extras" in `build/dmg`.
+`build.sh package-kicad-unified` creates a DMG of "KiCad and the extras" in `build/dmg`.
+
 Building inside a VM
 ====================
 There can be value in building inside a VM.  This can help increase isolation and repeatability, by reducing the chances that something "sticks around" between builds, and helps reduce the chances of undocumented steps.  However, it can be slower and take more resources.

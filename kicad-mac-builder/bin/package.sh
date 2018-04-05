@@ -179,7 +179,7 @@ case "${PACKAGE_TYPE}" in
         cp -r "${CMAKE_BINARY_DIR}"/packages3d/src/packages3d-build "${MOUNTPOINT}"/kicad/packages3d
         echo "Copying footprints"
         cp -r "${CMAKE_BINARY_DIR}"/footprints/src/footprints-build "${MOUNTPOINT}"/kicad/modules
-        FINAL_DMG=kicad-nightly-"${NOW}"-"${KICAD_GIT_REV}".dmg
+        FINAL_DMG=kicad-unified-"${NOW}"-"${KICAD_GIT_REV}".dmg
     ;;
     *)
         echo "PACKAGE_TYPE must be either \"nightly\", \"extras\", or \"unified\"."

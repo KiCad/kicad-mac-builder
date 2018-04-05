@@ -10,5 +10,5 @@ mkdir -p build
 cd build
 
 cmake -DMACOS_MIN_VERSION="$(sw_vers -productVersion | cut -d. -f1-2)" ../kicad-mac-builder
-make -j"${NUM_CORES}" || make
+make -j"${NUM_CORES}" "$@"
 echo "build succeeded."
