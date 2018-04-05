@@ -26,3 +26,9 @@ There is an example Vagrantfile and scripts in `vagrant/`.
 Issues
 ======
 In early 2018, I'm noticing that sometimes wxPython doesn't download properly from Sourceforge, so I've included a mirror in this repository.
+
+Linting
+=======
+To prescreen your changes for style issues, install shellcheck and run the following from the same directory as this README:
+
+`find . -path ./build -prune -o -name \*.sh -exec shellcheck {} \;`
