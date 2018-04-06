@@ -8,7 +8,7 @@ ExternalProject_Add(
         UPDATE_COMMAND   ""
         PATCH_COMMAND ""
         CONFIGURE_COMMAND ""
-        BUILD_COMMAND mkdir -p ${EXTRAS_DIR}
+        BUILD_COMMAND ""
         INSTALL_COMMAND VERBOSE=1
                       PACKAGING_DIR=${CMAKE_SOURCE_DIR}/extras-packaging
                       TEMPLATE=kicad-extras-template.dmg

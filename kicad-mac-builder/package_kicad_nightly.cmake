@@ -6,7 +6,7 @@ ExternalProject_Add(
         UPDATE_COMMAND   ""
         PATCH_COMMAND ""
         CONFIGURE_COMMAND ""
-        BUILD_COMMAND mkdir -p ${SUPPORT_DIR}
+        BUILD_COMMAND ""
         INSTALL_COMMAND VERBOSE=1
                       PACKAGING_DIR=${CMAKE_SOURCE_DIR}/packaging
                       KICAD_SOURCE_DIR=${CMAKE_BINARY_DIR}/kicad/src/kicad
