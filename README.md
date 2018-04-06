@@ -16,7 +16,7 @@ Building by hand
 To get up and running the absolute fastest, just use `build.sh`.  However, it builds everything and uses "reasonable" settings.  If you want something special, for now at least, run `cmake` and `make` by hand.  Better documentation is definitely welcomed, but for now, you can look at `build.sh` for reference.
 
 `build.sh` create all the DMGs.
-`build.sh` just builds KiCad, but packages nothing.  This is the same for any other CMake targets.
+`build.sh kicad` just builds KiCad, but packages nothing.  This is the same for any other CMake targets.
 `build.sh package-kicad-nightly` creates a DMG of "mostly just KiCad" in `build/dmg`.
 `build.sh package-extras` creates a DMG of "extras" in `build/dmg`.
 `build.sh package-kicad-unified` creates a DMG of "KiCad and the extras" in `build/dmg`.
