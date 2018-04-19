@@ -24,7 +24,16 @@ include( wxpython.cmake )
 set( KICAD_URL https://git.launchpad.net/kicad )
 set( KICAD_TAG master )
 set( KICAD_INSTALL_DIR ${CMAKE_BINARY_DIR}/kicad-dest )
-set( KICAD_CMAKE_ARGS -DDEFAULT_INSTALL_PATH=/Library/Application\ Support/kicad -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DCMAKE_OSX_DEPLOYMENT_TARGET=${MACOS_MIN_VERSION} -DwxWidgets_CONFIG_EXECUTABLE=${wxwidgets_INSTALL_DIR}/bin/wx-config  -DKICAD_SCRIPTING=ON  -DKICAD_SCRIPTING_MODULES=OFF  -DKICAD_SCRIPTING_WXPYTHON=ON  -DPYTHON_EXECUTABLE=${PYTHON_INSTALL_DIR}/bin/python2.7  -DPYTHON_INCLUDE_DIR=${PYTHON_INSTALL_DIR}/include/python2.7/ -DPYTHON_LIBRARY=${PYTHON_INSTALL_DIR}/lib/libpython2.7.dylib  -DPYTHON_SITE_PACKAGE_PATH=${wxwidgets_INSTALL_DIR}/lib/python2.7/site-packages -DCMAKE_INSTALL_PREFIX=${KICAD_INSTALL_DIR} -DKICAD_SPICE=OFF -DKICAD_USE_OCE=OFF -DCMAKE_BUILD_TYPE=Release )
+set( KICAD_CMAKE_ARGS -DDEFAULT_INSTALL_PATH=/Library/Application\ Support/kicad -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DCMAKE_OSX_DEPLOYMENT_TARGET=${MACOS_MIN_VERSION} -DwxWidgets_CONFIG_EXECUTABLE=${wxwidgets_INSTALL_DIR}/bin/wx-config  -DKICAD_SCRIPTING=ON  -DKICAD_SCRIPTING_MODULES=OFF  -DKICAD_SCRIPTING_WXPYTHON=OFF  -DPYTHON_EXECUTABLE=${PYTHON_INSTALL_DIR}/bin/python2.7  -DPYTHON_INCLUDE_DIR=${PYTHON_INSTALL_DIR}/include/python2.7/ -DPYTHON_LIBRARY=${PYTHON_INSTALL_DIR}/lib/libpython2.7.dylib  -DPYTHON_SITE_PACKAGE_PATH=${wxwidgets_INSTALL_DIR}/lib/python2.7/site-packages -DCMAKE_INSTALL_PREFIX=${KICAD_INSTALL_DIR} -DKICAD_SPICE=ON -DKICAD_USE_OCE=ON -DCMAKE_BUILD_TYPE=Release )
+
+# find OCE
+execute_process(COMMAND find /usr/local/Cellar/oce -name Resources OUTPUT_VARIABLE OCE_DIR RESULT_VARIABLE FOUND_OCE)
+
+if (NOT($(FOUND_OCE) EQUAL 0))
+  message( FATAL_ERROR "Unable to find Resources in /usr/local/Cellar/oce.  Make sure you have installed all the dependencies per the README. Exiting." )
+endif()
+
+set ( KICAD_CMAKE_ARGS "${KICAD_CMAKE_ARGS}" -DOCE-DIR="${OCE_DIR}")
 
 set( DMG_DIR ${CMAKE_BINARY_DIR}/dmg )
 
