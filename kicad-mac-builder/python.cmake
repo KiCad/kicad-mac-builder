@@ -11,8 +11,11 @@ ExternalProject_Add(
                     --enable-framework=${PYTHON_INSTALL_DIR}
         BUILD_COMMAND make
         BUILD_IN_SOURCE 1
-        INSTALL_COMMAND make -j1 frameworkinstallframework
+        INSTALL_COMMAND make -j1 frameworkinstallstructure bininstall maninstall frameworkinstallmaclib
 )
+
+# we want to blacklist frameworkinstallapps and frameworkinstallunixtools, so we do
+# frameworkinstallframework and expand it, but exclude those
 
 # For some reason, we need to do the install step with one core only.  I haven't found or created an upstream bug, but other people have run into something similar.
 # https://github.com/Homebrew/legacy-homebrew/issues/429
