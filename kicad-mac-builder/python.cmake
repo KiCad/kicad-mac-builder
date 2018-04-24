@@ -1,5 +1,9 @@
 include(ExternalProject)
 
+# we want to blacklist frameworkinstallapps and frameworkinstallunixtools, so we do
+# frameworkinstallframework and expand it, but exclude those.
+# When I did that, I did not have success.  I override it here with DESTDIR but I would prefer finding the right targets.
+
 ExternalProject_Add(
         python
         PREFIX  python
@@ -8,14 +12,11 @@ ExternalProject_Add(
         UPDATE_COMMAND      ""
         PATCH_COMMAND       ""
         CONFIGURE_COMMAND MACOSX_DEPLOYMENT_TARGET=${MACOS_MIN_VERSION} ./configure
-                    --enable-framework=${PYTHON_INSTALL_DIR}
+                    --enable-framework=/framework
         BUILD_COMMAND make
         BUILD_IN_SOURCE 1
-        INSTALL_COMMAND make -j1 frameworkinstallstructure bininstall maninstall frameworkinstallmaclib
+        INSTALL_COMMAND make -j1 DESTDIR=${PYTHON_INSTALL_DIR} install
 )
-
-# we want to blacklist frameworkinstallapps and frameworkinstallunixtools, so we do
-# frameworkinstallframework and expand it, but exclude those
 
 # For some reason, we need to do the install step with one core only.  I haven't found or created an upstream bug, but other people have run into something similar.
 # https://github.com/Homebrew/legacy-homebrew/issues/429
@@ -25,19 +26,19 @@ ExternalProject_Add_Step(
         fixup
         COMMENT "Fixing up the Python framework"
         DEPENDEES install
-        COMMAND install_name_tool -change "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/Python" "@loader_path/../../../../Python" "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python"
-        COMMAND install_name_tool -change "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/python"
-        COMMAND install_name_tool -change "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/python2"
-        COMMAND install_name_tool -change "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/python2.7"
-        COMMAND install_name_tool -change "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/pythonw"
-        COMMAND install_name_tool -change "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/pythonw2"
-        COMMAND install_name_tool -change "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/pythonw2.7"
-        COMMAND install_name_tool -change "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/Python.framework/Versions/Current/bin/python"
-        COMMAND install_name_tool -change "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/Python.framework/Versions/Current/bin/python2"
-        COMMAND install_name_tool -change "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/Python.framework/Versions/Current/bin/python2.7"
-        COMMAND install_name_tool -change "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/Python.framework/Versions/Current/bin/pythonw"
-        COMMAND install_name_tool -change "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/Python.framework/Versions/Current/bin/pythonw2"
-        COMMAND install_name_tool -change "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/Python.framework/Versions/Current/bin/pythonw2.7"
+        COMMAND install_name_tool -change "/framework/Python.framework/Versions/2.7/Python" "@loader_path/../../../../Python" "${PYTHON_INSTALL_DIR}/framework/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python"
+        COMMAND install_name_tool -change "/framework/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/framework/Python.framework/Versions/2.7/bin/python"
+        COMMAND install_name_tool -change "/framework/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/framework/Python.framework/Versions/2.7/bin/python2"
+        COMMAND install_name_tool -change "/framework/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/framework/Python.framework/Versions/2.7/bin/python2.7"
+        COMMAND install_name_tool -change "/framework/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/framework/Python.framework/Versions/2.7/bin/pythonw"
+        COMMAND install_name_tool -change "/framework/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/framework/Python.framework/Versions/2.7/bin/pythonw2"
+        COMMAND install_name_tool -change "/framework/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/framework/Python.framework/Versions/2.7/bin/pythonw2.7"
+        COMMAND install_name_tool -change "/framework/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/framework/Python.framework/Versions/Current/bin/python"
+        COMMAND install_name_tool -change "/framework/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/framework/Python.framework/Versions/Current/bin/python2"
+        COMMAND install_name_tool -change "/framework/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/framework/Python.framework/Versions/Current/bin/python2.7"
+        COMMAND install_name_tool -change "/framework/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/framework/Python.framework/Versions/Current/bin/pythonw"
+        COMMAND install_name_tool -change "/framework/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/framework/Python.framework/Versions/Current/bin/pythonw2"
+        COMMAND install_name_tool -change "/framework/Python.framework/Versions/2.7/Python" "@loader_path/../Python" "${PYTHON_INSTALL_DIR}/framework/Python.framework/Versions/Current/bin/pythonw2.7"
 )
 
 # I tried to use fixup_bundle to do that change from above, but it tried to do too much.  I did:

@@ -49,8 +49,8 @@ ExternalProject_Add(
         PATCH_COMMAND       ""
         BUILD_IN_SOURCE     1
         CONFIGURE_COMMAND ""
-        BUILD_COMMAND cd wxPython && MAC_OS_X_VERSION_MIN_REQUIRED=${MACOS_MIN_VERSION} ${CMAKE_BINARY_DIR}/python-dest/Python.framework/Versions/2.7/bin/python2.7 setup.py build_ext ${wxpython_ENVIRONMENT_VARS}
-        INSTALL_COMMAND cd wxPython && MAC_OS_X_VERSION_MIN_REQUIRED=${MACOS_MIN_VERSION} ${CMAKE_BINARY_DIR}/python-dest/Python.framework/Versions/2.7/bin/python2.7 setup.py install --prefix=${wxwidgets_INSTALL_DIR} ${wxpython_ENVIRONMENT_VARS}
+        BUILD_COMMAND cd wxPython && MAC_OS_X_VERSION_MIN_REQUIRED=${MACOS_MIN_VERSION} ${CMAKE_BINARY_DIR}/python-dest/framework/Python.framework/Versions/2.7/bin/python2.7 setup.py build_ext ${wxpython_ENVIRONMENT_VARS}
+        INSTALL_COMMAND cd wxPython && MAC_OS_X_VERSION_MIN_REQUIRED=${MACOS_MIN_VERSION} ${CMAKE_BINARY_DIR}/python-dest/framework/Python.framework/Versions/2.7/bin/python2.7 setup.py install --prefix=${wxwidgets_INSTALL_DIR} ${wxpython_ENVIRONMENT_VARS}
         BUILD_IN_SOURCE 1
 )
 
