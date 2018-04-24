@@ -1,0 +1,21 @@
+diff -Naur a/Makefile.pre.in b/Makefile.pre.in
+--- a/Makefile.pre.in   2018-04-24 06:17:22.000000000 -0700
++++ b/Makefile.pre.in   2018-04-24 06:19:17.000000000 -0700
+@@ -1310,14 +1310,14 @@
+
+ # This installs the IDE, the Launcher and other apps into /Applications
+ frameworkinstallapps:
+-       cd Mac && $(MAKE) installapps DESTDIR="$(DESTDIR)"
++       cd Mac # && $(MAKE) installapps DESTDIR="$(DESTDIR)"
+
+ # This install the unix python and pythonw tools in /usr/local/bin
+ frameworkinstallunixtools:
+-       cd Mac && $(MAKE) installunixtools DESTDIR="$(DESTDIR)"
++       cd Mac # && $(MAKE) installunixtools DESTDIR="$(DESTDIR)"
+
+ frameworkaltinstallunixtools:
+-       cd Mac && $(MAKE) altinstallunixtools DESTDIR="$(DESTDIR)"
++       cd Mac # && $(MAKE) altinstallunixtools DESTDIR="$(DESTDIR)"
+
+ # This installs the Demos and Tools into the applications directory.
+ # It is not part of a normal frameworkinstall
