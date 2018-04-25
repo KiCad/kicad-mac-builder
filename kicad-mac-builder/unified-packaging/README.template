@@ -1,0 +1,51 @@
+KiCad
+=====
+KiCad is an EDA software suite for the creation of professional schematics and printed circuit boards up to 32 copper layers. KiCad runs on Windows, Linux and OS X and is released under the open-source GNU GPL v2 free of charge.  KiCad comes with a rich set of libraries with 3D models as well.
+
+KiCad is a mature EDA software tool under active development by a team of developers and a vibrant user group.
+
+KiCad currently supports OS X 10.9-10.11.
+
+Important Note
+==============
+This is a "nightly" build, which means that it was the most bleeding edge, least tested version of KiCad when it was created.  Please let us know if you have any problems so we can work to make them better for everyone.
+
+The Python support in the KiCad nightlies is preliminary.
+
+Installation
+============
+To install KiCad, click and drag the two folder icons to the targets pointed at by the arrows.  
+
+After dropping kicad onto Application Support, you may be asked to authenticate with an administrator username and password.  This installs the support files for KiCad for all users on the system.
+
+KiCad is now installed!  Inside of /Applications will be a directory called kicad, and inside of that are all the programs in KiCad.  The project manager is the one labeled kicad, and is probably where you want to start.
+
+Upgrading
+=========
+If you have already installed KiCad, you can upgrade by following the installation procedure.  It is not likely you made any changes in /Library/Application Support/kicad, but if you did, they will likely be removed when you drag the kicad folder to Application Support.
+
+Footprints
+==========
+KiCad supports many types of footprints, but by default, it is set up to use footprints maintained by KiCad volunteers on Github.  This requires an active internet connection.  Alternatively, you can use these same footprints and install them to your system locally, removing the need for an active internet connection.  These are available in the KiCad Extras DMG (http://downloads.kicad-pcb.org/osx).
+
+Documentation
+=============
+Documentation is available online at http://www.kicad-pcb.org/display/KICAD/KiCad+Documentation.  It is also available inside the various KiCad programs under the Help menu, and after installing from this disk image, is also available at /Library/Application Support/kicad/help.
+
+Changelog
+=========
+You can browse the changelog at https://bazaar.launchpad.net/~kicad-product-committers/kicad/product/changes.
+
+Reporting Issues
+================
+The KiCad developers are working hard to provide quality, binary releases to our users.
+
+If you encounter issues with this software, please report a bug at https://bugs.launchpad.net/kicad.
+
+To help us, please include the details from "About This Build" in this file or the name of the download file (kicad-r*.dmg).  Please also include the output from running the following command in the Terminal:
+
+    sw_vers
+
+Uninstalling
+============
+To completely uninstall KiCad, delete the .apps from /Applications, /Library/Application Support/kicad (if it exists), and ~/Library/Application Support/kicad (if it exists).

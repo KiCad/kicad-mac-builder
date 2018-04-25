@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('build') {
+            steps {
+                sh 'PATH=$PATH:/usr/local/bin find . -path ./build -prune -o -name \\*.sh -exec shellcheck {} \\;'
+            }
+        }
+    }
+
+    post {
+        success {
+               setBuildStatus("Complete","SUCCESS","shellcheck")
+       }
+    }
+}
+
+def setBuildStatus(String message, String state, String context) {
+   step([
+     $class: "GitHubCommitStatusSetter",
+     reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/wayneandlayne/kicad-mac-builder/"],
+     contextSource: [$class: "ManuallyEnteredCommitContextSource", context: context],
+     errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+     statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
+   ]);
+}

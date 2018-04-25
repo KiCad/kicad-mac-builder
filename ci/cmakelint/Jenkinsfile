@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('build') {
+            steps {
+                sh 'PATH=$PATH:/usr/local/bin virtualenv venv'
+                sh 'PATH=$PATH:/usr/local/bin source venv/bin/activate; cmakelint --filter=-linelength,-readability/wonkycase kicad-mac-builder/CMakeLists.txt'
+                sh 'PATH=$PATH:/usr/local/bin source venv/bin/activate; find . -path ./build -prune -o -name \\*.cmake -exec cmakelint --filter=-linelength,-readability/wonkycase {} \\;'
+            }
+        }
+    }
+
+    post {
+        success {
+               setBuildStatus("Complete","SUCCESS","cmakelint")
+       }
+    }
+}
+
+def setBuildStatus(String message, String state, String context) {
+   step([
+     $class: "GitHubCommitStatusSetter",
+     reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/wayneandlayne/kicad-mac-builder/"],
+     contextSource: [$class: "ManuallyEnteredCommitContextSource", context: context],
+     errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+     statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
+   ]);
+}
