@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from __future__ import print_function
 
-import sys, subprocess, os
+import sys, subprocess, os, glob
 
 def main():
     patch_args = []
@@ -19,12 +19,16 @@ def main():
 
     print("Patch args:")
     print(patch_args)
+    real_patches = []
+    for patch in patches:
+        real_patches.extend(glob.glob(patch))
+
     print("Patches:")
-    print(patches)
+    print(real_patches)
 
     subprocess.call("pwd")
 
-    for patch in patches:
+    for patch in real_patches:
         failed = False
         command = ["patch"] + patch_args + ["<", patch]
         print("Patching with ", ' '.join(command))
