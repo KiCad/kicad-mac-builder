@@ -1,10 +1,13 @@
 include(ExternalProject)
 
+# By default, Python wants to write into /Applications when you make a Framework build.
 # we want to blacklist frameworkinstallapps and frameworkinstallunixtools, so we do
 # frameworkinstallframework and expand it, but exclude those.
 # When I did that, I did not have success.
 # Then, I tried overriding it with DESTDIR, but fixup_bundle on KiCad ended up pulling in /usr/bin/python, which was wrong, so thirdly
-# I am patching the python source to not do the apps and unixtools.  I don't like this.
+# I patched the python source to not do the apps and unixtools, but whlie doing so, I noticed that if I 
+# were to have something/Library/Frameworks in the Framework path, that it wouldn't install to /Applications, but rather into something,
+# so maybe 4th times the charm?
 
 ExternalProject_Add(
         python
@@ -17,7 +20,7 @@ ExternalProject_Add(
                     --enable-framework=${PYTHON_INSTALL_DIR}
         BUILD_COMMAND make
         BUILD_IN_SOURCE 1
-        PATCH_COMMAND find ${CMAKE_SOURCE_DIR}/patches/python -name \*.patch -print0 | xargs -0 patch
+        PATCH_COMMAND ${BIN_DIR}/multipatch.py -p1 -- ${CMAKE_SOURCE_DIR}/patches/python/*.patch
         INSTALL_COMMAND make -j1 install
 )
 
