@@ -7,7 +7,7 @@ ExternalProject_Add(
         GIT_REPOSITORY ${KICAD_URL}
         GIT_TAG ${KICAD_TAG}
         UPDATE_COMMAND      ""
-        PATCH_COMMAND       ""
+        PATCH_COMMAND       bash -c "if stat -t ${CMAKE_SOURCE_DIR}/patches/kicad/*.patch > /dev/null 2>&1 $<SEMICOLON> then git am ${CMAKE_SOURCE_DIR}/patches/kicad/*.patch $<SEMICOLON> fi"
         CMAKE_ARGS  ${KICAD_CMAKE_ARGS}
 )
 
