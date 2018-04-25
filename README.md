@@ -31,6 +31,16 @@ Test Procedure
 ==============
 Before big releases, we should check to make sure all the component pieces work.
 
+Basics
+------
+* Open up KiCad, and then open up each of the applications like pcbnew and the calculator.
+* Open up each of the apps in standalone mode.
+
+Python
+------
+* Open up pcbnew, and open up the Python scripting console.  Type `import pcbnew` and press enter.  It shouldn't show an error.
+* Open up a terminal, and run python2.7 from the bundle.  Type `import pcbnew` and press enter.  It shouldn't show an error.
+
 Localization
 ------------
 * Open up KiCad, and change the language via Preferences -> Language.  You should see the text in the menubars change.
