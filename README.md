@@ -63,7 +63,6 @@ Basics
 Python
 ------
 * Open up pcbnew, and open up the Python scripting console.  Type `import pcbnew` and press enter.  It shouldn't show an error.
-* Open up a terminal, and run python2.7 from the bundle.  Type `import pcbnew` and press enter.  It shouldn't show an error.
 
 Localization
 ------------
