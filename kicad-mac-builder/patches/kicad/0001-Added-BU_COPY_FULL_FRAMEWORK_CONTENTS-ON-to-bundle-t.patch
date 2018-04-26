@@ -1,0 +1,40 @@
+From: Adam Wolf <adamwwolf@feelslikeburning.com>
+Date: Mon, 23 Apr 2018 13:19:07 -0500
+Subject: [PATCH] Added BU_COPY_FULL_FRAMEWORK_CONTENTS ON, to bundle the
+ complete framework of any non-system Framework on MacOS.  Used for embedded a
+ full Python Framework.
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="------------2.15.1 (Apple Git-101)"
+
+This is a multi-part message in MIME format.
+--------------2.15.1 (Apple Git-101)
+Content-Type: text/plain; charset=UTF-8; format=fixed
+Content-Transfer-Encoding: 8bit
+
+---
+ kicad/CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+
+--------------2.15.1 (Apple Git-101)
+Content-Type: text/x-patch; name="0001-Added-BU_COPY_FULL_FRAMEWORK_CONTENTS-ON-to-bundle-t.patch"
+Content-Transfer-Encoding: 8bit
+Content-Disposition: attachment; filename="0001-Added-BU_COPY_FULL_FRAMEWORK_CONTENTS-ON-to-bundle-t.patch"
+
+diff --git a/kicad/CMakeLists.txt b/kicad/CMakeLists.txt
+index 029402b0b..e9f280d23 100644
+--- a/kicad/CMakeLists.txt
++++ b/kicad/CMakeLists.txt
+@@ -119,6 +119,7 @@ if( APPLE )
+
+         # do all the work
+         include( BundleUtilities )
++        set( BU_COPY_FULL_FRAMEWORK_CONTENTS ON )
+
+         fixup_bundle( ${OSX_BUNDLE_INSTALL_BIN_DIR}/kicad
+             \"\${BUNDLE_FIX_LIBS}\"
+
+--------------2.15.1 (Apple Git-101)--
+
+
+

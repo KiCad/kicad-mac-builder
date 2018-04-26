@@ -29,6 +29,10 @@ I do this, however, to make sure that people can build using 10.11, 10.12, and 1
 
 There is an example Vagrantfile and scripts in `vagrant/`.
 
+Testing KiCad Patches
+=====================
+Any patches inside kicad-mac-builder/patches/kicad/ are applied via git-am, per kicad-mac-builder/kicad.cmake.  This helps make it easy to test patches that may affect KiCad macOS packaging.
+
 Issues
 ======
 In early 2018, I'm noticing that sometimes wxPython doesn't download properly from Sourceforge, so I've included a mirror in this repository.
@@ -42,3 +46,7 @@ To prescreen your changes for style issues, install shellcheck and cmakelint and
 `cmakelint --filter=-linelength,-readability/wonkycase kicad-mac-builder/CMakeLists.txt`
 
 `find . -path ./build -prune -o -name \*.cmake -exec cmakelint --filter=-linelength,-readability/wonkycase {} \;`
+
+Making KiCad Mods
+=================
+When doing some types of work, it can be helpful to have these scripts build KiCad from a location on your computer, rather than the integrated checkout via git.  This can be easily done by removing the 2 GIT_* lines from kicad.cmake, and replace them SOURCE_DIR.
