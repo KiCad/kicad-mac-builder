@@ -9,7 +9,7 @@ Setup
 =====
 When I run on MacOS, I need to do the following:
 
-`brew install cmake swig glew glm cairo boost doxygen gettext wget`
+`brew install cmake swig glew glm cairo boost doxygen gettext wget bison`
 
 Building by hand
 ================
