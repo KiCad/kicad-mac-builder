@@ -33,6 +33,12 @@ Testing KiCad Patches
 =====================
 Any patches inside kicad-mac-builder/patches/kicad/ are applied via git-am, per kicad-mac-builder/kicad.cmake.  This helps make it easy to test patches that may affect KiCad macOS packaging.
 
+New Dependencies
+================
+You cannot assume brew uses default paths, as at least one of the build machines has multiple brew installations.  See `build.sh` for examples.
+
+Make sure you add any new dependencies to this README, as well as to the ci/ scripts.
+
 Issues
 ======
 In early 2018, I'm noticing that sometimes wxPython doesn't download properly from Sourceforge, so I've included a mirror in this repository.
