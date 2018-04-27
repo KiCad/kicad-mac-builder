@@ -50,3 +50,25 @@ To prescreen your changes for style issues, install shellcheck and cmakelint and
 Making KiCad Mods
 =================
 When doing some types of work, it can be helpful to have these scripts build KiCad from a location on your computer, rather than the integrated checkout via git.  This can be easily done by removing the 2 GIT_* lines from kicad.cmake, and replace them SOURCE_DIR.
+
+Test Procedure
+==============
+Before big releases, we should check to make sure all the component pieces work.
+
+Basics
+------
+* Open up KiCad, and then open up each of the applications like pcbnew and the calculator.
+* Open up each of the apps in standalone mode.
+
+Python
+------
+* Open up pcbnew, and open up the Python scripting console.  Type `import pcbnew` and press enter.  It shouldn't show an error.
+
+Localization
+------------
+* Open up KiCad, and change the language via Preferences -> Language.  You should see the text in the menubars change.
+
+Help
+----
+* Open up KiCad, and open up the help documents via Help -> KiCad Manual and Help -> Getting Started in KiCad.  You should see a browser open with the documentation.
+* Open up KiCad, and change the languages to something not English via Preferences -> Language.  Then open up the manual via Help -> KiCad Manual.  You should see a browser open with the documentation in the matching language.
