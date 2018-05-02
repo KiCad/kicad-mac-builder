@@ -57,18 +57,26 @@ Before big releases, we should check to make sure all the component pieces work.
 
 Basics
 ------
-* Open up KiCad, and then open up each of the applications like pcbnew and the calculator.
+* Open up KiCad.app, and then open up each of the applications like pcbnew and the calculator.
 * Open up each of the apps in standalone mode.
 
 Python
 ------
-* Open up pcbnew, and open up the Python scripting console.  Type `import pcbnew` and press enter.  It shouldn't show an error.
+* Open up pcbnew.app, and open up the Python scripting console.  Type `import pcbnew` and press enter.  It shouldn't show an error.  Verify that the build date of Python is the same as the build date of the package.
+* Open up KiCad.app, and open up the Python scripting console. Type `import pcbnew` and press enter.  It shouldn't show an error.  Verify that the build date of Pytohn is the same as the build date of the package.
+* Open up the terminal, and run `kicad.app/Contents/MacOS/Python.framework/Versions/Current/bin/python`.  It shouldn't show an error.  Verify that the build date of Python is the same as the build date of the package.
 
 Localization
 ------------
-* Open up KiCad, and change the language via Preferences -> Language.  You should see the text in the menubars change.
+* Open up KiCad.app, and change the language via Preferences -> Language.  You should see the text in the menubars change.
 
 Help
 ----
-* Open up KiCad, and open up the help documents via Help -> KiCad Manual and Help -> Getting Started in KiCad.  You should see a browser open with the documentation.
-* Open up KiCad, and change the languages to something not English via Preferences -> Language.  Then open up the manual via Help -> KiCad Manual.  You should see a browser open with the documentation in the matching language.
+* Open up KiCad.app, and open up the help documents via Help -> KiCad Manual and Help -> Getting Started in KiCad.  You should see a browser open with the documentation.
+* Open up KiCad.app, and change the languages to something not English via Preferences -> Language.  Then open up the manual via Help -> KiCad Manual.  You should see a browser open with the documentation in the matching language.
+
+Tips
+----
+When debugging dylib stuff, the environment vaiables DYLD_PRINT_LIBRARIES and DYLD_PRINT_LIBRARIES_POST_LAUNCH are helpful.  For instance:
+
+`DYLD_PRINT_LIBRARIES=YES DYLD_PRINT_LIBRARIES_POST_LAUNCH=YES  /Users/wolf/KiCad/kicad.app/Contents/Applications/pcbnew.app/Contents/MacOS/pcbnew`
