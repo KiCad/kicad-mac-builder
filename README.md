@@ -9,7 +9,7 @@ Setup
 =====
 When I run on MacOS, I need to do the following:
 
-`brew install cmake swig glew glm cairo boost doxygen gettext wget`
+`brew install cmake swig glew glm cairo boost doxygen gettext wget bison`
 
 Building by hand
 ================
@@ -32,6 +32,12 @@ There is an example Vagrantfile and scripts in `vagrant/`.
 Testing KiCad Patches
 =====================
 Any patches inside kicad-mac-builder/patches/kicad/ are applied via git-am, per kicad-mac-builder/kicad.cmake.  This helps make it easy to test patches that may affect KiCad macOS packaging.
+
+New Dependencies
+================
+You cannot assume brew uses default paths, as at least one of the build machines has multiple brew installations.  See `build.sh` for examples.
+
+Make sure you add any new dependencies to this README, as well as to the ci/ scripts.
 
 Issues
 ======
