@@ -22,3 +22,12 @@ ExternalProject_Add_Step(
         COMMAND find ${KICAD_INSTALL_DIR}/kicad.app/Contents/SharedSupport/help -name "*.epub" -type f -delete
         COMMAND find ${KICAD_INSTALL_DIR}/kicad.app/Contents/SharedSupport/help -name "*.pdf" -type f -delete
 )
+
+ExternalProject_Add_Step(
+        kicad
+        verify-app
+        COMMENT "Checking that all loader dependencies are system-provided or relative"
+        DEPENDEES install
+        DEPENDS kicad
+        COMMAND ${BIN_DIR}/verify-app.sh ${KICAD_INSTALL_DIR}/kicad.app
+)
