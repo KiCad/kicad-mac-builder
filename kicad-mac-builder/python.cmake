@@ -48,6 +48,7 @@ ExternalProject_Add_Step(
         COMMAND install_name_tool -change "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/Python" "@rpath/Python.framework/Python" "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python"
         COMMAND install_name_tool -add_rpath @executable_path/../Frameworks "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python" # for the kifaces
         COMMAND install_name_tool -add_rpath @executable_path/../../../../../../../ "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python" # for the bin/python files
+	COMMAND install_name_tool -add_rpath @executable_path/../../../../../ ${PYTHON_INSTALL_DIR}/Python.framework/Resources/Python.app/Contents/MacOS/Python
 
         COMMAND install_name_tool -change "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/Python" "@rpath/Python.framework/Python" "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/python"
         COMMAND install_name_tool -add_rpath @executable_path/../../../../ "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/python"
@@ -59,4 +60,11 @@ ExternalProject_Add_Step(
         COMMAND install_name_tool -id @rpath/Python.framework/Python "${PYTHON_INSTALL_DIR}/Python.framework/Python"
 )
 
-
+ExternalProject_Add_Step(
+	python
+	verify
+	COMMENT "Test bin/python and bin/pythonw"
+	DEPENDEES fixup
+	COMMAND ${BIN_DIR}/verify-cli-python.sh "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/pythonw"
+	COMMAND ${BIN_DIR}/verify-cli-python.sh "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/python"
+)
