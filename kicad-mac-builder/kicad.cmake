@@ -31,3 +31,12 @@ ExternalProject_Add_Step(
         DEPENDS kicad
         COMMAND ${BIN_DIR}/verify-app.sh ${KICAD_INSTALL_DIR}/kicad.app
 )
+
+ExternalProject_Add_Step(
+        kicad
+        install-six
+        COMMENT "Installing six into PYTHONPATH for easier debugging"
+        DEPENDEES install
+        DEPENDS kicad six
+        COMMAND cp ${six_DIR}/six.py ${KICAD_INSTALL_DIR}/Contents/Frameworks/python/site-packages/
+)
