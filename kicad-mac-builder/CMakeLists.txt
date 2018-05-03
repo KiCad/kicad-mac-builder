@@ -20,6 +20,7 @@ set( WXPYTHON_SHA1 5053f3fa04f4eb3a9d4bfd762d963deb7fa46866 )
 set( wxwidgets_INSTALL_DIR ${CMAKE_BINARY_DIR}/wxwidgets-dest )
 set( wxpython_INSTALL_DIR ${CMAKE_BINARY_DIR}/wxpython-dest )
 include( wxpython.cmake )
+set( six_DIR ${CMAKE_BINARY_DIR}/six/src/six )
 
 set( KICAD_URL https://git.launchpad.net/kicad )
 set( KICAD_TAG master )
