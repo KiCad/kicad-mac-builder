@@ -34,6 +34,16 @@ ExternalProject_Add_Step(
 
 ExternalProject_Add_Step(
         kicad
+        verify-cli-python
+        COMMENT "Checking bin/python and bin/pythonw"
+        DEPENDEES install
+        DEPENDS kicad
+        COMMAND ${BIN_DIR}/verify-cli-python.sh ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/pythonw
+        COMMAND ${BIN_DIR}/verify-cli-python.sh ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/python
+)
+
+ExternalProject_Add_Step(
+        kicad
         install-six
         COMMENT "Installing six into PYTHONPATH for easier debugging"
         DEPENDEES install
