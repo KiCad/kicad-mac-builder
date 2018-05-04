@@ -38,6 +38,8 @@ ExternalProject_Add(
         INSTALL_COMMAND make -j1 install
 )
 
+# This step executes whether or not install is new. Is there a way to make it only execute when make -j1 install *does* something?
+# Because I didn't see an obvious way to do that, I wrote a script that will not error when adding rpaths that are already on the object.
 
 ExternalProject_Add_Step(
         python
