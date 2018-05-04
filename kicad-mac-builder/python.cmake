@@ -58,3 +58,16 @@ ExternalProject_Add_Step(
         COMMAND chmod u+w "${PYTHON_INSTALL_DIR}/Python.framework/Python"
         COMMAND install_name_tool -id @rpath/Python.framework/Python "${PYTHON_INSTALL_DIR}/Python.framework/Python"
 )
+
+ExternalProject_Add(
+        six
+        PREFIX six
+        GIT_REPOSITORY https://github.com/benjaminp/six.git
+        GIT_TAG 1.11.0
+        UPDATE_COMMAND      ""
+        PATCH_COMMAND       ""
+        CONFIGURE_COMMAND   ""
+        BUILD_COMMAND       ""
+        INSTALL_COMMAND     ""
+        UPDATE_DISCONNECTED 1
+)
