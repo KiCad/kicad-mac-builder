@@ -16,4 +16,4 @@ PATH=$PATH:/usr/local/bin
 export HOMEBREW_NO_ANALYTICS=1
 
 echo "Installing some dependencies"
-brew install cmake swig glew glm cairo boost doxygen gettext wget brewsci/science/oce libngspice bison
+brew install cmake swig glew glm cairo boost doxygen gettext wget brewsci/science/oce bison libtool autoconf automake
