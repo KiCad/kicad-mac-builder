@@ -3,7 +3,7 @@ include(ExternalProject)
 ExternalProject_Add(
         kicad
         PREFIX  kicad
-        DEPENDS python wxpython wxwidgets
+        DEPENDS python wxpython wxwidgets ngspice
         GIT_REPOSITORY ${KICAD_URL}
         GIT_TAG ${KICAD_TAG}
         UPDATE_COMMAND      ""
@@ -40,4 +40,13 @@ ExternalProject_Add_Step(
         DEPENDS kicad
         COMMAND ${BIN_DIR}/verify-cli-python.sh ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/pythonw
         COMMAND ${BIN_DIR}/verify-cli-python.sh ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/python
+)
+
+ExternalProject_Add_Step(
+        kicad
+        install-six
+        COMMENT "Installing six into PYTHONPATH for easier debugging"
+        DEPENDEES install
+        DEPENDS kicad six
+        COMMAND cp ${six_DIR}/six.py ${KICAD_INSTALL_DIR}/Contents/Frameworks/python/site-packages/
 )

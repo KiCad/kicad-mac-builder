@@ -3,7 +3,8 @@
 set -e
 set -x
 
-export PATH="${PATH}":/usr/local/opt/gettext/bin
+
+export PATH="$(brew --prefix gettext)"/bin:"$(brew --prefix bison)"/bin:"${PATH}"
 NUM_CORES=$(sysctl -n hw.ncpu)
 
 mkdir -p build

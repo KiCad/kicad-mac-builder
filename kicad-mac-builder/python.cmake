@@ -68,3 +68,16 @@ ExternalProject_Add_Step(
 	COMMAND ${BIN_DIR}/verify-cli-python.sh "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/pythonw"
 	COMMAND ${BIN_DIR}/verify-cli-python.sh "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/python"
 )
+
+ExternalProject_Add(
+        six
+        PREFIX six
+        GIT_REPOSITORY https://github.com/benjaminp/six.git
+        GIT_TAG 1.11.0
+        UPDATE_COMMAND      ""
+        PATCH_COMMAND       ""
+        CONFIGURE_COMMAND   ""
+        BUILD_COMMAND       ""
+        INSTALL_COMMAND     ""
+        UPDATE_DISCONNECTED 1
+)
