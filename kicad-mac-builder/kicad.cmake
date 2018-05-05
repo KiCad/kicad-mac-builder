@@ -7,8 +7,7 @@ ExternalProject_Add(
         GIT_REPOSITORY ${KICAD_URL}
         GIT_TAG ${KICAD_TAG}
         UPDATE_COMMAND      ""
-        #PATCH_COMMAND       ${BIN_DIR}/git-multipatch.sh ${CMAKE_SOURCE_DIR}/patches/kicad/*.patch
-        PATCH_COMMAND       ${BIN_DIR}/multipatch.py ${CMAKE_SOURCE_DIR}/patches/kicad/*.patch
+        PATCH_COMMAND       ${BIN_DIR}/git-multipatch.sh ${CMAKE_SOURCE_DIR}/patches/kicad/*.patch
         CMAKE_ARGS  ${KICAD_CMAKE_ARGS}
 )
 
