@@ -48,5 +48,5 @@ ExternalProject_Add_Step(
         COMMENT "Installing six into PYTHONPATH for easier debugging"
         DEPENDEES install
         DEPENDS kicad six
-        COMMAND cp ${six_DIR}/six.py ${KICAD_INSTALL_DIR}/Contents/Frameworks/python/site-packages/
+        COMMAND cp ${six_DIR}/six.py ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/python/site-packages/
 )
