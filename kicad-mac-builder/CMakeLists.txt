@@ -23,7 +23,7 @@ include( wxpython.cmake )
 set( six_DIR ${CMAKE_BINARY_DIR}/six/src/six )
 
 set( ngspice_INSTALL_DIR ${CMAKE_BINARY_DIR}/ngspice-dest )
-include( ngspice.cmake)
+# include( ngspice.cmake)
 
 set( KICAD_URL https://git.launchpad.net/kicad )
 set( KICAD_TAG master )
