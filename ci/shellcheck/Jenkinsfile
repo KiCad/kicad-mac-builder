@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
+                setBuildStatus("In Progress", "PENDING", "shellcheck")
                 sh 'PATH=$PATH:/usr/local/bin find . -path ./build -prune -o -name \\*.sh -exec shellcheck {} \\;'
             }
         }
