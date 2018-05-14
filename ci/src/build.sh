@@ -4,7 +4,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 cd $SCRIPT_DIR/../../
 
-./build.sh
+./build.sh "$@"
 EXITCODE=$?
 if [ ${EXITCODE} -eq 0 ]; then
     exit 0
@@ -14,4 +14,4 @@ echo "Cleaning build directory since original build failed."
 rm -rf build/
 
 echo "Building again."
-./build.sh
+./build.sh "$@"
