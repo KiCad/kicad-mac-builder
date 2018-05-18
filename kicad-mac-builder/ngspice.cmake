@@ -11,5 +11,5 @@ ExternalProject_Add(
         COMMAND  ./configure --with-ngshared --enable-xspice --enable-cider --prefix=${ngspice_INSTALL_DIR}
         BUILD_COMMAND ${MAKE}
         BUILD_IN_SOURCE 1
-        INSTALL_COMMAND ${MAKE} install
+        INSTALL_COMMAND make install
 )
