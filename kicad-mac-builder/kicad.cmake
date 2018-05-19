@@ -46,6 +46,15 @@ ExternalProject_Add_Step(
 
 ExternalProject_Add_Step(
         kicad
+        remove-pyc-and-pyo
+        COMMENT "Removing pyc and pyo files"
+        DEPENDEES verify-cli-python install-six
+        DEPENDS kicad
+        COMMAND find ${KICAD_INSTALL_DIR}/kicad.app/ -type f -name \*.pyc -o -name \*.pyo -delete
+)
+
+ExternalProject_Add_Step(
+        kicad
         install-six
         COMMENT "Installing six into PYTHONPATH for easier debugging"
         DEPENDEES install

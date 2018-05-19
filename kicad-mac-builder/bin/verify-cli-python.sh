@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ! -f "$1" ]; then
+if [ ! -e "$1" ]; then
   exit 1
 fi
 
