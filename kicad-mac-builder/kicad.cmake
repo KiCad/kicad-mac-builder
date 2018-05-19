@@ -39,7 +39,18 @@ ExternalProject_Add_Step(
         DEPENDEES install
         DEPENDS kicad
         COMMAND ${BIN_DIR}/verify-cli-python.sh ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/pythonw
+        COMMAND ${BIN_DIR}/verify-cli-python.sh ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/Python.framework/Versions/2.7/bin/pythonw
         COMMAND ${BIN_DIR}/verify-cli-python.sh ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/python
+        COMMAND ${BIN_DIR}/verify-cli-python.sh ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/Python.framework/Versions/2.7/bin/python
+)
+
+ExternalProject_Add_Step(
+        kicad
+        remove-pyc-and-pyo
+        COMMENT "Removing pyc and pyo files"
+        DEPENDEES verify-cli-python install-six
+        DEPENDS kicad
+        COMMAND find ${KICAD_INSTALL_DIR}/kicad.app/ -type f -name \*.pyc -o -name \*.pyo -delete
 )
 
 ExternalProject_Add_Step(
