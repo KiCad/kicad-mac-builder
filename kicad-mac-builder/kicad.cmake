@@ -3,7 +3,7 @@ include(ExternalProject)
 ExternalProject_Add(
         kicad
         PREFIX  kicad
-        DEPENDS python wxpython wxwidgets ngspice six
+        DEPENDS python wxpython wxwidgets six # ngspice
         GIT_REPOSITORY ${KICAD_URL}
         GIT_TAG ${KICAD_TAG}
         UPDATE_COMMAND      ""
@@ -36,7 +36,18 @@ ExternalProject_Add_Step(
         COMMENT "Checking bin/python and bin/pythonw"
         DEPENDEES install
         COMMAND ${BIN_DIR}/verify-cli-python.sh ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/pythonw
+        COMMAND ${BIN_DIR}/verify-cli-python.sh ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/Python.framework/Versions/2.7/bin/pythonw
         COMMAND ${BIN_DIR}/verify-cli-python.sh ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/python
+        COMMAND ${BIN_DIR}/verify-cli-python.sh ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/Python.framework/Versions/2.7/bin/python
+)
+
+ExternalProject_Add_Step(
+        kicad
+        remove-pyc-and-pyo
+        COMMENT "Removing pyc and pyo files"
+        DEPENDEES verify-cli-python install-six
+        DEPENDS kicad
+        COMMAND find ${KICAD_INSTALL_DIR}/kicad.app/ -type f -name \*.pyc -o -name \*.pyo -delete
 )
 
 ExternalProject_Add_Step(
