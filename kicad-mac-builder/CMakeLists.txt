@@ -22,8 +22,8 @@ set( wxpython_INSTALL_DIR ${CMAKE_BINARY_DIR}/wxpython-dest )
 include( wxpython.cmake )
 set( six_DIR ${CMAKE_BINARY_DIR}/six/src/six )
 
-set( ngspice_INSTALL_DIR ${CMAKE_BINARY_DIR}/ngspice-dest )
-include( ngspice.cmake)
+# set( ngspice_INSTALL_DIR ${CMAKE_BINARY_DIR}/ngspice-dest )
+# include( ngspice.cmake)
 
 set( KICAD_URL https://git.launchpad.net/kicad )
 set( KICAD_TAG master )
@@ -52,9 +52,9 @@ set( KICAD_CMAKE_ARGS ${KICAD_CMAKE_ARGS} -DPYTHON_FRAMEWORK=${PYTHON_INSTALL_DI
 set( KICAD_CMAKE_ARGS ${KICAD_CMAKE_ARGS} -DCMAKE_INSTALL_PREFIX=${KICAD_INSTALL_DIR} )
 set( KICAD_CMAKE_ARGS ${KICAD_CMAKE_ARGS} -DKICAD_USE_OCE=OFF )
 # set( KICAD_CMAKE_ARGS ${KICAD_CMAKE_ARGS} -DOCE_DIR=${OCE_DIR} )
-set( KICAD_CMAKE_ARGS ${KICAD_CMAKE_ARGS} -DKICAD_SPICE=ON )
-set( KICAD_CMAKE_ARGS ${KICAD_CMAKE_ARGS} -DNGSPICE_INCLUDE_DIR=${ngspice_INSTALL_DIR}/share/ngspice/include/ )
-set( KICAD_CMAKE_ARGS ${KICAD_CMAKE_ARGS} -DNGSPICE_LIBRARY=${ngspice_INSTALL_DIR}/lib/libngspice.dylib )
+set( KICAD_CMAKE_ARGS ${KICAD_CMAKE_ARGS} -DKICAD_SPICE=OFF )
+# set( KICAD_CMAKE_ARGS ${KICAD_CMAKE_ARGS} -DNGSPICE_INCLUDE_DIR=${ngspice_INSTALL_DIR}/share/ngspice/include/ )
+# set( KICAD_CMAKE_ARGS ${KICAD_CMAKE_ARGS} -DNGSPICE_LIBRARY=${ngspice_INSTALL_DIR}/lib/libngspice.dylib )
 set( KICAD_CMAKE_ARGS ${KICAD_CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release )
 
 set( DMG_DIR ${CMAKE_BINARY_DIR}/dmg )
