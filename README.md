@@ -5,11 +5,25 @@ This is the 2017+ KiCad Mac builder and packager.  It does not yet work.  Do not
 
 It's close, though.
 
+This supports macOS 10.11, 10.12, and 10.13.
+
 Setup
 =====
-When I run on MacOS, I need to do the following:
+10.12-10.13
+-----------
 
 `brew install cmake swig glew glm cairo boost doxygen gettext wget brewsci/science/oce bison libtool automake autoconf`
+
+10.11
+-----
+The Homebrew OCE bottle for 10.11 is broken.  It refers to 10.12's SDK.  You can either build it yourself with:
+`brew install --build-from-source brewsci/sciene/oce`
+or use the bottle I made and include in this repository.
+
+`brew install -f external/oce-0.18.2.el_capitan.bottle.1.tar.gz`
+
+Once you've done that, install the rest of the dependencies.
+`brew install cmake swig glew glm cairo boost doxygen gettext wget bison libtool automake autoconf`
 
 Building by hand
 ================
@@ -42,6 +56,8 @@ Make sure you add any new dependencies to this README, as well as to the ci/ scr
 Issues
 ======
 In early 2018, I'm noticing that sometimes wxPython doesn't download properly from Sourceforge, so I've included a mirror in this repository.
+
+In May 2018, the OCE bottle for 10.11 refers to the 10.12 SDK internally.  It requires the full XCode to install, not just the CLI tools.  I have included a bottle in case you are doing this on a headless machine without XCode.
 
 Linting
 =======
