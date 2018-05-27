@@ -1,0 +1,53 @@
+From 856f6a36e2112f5d21e40099c2e8730d4083e0ef Mon Sep 17 00:00:00 2001
+From: Adam Wolf <adamwolf@feelslikeburning.com>
+Date: Sat, 19 May 2018 21:48:25 -0500
+Subject: [PATCH] Fixup ngspice library when bundling on macOS.
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="------------2.15.1"
+
+This is a multi-part message in MIME format.
+--------------2.15.1
+Content-Type: text/plain; charset=UTF-8; format=fixed
+Content-Transfer-Encoding: 8bit
+
+---
+ kicad/CMakeLists.txt | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+
+--------------2.15.1
+Content-Type: text/x-patch; name="0001-Fixup-ngspice-library-when-bundling-on-macOS.patch"
+Content-Transfer-Encoding: 8bit
+Content-Disposition: attachment; filename="0001-Fixup-ngspice-library-when-bundling-on-macOS.patch"
+
+diff --git a/kicad/CMakeLists.txt b/kicad/CMakeLists.txt
+index d85a15d71..32831b915 100644
+--- a/kicad/CMakeLists.txt
++++ b/kicad/CMakeLists.txt
+@@ -106,12 +106,22 @@ if( APPLE )
+         set( PYTHON_FRAMEWORK_HELPER "0" )
+     endif()
+ 
++    if( KICAD_SPICE )
++        set( NGSPICE_HELPER "1" )
++    else()
++        set( NGSPICE_HELPER "0" )
++    endif()
++
+     # make main bundle relocatable
+     install( CODE "
+         # find all libs and modules
+         file( GLOB PLUGINS_KIFACE ${OSX_BUNDLE_INSTALL_KIFACE_DIR}/*.kiface )
+         file( GLOB_RECURSE PLUGINS_SO ${OSX_BUNDLE_INSTALL_PLUGIN_DIR}/*.so )
+         set( BUNDLE_FIX_LIBS \${PLUGINS_KIFACE} \${PLUGINS_SO} )
++        if( ${NGSPICE_HELPER} )
++            file( GLOB_RECURSE PLUGINS_NGSPICE ${OSX_BUNDLE_INSTALL_PLUGIN_DIR}/sim/*.dylib )
++            set( BUNDLE_FIX_LIBS \${BUNDLE_FIX_LIBS} \${PLUGINS_NGSPICE} )
++        endif()
+         if( ${SCRIPTING_HELPER} )
+             file( GLOB WXPYTHON_DIR RELATIVE ${OSX_BUNDLE_INSTALL_LIB_DIR}/${PYTHON_LIB_DIR} ${OSX_BUNDLE_INSTALL_LIB_DIR}/${PYTHON_LIB_DIR}/wx-?.?-osx_cocoa )
+             file( GLOB PYTHON_SCRIPTING_SO ${OSX_BUNDLE_INSTALL_LIB_DIR}/${PYTHON_LIB_DIR}/*.so )
+
+--------------2.15.1--
+
+
