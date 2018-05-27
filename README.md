@@ -59,6 +59,8 @@ In early 2018, I'm noticing that sometimes wxPython doesn't download properly fr
 
 In May 2018, the OCE bottle for 10.11 refers to the 10.12 SDK internally.  It requires the full XCode to install, not just the CLI tools.  I have included a bottle in case you are doing this on a headless machine without XCode.
 
+In May 2018, the KiCad 10.11 build machine has an older version of CMake installed.  The included GetPrequisites and BundleUtilties do not work with what we are doing with the packaging.  I included the version from 3.10 using a KiCad patch.  As soon as that machine is upgraded, we should add a minimum CMake version and remove that patch.
+
 Linting
 =======
 To prescreen your changes for style issues, install shellcheck and cmakelint and run the following from the same directory as this README:
