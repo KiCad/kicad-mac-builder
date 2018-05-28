@@ -1,7 +1,7 @@
 
 ExternalProject_Add(
         package-kicad-unified
-        DEPENDS kicad symbols translations docs footprints templates # packages3d
+        DEPENDS kicad symbols translations docs footprints templates packages3d
         PREFIX package-kicad-unified
         DOWNLOAD_COMMAND ""
         UPDATE_COMMAND   ""

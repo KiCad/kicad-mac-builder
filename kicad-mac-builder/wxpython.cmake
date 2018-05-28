@@ -28,10 +28,8 @@ ExternalProject_Add(
         BUILD_IN_SOURCE 1
 )
 
-
 ExternalProject_Add_StepTargets(wxwidgets update)
 # Because we set UPDATE_DISCONNECTED 1 above, wxwidgets source won't be updated unless you do a make wxwidgets-update
-
 
 set(wxpython_ENVIRONMENT_VARS UNICODE=1
         WXPORT=osx_cocoa
@@ -41,8 +39,7 @@ set(wxpython_ENVIRONMENT_VARS UNICODE=1
 
 ExternalProject_Add(
         wxpython
-        DEPENDS python
-        DEPENDS wxwidgets
+        DEPENDS python wxwidgets
         URL ${WXPYTHON_URL}
         URL_HASH SHA1=${WXPYTHON_SHA1}
         UPDATE_COMMAND      ""

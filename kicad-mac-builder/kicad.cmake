@@ -3,7 +3,7 @@ include(ExternalProject)
 ExternalProject_Add(
         kicad
         PREFIX  kicad
-        DEPENDS python wxpython wxwidgets ngspice
+        DEPENDS python wxpython wxwidgets six ngspice
         GIT_REPOSITORY ${KICAD_URL}
         GIT_TAG ${KICAD_TAG}
         UPDATE_COMMAND      ""
@@ -16,7 +16,6 @@ ExternalProject_Add_Step(
         install-docs-to-app
         COMMENT "Installing docs into KiCad.app"
         DEPENDEES install
-        DEPENDS kicad docs
         COMMAND mkdir -p ${KICAD_INSTALL_DIR}/kicad.app/Contents/SharedSupport/help/
         COMMAND cp -r ${CMAKE_BINARY_DIR}/docs/kicad-doc-HEAD/share/doc/kicad/help/en ${KICAD_INSTALL_DIR}/kicad.app/Contents/SharedSupport/help/
         COMMAND find ${KICAD_INSTALL_DIR}/kicad.app/Contents/SharedSupport/help -name "*.epub" -type f -delete
@@ -28,7 +27,6 @@ ExternalProject_Add_Step(
         verify-app
         COMMENT "Checking that all loader dependencies are system-provided or relative"
         DEPENDEES install
-        DEPENDS kicad
         COMMAND ${BIN_DIR}/verify-app.sh ${KICAD_INSTALL_DIR}/kicad.app
 )
 
@@ -37,7 +35,6 @@ ExternalProject_Add_Step(
         verify-cli-python
         COMMENT "Checking bin/python and bin/pythonw"
         DEPENDEES install
-        DEPENDS kicad
         COMMAND ${BIN_DIR}/verify-cli-python.sh ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/pythonw
         COMMAND ${BIN_DIR}/verify-cli-python.sh ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/Python.framework/Versions/2.7/bin/pythonw
         COMMAND ${BIN_DIR}/verify-cli-python.sh ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/python
@@ -58,6 +55,5 @@ ExternalProject_Add_Step(
         install-six
         COMMENT "Installing six into PYTHONPATH for easier debugging"
         DEPENDEES install
-        DEPENDS kicad six
         COMMAND cp ${six_DIR}/six.py ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/python/site-packages/
 )
