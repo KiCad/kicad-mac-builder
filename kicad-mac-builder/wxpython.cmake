@@ -5,7 +5,6 @@ ExternalProject_Add(
         PREFIX  wxwidgets
         GIT_REPOSITORY https://github.com/KiCad/wxWidgets.git
         GIT_TAG   kicad/macos-wx-3.0
-        UPDATE_DISCONNECTED 1
         CONFIGURE_COMMAND   CPPFLAGS=-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=1 MAC_OS_X_VERSION_MIN_REQUIRED=${MACOS_MIN_VERSION} ./configure
                             --prefix=${wxwidgets_INSTALL_DIR}
                             --with-opengl
@@ -27,9 +26,6 @@ ExternalProject_Add(
         BUILD_COMMAND ${MAKE}
         BUILD_IN_SOURCE 1
 )
-
-ExternalProject_Add_StepTargets(wxwidgets update)
-# Because we set UPDATE_DISCONNECTED 1 above, wxwidgets source won't be updated unless you do a make wxwidgets-update
 
 set(wxpython_ENVIRONMENT_VARS UNICODE=1
         WXPORT=osx_cocoa
