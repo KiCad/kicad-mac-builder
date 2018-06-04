@@ -9,3 +9,4 @@ ExternalProject_Add(
         COMMAND rm -r <BINARY_DIR>/.git <BINARY_DIR>/.github
         COMMAND find <BINARY_DIR> -name .* -delete   # doesn't seem to work for non-empty directories
         INSTALL_COMMAND ""
+)
