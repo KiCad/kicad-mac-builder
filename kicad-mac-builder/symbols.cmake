@@ -2,7 +2,6 @@ ExternalProject_Add(
         symbols
         PREFIX  symbols
         GIT_REPOSITORY https://github.com/KiCad/kicad-symbols.git
-        UPDATE_DISCONNECTED 1
         PATCH_COMMAND ""
         CONFIGURE_COMMAND ""
         BUILD_COMMAND cp -Rf <SOURCE_DIR>/ <BINARY_DIR>/
@@ -11,7 +10,3 @@ ExternalProject_Add(
         COMMAND find <BINARY_DIR> -name .* -delete   # doesn't seem to work for non-empty directories
         INSTALL_COMMAND ""
 )
-
-
-ExternalProject_Add_StepTargets(symbols update)
-# Because we set UPDATE_DISCONNECTED 1 above, the footprints won't be updated unless you do a make footprints-update
