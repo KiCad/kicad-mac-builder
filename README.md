@@ -17,9 +17,8 @@ Setup
 10.11
 -----
 The Homebrew OCE bottle for 10.11 is broken.  It refers to 10.12's SDK.  You can either build it yourself with:
-`brew install --build-from-source brewsci/sciene/oce`
+`brew install --build-from-source brewsci/science/oce`
 or use the bottle I made and include in this repository.
-
 `brew install -f external/oce-0.18.2.el_capitan.bottle.1.tar.gz`
 
 Once you've done that, install the rest of the dependencies.
@@ -96,6 +95,11 @@ Localization
 ------------
 * Open up KiCad.app, and change the language via Preferences -> Language.  You should see the text in the menubars change.
 
+OCE
+---
+* Open up KiCad.app, and open up demos/pic_programmer/pic_programmer.pro.  Open up pcbnew.  Click File->Export->STEP.  Click OK on the Export Step dialog.  The output should print "Info: STEP file has been created successfully.".  Currently, I see a lot warnings but these appear to be related to models not being set up.
+* Open up pcbnew.app, and open up demos/pic_programmer/pic_programmer.kicad_pcb.  Click File->Export->STEP.  Click OK on the Export Step dialog.  The output should print "Info: STEP file has been created successfully.".  Currently, I see a lot warnings but these appear to be related to models not being set up.
+  
 Help
 ----
 * Open up KiCad.app, and open up the help documents via Help -> KiCad Manual and Help -> Getting Started in KiCad.  You should see a browser open with the documentation.
