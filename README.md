@@ -79,6 +79,8 @@ Test Procedure
 ==============
 Before big releases, we should check to make sure all the component pieces work.
 
+Remove the build/ directory, and run `build.sh`.  Then, rerun `build.sh`, to make sure that everything works with both new and incremental builds.
+
 Basics
 ------
 * Open up KiCad.app, and then open up each of the applications like pcbnew and the calculator.
