@@ -144,6 +144,10 @@ case "${PACKAGE_TYPE}" in
         mkdir -p "${MOUNTPOINT}"/KiCad
         rsync -al "${KICAD_INSTALL_DIR}"/* "${MOUNTPOINT}"/KiCad/. # IMPORTANT: must preserve symlinks
         mkdir -p "${MOUNTPOINT}"/kicad
+        echo "Moving demos"
+        if [ -e "${MOUNTPOINT}"/kicad/kicad/demos ]; then
+            mv "${MOUNTPOINT}"/kicad/kicad/demos "${MOUNTPOINT}"/kicad/demos
+        fi
         echo "Copying docs"
         cp -r "${CMAKE_BINARY_DIR}"/docs/kicad-doc-HEAD/share/doc/kicad/help "${MOUNTPOINT}"/kicad/
         echo "Copying translations"
@@ -166,6 +170,10 @@ case "${PACKAGE_TYPE}" in
         mkdir -p "${MOUNTPOINT}"/KiCad
         rsync -al "${KICAD_INSTALL_DIR}"/* "${MOUNTPOINT}"/KiCad/. # IMPORTANT: must preserve symlinks
         mkdir -p "${MOUNTPOINT}"/kicad
+        echo "Moving demos"
+        if [ -e "${MOUNTPOINT}"/kicad/kicad/demos ]; then
+            mv "${MOUNTPOINT}"/kicad/kicad/demos "${MOUNTPOINT}"/kicad/demos
+        fi
         echo "Copying docs"
         cp -r "${CMAKE_BINARY_DIR}"/docs/kicad-doc-HEAD/share/doc/kicad/help "${MOUNTPOINT}"/kicad/
         echo "Copying translations"
