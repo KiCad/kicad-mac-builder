@@ -153,13 +153,13 @@ case "${PACKAGE_TYPE}" in
         cp -r "${CMAKE_BINARY_DIR}"/templates/src/templates-build "${MOUNTPOINT}"/kicad/templates
         echo "Copying symbols"
         cp -r "${CMAKE_BINARY_DIR}"/symbols/src/symbols-build "${MOUNTPOINT}"/kicad/library
+        echo "Copying footprints"
+        cp -r "${CMAKE_BINARY_DIR}"/footprints/src/footprints-build "${MOUNTPOINT}"/modules
         FINAL_DMG=kicad-nightly-"${NOW}"-"${KICAD_GIT_REV}".dmg
     ;;
     extras)
         echo "Copying packages3d"
         cp -r "${CMAKE_BINARY_DIR}"/packages3d/src/packages3d-build "${MOUNTPOINT}"/packages3d
-        echo "Copying footprints"
-        cp -r "${CMAKE_BINARY_DIR}"/footprints/src/footprints-build "${MOUNTPOINT}"/modules
         FINAL_DMG=kicad-extras-"${NOW}".dmg
     ;;
     unified)
