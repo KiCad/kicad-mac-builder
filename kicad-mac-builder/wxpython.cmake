@@ -8,6 +8,7 @@ ExternalProject_Add(
         CONFIGURE_COMMAND   CPPFLAGS=-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=1 MAC_OS_X_VERSION_MIN_REQUIRED=${MACOS_MIN_VERSION} ./configure
                             --prefix=${wxwidgets_INSTALL_DIR}
                             --with-opengl
+                            --enable-monolithic
                             --enable-aui
                             --enable-utf8
                             --enable-html
