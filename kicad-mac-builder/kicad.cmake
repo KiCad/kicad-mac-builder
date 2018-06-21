@@ -57,3 +57,11 @@ ExternalProject_Add_Step(
         DEPENDEES install
         COMMAND cp ${six_DIR}/six.py ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/python/site-packages/
 )
+
+ExternalProject_Add_Step(
+        kicad
+        fixup-pcbnew-so
+        COMMENT "Fixing loader dependencies so _pcbnew.so works both internal and external to KiCad."
+        DEPENDEES install
+        COMMAND ${BIN_DIR}/fixup-pcbnew-so.sh  ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/
+)
