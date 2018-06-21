@@ -65,12 +65,3 @@ ExternalProject_Add_Step(
         DEPENDEES install
         COMMAND ${BIN_DIR}/fixup-pcbnew-so.sh  ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/
 )
-
-ExternalProject_Add_Step(
-        kicad
-        verify-pcbnew-so
-        COMMENT "Checking the importing of pcbnew"
-        DEPENDEES fixup-pcbnew-so
-        WORKING_DIRECTORY ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/python/site-packages/
-        COMMAND ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/python -m pcbnew
-)
