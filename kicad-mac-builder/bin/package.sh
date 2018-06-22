@@ -192,6 +192,9 @@ case "${PACKAGE_TYPE}" in
     *)
         echo "PACKAGE_TYPE must be either \"nightly\", \"extras\", or \"unified\"."
         exit 1
+
+    cp "${CMAKE_SOURCE_DIR}"/README.packaging "${MOUNTPOINT}"/README.txt
+
 esac
 
 fixup_and_cleanup
