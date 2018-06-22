@@ -26,6 +26,10 @@ Read these notes first, before following the Installing section.
 * If you have a directory called Kicad in your Applications directory, and you have a case-insensitive drive (which is the default in macOS), you will need to either rename or delete the directory before dragging the new KiCad directory into Applications, or you'll get an error.
 * There need to be notes on upgrading your footprint table, but they have not been written yet.
 
+Demos and Example Files
+=======================
+There are example projects and example Python scripts in the demos directory of the DMG.  Feel free to copy them outside of the DMG and use them.
+
 Unified, Nightly, and Extras
 ============================
 There are three different DMGs for KiCad on macOS.
