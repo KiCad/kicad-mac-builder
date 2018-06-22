@@ -15,6 +15,7 @@ ExternalProject_Add(
                       DMG_DIR=${DMG_DIR}
                       PACKAGE_TYPE=extras
                       CMAKE_BINARY_DIR=${CMAKE_BINARY_DIR}
+                      README=${CMAKE_SOURCE_DIR}/README.packaging
                       ${BIN_DIR}/package.sh
 )
 

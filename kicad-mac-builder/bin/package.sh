@@ -76,6 +76,7 @@ echo "TEMPLATE: ${TEMPLATE}"
 echo "DMG_DIR: ${DMG_DIR}"
 echo "PACKAGE_TYPE: ${PACKAGE_TYPE}"
 echo "CMAKE_BINARY_DIR: ${CMAKE_BINARY_DIR}"
+echo "README: ${README}"
 echo "pwd: $(pwd)"
 
 if [ ! -e "${PACKAGING_DIR}" ]; then
@@ -85,6 +86,11 @@ fi
 
 if [ ! -e "${CMAKE_BINARY_DIR}" ]; then
     echo "CMAKE_BINARY_DIR must be set and exist."
+    exit 1
+fi
+
+if [ ! -e "${README}" ]; then
+    echo "README must be set and exist."
     exit 1
 fi
 
@@ -139,15 +145,15 @@ MOUNTPOINT=kicad-mnt
 
 setup_dmg
 
+cp "${README}" "${MOUNTPOINT}"/README.txt
+
 case "${PACKAGE_TYPE}" in 
     nightly)
         mkdir -p "${MOUNTPOINT}"/KiCad
         rsync -al "${KICAD_INSTALL_DIR}"/* "${MOUNTPOINT}"/KiCad/. # IMPORTANT: must preserve symlinks
         mkdir -p "${MOUNTPOINT}"/kicad
         echo "Moving demos"
-        if [ -e "${MOUNTPOINT}"/kicad/kicad/demos ]; then
-            mv "${MOUNTPOINT}"/kicad/kicad/demos "${MOUNTPOINT}"/kicad/demos
-        fi
+        mv "${MOUNTPOINT}"/KiCad/demos "${MOUNTPOINT}"/demos
         echo "Copying docs"
         cp -r "${CMAKE_BINARY_DIR}"/docs/kicad-doc-HEAD/share/doc/kicad/help "${MOUNTPOINT}"/kicad/
         echo "Copying translations"
@@ -171,9 +177,7 @@ case "${PACKAGE_TYPE}" in
         rsync -al "${KICAD_INSTALL_DIR}"/* "${MOUNTPOINT}"/KiCad/. # IMPORTANT: must preserve symlinks
         mkdir -p "${MOUNTPOINT}"/kicad
         echo "Moving demos"
-        if [ -e "${MOUNTPOINT}"/kicad/kicad/demos ]; then
-            mv "${MOUNTPOINT}"/kicad/kicad/demos "${MOUNTPOINT}"/kicad/demos
-        fi
+        mv "${MOUNTPOINT}"/KiCad/demos "${MOUNTPOINT}"/demos
         echo "Copying docs"
         cp -r "${CMAKE_BINARY_DIR}"/docs/kicad-doc-HEAD/share/doc/kicad/help "${MOUNTPOINT}"/kicad/
         echo "Copying translations"
@@ -193,7 +197,6 @@ case "${PACKAGE_TYPE}" in
         echo "PACKAGE_TYPE must be either \"nightly\", \"extras\", or \"unified\"."
         exit 1
 
-    cp "${CMAKE_SOURCE_DIR}"/README.packaging "${MOUNTPOINT}"/README.txt
 
 esac
 
