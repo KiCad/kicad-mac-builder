@@ -24,6 +24,7 @@ Upgrading
 Read these notes first, before following the Installing section.
 
 * If you have a directory called Kicad in your Applications directory, and you have a case-insensitive drive (which is the default in macOS), you will need to either rename or delete the directory before dragging the new KiCad directory into Applications, or you'll get an error.
+* There need to be notes on upgrading your footprint table, but they have not been written yet.
 
 Unified, Nightly, and Extras
 ============================
@@ -31,7 +32,7 @@ There are three different DMGs for KiCad on macOS.
 
 Unified contains the KiCad application and the official symbols, footprints, and 3D models.
 
-Nigthly does not contain the 3D models.  The 3D models are large, and the nightlies are intended for testing out changes on a daily basis.
+Nightly does not contain the 3D models.  The 3D models are large, and the nightlies are intended for testing out changes on a daily basis.
 
 Extras contains only the 3D models.
 
