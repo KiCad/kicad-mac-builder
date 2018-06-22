@@ -160,16 +160,16 @@ case "${PACKAGE_TYPE}" in
         mkdir -p "${MOUNTPOINT}"/kicad/share
         cp -r "${CMAKE_BINARY_DIR}"/translations/src/translations-build/output/share/kicad/internat "${MOUNTPOINT}"/kicad/share/
         echo "Copying templates"
-        cp -r "${CMAKE_BINARY_DIR}"/templates/src/templates-build "${MOUNTPOINT}"/kicad/templates
+        cp -r "${CMAKE_BINARY_DIR}"/templates/src/templates-build/output/* "${MOUNTPOINT}"/kicad/.
         echo "Copying symbols"
-        cp -r "${CMAKE_BINARY_DIR}"/symbols/src/symbols-build "${MOUNTPOINT}"/kicad/library
+        cp -r "${CMAKE_BINARY_DIR}"/symbols/src/symbols-build/output/* "${MOUNTPOINT}"/kicad/.
         echo "Copying footprints"
-        cp -r "${CMAKE_BINARY_DIR}"/footprints/src/footprints-build "${MOUNTPOINT}"/modules
+        cp -r "${CMAKE_BINARY_DIR}"/footprints/src/footprints-build/output/* "${MOUNTPOINT}"/kicad/.
         FINAL_DMG=kicad-nightly-"${NOW}"-"${KICAD_GIT_REV}".dmg
     ;;
     extras)
         echo "Copying packages3d"
-        cp -r "${CMAKE_BINARY_DIR}"/packages3d/src/packages3d-build "${MOUNTPOINT}"/packages3d
+        cp -r "${CMAKE_BINARY_DIR}"/packages3d/src/packages3d-build/output/* "${MOUNTPOINT}"/kicad/.
         FINAL_DMG=kicad-extras-"${NOW}".dmg
     ;;
     unified)
@@ -184,13 +184,13 @@ case "${PACKAGE_TYPE}" in
         mkdir -p "${MOUNTPOINT}"/kicad/share
         cp -r "${CMAKE_BINARY_DIR}"/translations/src/translations-build/output/share/kicad/internat "${MOUNTPOINT}"/kicad/share/
         echo "Copying templates"
-        cp -r "${CMAKE_BINARY_DIR}"/templates/src/templates-build "${MOUNTPOINT}"/kicad/templates
+        cp -r "${CMAKE_BINARY_DIR}"/templates/src/templates-build/output/* "${MOUNTPOINT}"/kicad/.
         echo "Copying symbols"
-        cp -r "${CMAKE_BINARY_DIR}"/symbols/src/symbols-build "${MOUNTPOINT}"/kicad/library
+        cp -r "${CMAKE_BINARY_DIR}"/symbols/src/symbols-build/output/* "${MOUNTPOINT}"/kicad/.
         echo "Copying packages3d"
-        cp -r "${CMAKE_BINARY_DIR}"/packages3d/src/packages3d-build "${MOUNTPOINT}"/kicad/packages3d
+        cp -r "${CMAKE_BINARY_DIR}"/packages3d/src/packages3d-build/output/* "${MOUNTPOINT}"/kicad/.
         echo "Copying footprints"
-        cp -r "${CMAKE_BINARY_DIR}"/footprints/src/footprints-build "${MOUNTPOINT}"/kicad/modules
+        cp -r "${CMAKE_BINARY_DIR}"/footprints/src/footprints-build/output/* "${MOUNTPOINT}"/kicad/.
         FINAL_DMG=kicad-unified-"${NOW}"-"${KICAD_GIT_REV}".dmg
     ;;
     *)
