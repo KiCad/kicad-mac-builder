@@ -2,7 +2,7 @@
 
 ExternalProject_Add(
         package-extras
-        DEPENDS packages3d footprints
+        DEPENDS packages3d
         PREFIX package-extras
         DOWNLOAD_COMMAND ""
         UPDATE_COMMAND   ""
