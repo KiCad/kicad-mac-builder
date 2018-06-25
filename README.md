@@ -30,9 +30,9 @@ To get up and running the absolute fastest, just use `build.sh`.  However, it bu
 
 * `build.sh` create all the DMGs.
 * `build.sh kicad` just builds KiCad, but packages nothing.  This is the same for any other CMake targets.
-* `build.sh package-kicad-nightly` creates a DMG of "mostly just KiCad" in `build/dmg`.
-* `build.sh package-extras` creates a DMG of "extras" in `build/dmg`.
-* `build.sh package-kicad-unified` creates a DMG of "KiCad and the extras" in `build/dmg`.
+* `build.sh package-kicad-nightly` creates a DMG of everything except the 3D models in `build/dmg`.
+* `build.sh package-extras` creates a DMG of the 3D models in `build/dmg`.
+* `build.sh package-kicad-unified` creates a DMG of everything in `build/dmg`.
 
 Building inside a VM
 ====================
@@ -93,8 +93,13 @@ Python
 ------
 * Open up pcbnew.app, and open up the Python scripting console.  Type `import pcbnew` and press enter.  It shouldn't show an error.  Verify that the build date of Python is the same as the build date of the package.
 * Open up KiCad.app, and open up the Python scripting console. Type `import pcbnew` and press enter.  It shouldn't show an error.  Verify that the build date of Pytohn is the same as the build date of the package.
-* Open up the terminal, and run `kicad.app/Contents/MacOS/Python.framework/Versions/Current/bin/python`.  It shouldn't show an error.  Verify that the build date of Python is the same as the build date of the package.
+* Open up the terminal, and run `kicad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/python`.  It shouldn't show an error.  Verify that the build date of Python is the same as the build date of the package.
 * Open up the terminal, and run `cd kicad.app/Contents/Frameworks/python/site-packages/; ../../Python.framework/Versions/Current/bin/python -m pcbnew`.  It shouldn't show an error.
+
+Footprint Wizards
+-----------------
+* Open up pcbnew.app, and open up the footprint editor. Click the "New Footprint Using Footprint Wizard" button. Click the "Select Wizard" button.  Select BGA.  Click OK.  Click the "Export footprint to editor" button.  You should see a footprint on the editor screen, and you should see no errors.
+* Open up KiCad.app, and open up the footprint editor. Click the "New Footprint Using Footprint Wizard" button. Click the "Select Wizard" button.  Select BGA.  Click OK.  Click the "Export footprint to editor" button.  You should see a footprint on the editor screen, and you should see no errors.
 
 Localization
 ------------

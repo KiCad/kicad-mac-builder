@@ -153,7 +153,7 @@ case "${PACKAGE_TYPE}" in
         rsync -al "${KICAD_INSTALL_DIR}"/* "${MOUNTPOINT}"/KiCad/. # IMPORTANT: must preserve symlinks
         mkdir -p "${MOUNTPOINT}"/kicad
         echo "Moving demos"
-        mv "${MOUNTPOINT}"/KiCad/demos "${MOUNTPOINT}"/demos
+        mv "${MOUNTPOINT}"/KiCad/demos "${MOUNTPOINT}"/
         echo "Copying docs"
         cp -r "${CMAKE_BINARY_DIR}"/docs/kicad-doc-HEAD/share/doc/kicad/help "${MOUNTPOINT}"/kicad/
         echo "Copying translations"
@@ -169,7 +169,7 @@ case "${PACKAGE_TYPE}" in
     ;;
     extras)
         echo "Copying packages3d"
-        cp -r "${CMAKE_BINARY_DIR}"/packages3d/src/packages3d-build/output/* "${MOUNTPOINT}"/.
+        cp -r "${CMAKE_BINARY_DIR}"/packages3d/src/packages3d-build/output/modules/* "${MOUNTPOINT}"/.
         FINAL_DMG=kicad-extras-"${NOW}".dmg
     ;;
     unified)
@@ -177,7 +177,7 @@ case "${PACKAGE_TYPE}" in
         rsync -al "${KICAD_INSTALL_DIR}"/* "${MOUNTPOINT}"/KiCad/. # IMPORTANT: must preserve symlinks
         mkdir -p "${MOUNTPOINT}"/kicad
         echo "Moving demos"
-        mv "${MOUNTPOINT}"/KiCad/demos "${MOUNTPOINT}"/demos
+        mv "${MOUNTPOINT}"/KiCad/demos "${MOUNTPOINT}"/
         echo "Copying docs"
         cp -r "${CMAKE_BINARY_DIR}"/docs/kicad-doc-HEAD/share/doc/kicad/help "${MOUNTPOINT}"/kicad/
         echo "Copying translations"
