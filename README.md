@@ -34,6 +34,8 @@ To get up and running the absolute fastest, just use `build.sh`.  However, it bu
 * `build.sh package-extras` creates a DMG of "extras" in `build/dmg`.
 * `build.sh package-kicad-unified` creates a DMG of "KiCad and the extras" in `build/dmg`.
 
+There is only one special parameter for `build.sh`.  By default, it finds the number of cores in your system and passes that to `make` with `-j`.  If the first argument to `build.sh` is `--NUM_CORES=2`, where 2 can be replaced with a number, `build.sh` will pass that number to `make` with `-j`.  Any other arguments are passed through to `make`.
+
 Building inside a VM
 ====================
 There can be value in building inside a VM.  This can help increase isolation and repeatability, by reducing the chances that something "sticks around" between builds, and helps reduce the chances of undocumented steps.  However, it can be slower and take more resources.
