@@ -169,7 +169,7 @@ case "${PACKAGE_TYPE}" in
     ;;
     extras)
         echo "Copying packages3d"
-        cp -r "${CMAKE_BINARY_DIR}"/packages3d/src/packages3d-build/output/* "${MOUNTPOINT}"/kicad/.
+        cp -r "${CMAKE_BINARY_DIR}"/packages3d/src/packages3d-build/output/* "${MOUNTPOINT}"/.
         FINAL_DMG=kicad-extras-"${NOW}".dmg
     ;;
     unified)
