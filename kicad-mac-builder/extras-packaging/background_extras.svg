@@ -15,11 +15,11 @@
    viewBox="0 0 185.20834 185.20834"
    id="svg2"
    version="1.1"
-   inkscape:version="0.91+devel+osxmenu r12877"
-   sodipodi:docname="background.svg"
-   inkscape:export-filename="/Users/wolf/wnl_git/kicad-mac-packaging/packaging/background.png"
-   inkscape:export-xdpi="96"
-   inkscape:export-ydpi="96">
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="background_extras_removed_bottom_note.svg"
+   inkscape:export-filename="background_extras_700x700.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4">
     <linearGradient
@@ -129,15 +129,21 @@
          style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
          transform="scale(0.2)" />
     </marker>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient10032"
-       id="linearGradient10366"
-       x1="66.12384"
-       y1="213.13345"
-       x2="111.43435"
-       y2="212.86618"
-       gradientUnits="userSpaceOnUse" />
+    <marker
+       inkscape:stockid="TriangleOutS"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker9152-3"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path9154-0"
+         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="scale(0.2)" />
+    </marker>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -146,17 +152,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="101.12902"
-     inkscape:cy="450.082"
+     inkscape:zoom="0.97142857"
+     inkscape:cx="328.89706"
+     inkscape:cy="350"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1280"
-     inkscape:window-height="751"
+     inkscape:window-width="1600"
+     inkscape:window-height="840"
      inkscape:window-x="0"
-     inkscape:window-y="23"
-     inkscape:window-maximized="0"
+     inkscape:window-y="31"
+     inkscape:window-maximized="1"
      units="px" />
   <metadata
      id="metadata7">
@@ -640,14 +646,30 @@
          transform="matrix(0.51052206,0,0,0.84532838,-108.54549,-1152.961)" />
     </g>
     <path
-       style="fill:none;fill-rule:evenodd;stroke:url(#linearGradient10366);stroke-width:5.00000018;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker9152)"
-       d="m 66.123843,213.13345 48.765497,0"
-       id="path3723-9"
-       inkscape:connector-curvature="0" />
-    <path
        style="fill:none;fill-rule:evenodd;stroke:url(#linearGradient10038);stroke-width:5.00000018;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutS)"
        d="m 66.123845,171.53093 48.765495,0"
        id="path3723"
        inkscape:connector-curvature="0" />
-  </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16.93333435px;line-height:125%;font-family:'Courier New';-inkscape-font-specification:'Courier New Bold';letter-spacing:0px;word-spacing:0px;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="77.236382"
+       y="158.14665"
+       id="text11378"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan11380"
+         x="77.236382"
+         y="158.14665">extras</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4295"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
+         id="flowRegion4297"><rect
+           id="rect4299"
+           width="387.89856"
+           height="347.49246"
+           x="-731.35046"
+           y="128.25366" /></flowRegion><flowPara
+         id="flowPara4301" /></flowRoot>  </g>
 </svg>

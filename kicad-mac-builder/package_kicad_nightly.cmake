@@ -8,7 +8,7 @@ ExternalProject_Add(
         CONFIGURE_COMMAND ""
         BUILD_COMMAND ""
         INSTALL_COMMAND VERBOSE=1
-                      PACKAGING_DIR=${CMAKE_SOURCE_DIR}/packaging
+                      PACKAGING_DIR=${CMAKE_SOURCE_DIR}/nightly-packaging
                       KICAD_SOURCE_DIR=${CMAKE_BINARY_DIR}/kicad/src/kicad
                       KICAD_INSTALL_DIR=${KICAD_INSTALL_DIR}
                       TEMPLATE=kicadtemplate.dmg
