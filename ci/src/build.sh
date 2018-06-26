@@ -14,4 +14,4 @@ echo "Cleaning build directory since original build failed."
 rm -rf build/
 
 echo "Building again."
-./build.sh "$@"
+./build.sh --NUM_CORES=1 "$@"

@@ -6,7 +6,13 @@ set -x
 GETTEXT_PATH="$(brew --prefix gettext)"/bin
 BISON_PATH="$(brew --prefix bison)"/bin
 export PATH="${BISON_PATH}":"${GETTEXT_PATH}":"${PATH}"
-NUM_CORES=$(sysctl -n hw.ncpu)
+
+if [[ $1 == --NUM_CORES=* ]]; then
+    NUM_CORES=$(echo $1 | cut -d= -f2)
+    shift 1
+else
+    NUM_CORES=$(sysctl -n hw.ncpu)
+fi
 
 mkdir -p build
 cd build
