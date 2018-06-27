@@ -7,6 +7,8 @@ It's close, though.
 
 This supports macOS 10.11, 10.12, and 10.13.
 
+[![Build Status](https://builder.wayneandlayne.com/buildStatus/icon?job=kicad-mac-builder-10.11-nightlies)](https://builder.wayneandlayne.com/job/kicad-mac-builder-10.11-nightlies/) (master branch, all three DMGs, built from scratch on a new 10.11 VM for 10.11-10.13)
+
 Setup
 =====
 10.12-10.13
