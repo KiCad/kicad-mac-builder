@@ -24,6 +24,7 @@ ExternalProject_Add(
                             --with-macosx-version-min=${MACOS_MIN_VERSION}
                             CC=clang
                             CXX=clang++
+        UPDATE_COMMAND ""
         BUILD_COMMAND ${MAKE}
         BUILD_IN_SOURCE 1
 )
