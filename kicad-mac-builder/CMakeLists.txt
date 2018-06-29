@@ -1,5 +1,31 @@
 cmake_minimum_required( VERSION 3.6.2 )
 include( ExternalProject )
+
+if( STABLE )
+  if( NOT DEFINED KICAD_TAG )
+    message( FATAL_ERROR "In a stable build, KICAD_TAG must be set.  For example, build.sh -DKICAD_TAG=origin/5.0.0 ..." )
+  endif ()
+  if( NOT DEFINED PACKAGES3D_TAG )
+    message( FATAL_ERROR "In a stable build, PACKAGES3D_TAG must be set.  For example, build.sh -DPACKAGES3D_TAG=origin/5.0.0 ..." )
+  endif ()
+  if( NOT DEFINED FOOTPRINTS_TAG )
+    message( FATAL_ERROR "In a stable build, FOOTPRINTS_TAG must be set.  For example, build.sh -DFOOTPRINTS_TAG=origin/5.0.0 ..." )
+  endif ()
+  if( NOT DEFINED TRANSLATIONS_TAG )
+    message( FATAL_ERROR "In a stable build, TRANSLATIONS_TAG must be set.  For example, build.sh -DTRANSLATIONS_TAG=origin/5.0.0 ..." )
+  endif ()
+  if( NOT DEFINED SYMBOLS_TAG )
+    message( FATAL_ERROR "In a stable build, SYMBOLS_TAG must be set.  For example, build.sh -DKICAD_TAG=origin/5.0.0 ..." )
+  endif ()
+else()
+  set( KICAD_TAG origin/master )
+  set( PACKAGES3D_TAG origin/master )
+  set( SYMBOLS_TAG origin/master )
+  set( FOOTPRINTS_TAG origin/master )
+  set( TRANSLATIONS_TAG origin/master )
+endif()
+
+
 if( NOT DEFINED MACOS_MIN_VERSION )
 message( FATAL_ERROR "MACOS_MIN_VERSION must be set.  For example 'cmake -DMACOS_MIN_VERSION=10.13 ../kicad-mac-builder'" )
 endif ()
@@ -26,7 +52,6 @@ set( ngspice_INSTALL_DIR ${CMAKE_BINARY_DIR}/ngspice-dest )
 include( ngspice.cmake)
 
 set( KICAD_URL https://git.launchpad.net/kicad )
-set( KICAD_TAG origin/master )
 set( KICAD_INSTALL_DIR ${CMAKE_BINARY_DIR}/kicad-dest )
 
 # find OCE
@@ -62,7 +87,6 @@ include( kicad.cmake )
 include( docs.cmake )
 
 set( TRANSLATIONS_URL https://github.com/KiCad/kicad-i18n.git )
-set( TRANSLATIONS_TAG master )
 include( translations.cmake )
 
 include( footprints.cmake )
