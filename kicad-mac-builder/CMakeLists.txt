@@ -26,7 +26,7 @@ set( ngspice_INSTALL_DIR ${CMAKE_BINARY_DIR}/ngspice-dest )
 include( ngspice.cmake)
 
 set( KICAD_URL https://git.launchpad.net/kicad )
-set( KICAD_TAG master )
+set( KICAD_TAG origin/master )
 set( KICAD_INSTALL_DIR ${CMAKE_BINARY_DIR}/kicad-dest )
 
 # find OCE
