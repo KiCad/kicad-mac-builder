@@ -18,6 +18,12 @@ mkdir -p build
 cd build
 
 cmake -DMACOS_MIN_VERSION="$(sw_vers -productVersion | cut -d. -f1-2)" ../kicad-mac-builder
+
+if [ -e kicad-dest ]; then
+    echo "Cleaning out build/kicad-dest"
+    rm -r kicad-dest
+fi
+
 if [ "$#" -eq 0 ]; then 
     make -j"${NUM_CORES}" package-kicad-unified package-kicad-nightly package-extras
 else
