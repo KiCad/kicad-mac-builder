@@ -53,15 +53,15 @@ fixup_and_cleanup()
     bless /Volumes/"${MOUNT_NAME}" --openfolder /Volumes/"${MOUNT_NAME}"
     hdiutil detach /Volumes/"${MOUNT_NAME}"
 
-    if [ -e "${FINAL_DMG}" ] ; then
-        rm -r "${FINAL_DMG}"
+    if [ -e "${DMG_NAME}" ] ; then
+        rm -r "${DMG_NAME}"
     fi
-    #hdiutil convert "${TEMPLATE}"  -format UDBZ -imagekey -o "${FINAL_DMG}" #bzip2 based is a little bit smaller, but opens much, much slower.
-    hdiutil convert "${TEMPLATE}"  -format UDZO -imagekey zlib-level=9 -o "${FINAL_DMG}" #This used zlib, and bzip2 based (above) is slower but more compression
+    #hdiutil convert "${TEMPLATE}"  -format UDBZ -imagekey -o "${DMG_NAME}" # bzip2 based is a little bit smaller, but opens much, much slower.
+    hdiutil convert "${TEMPLATE}"  -format UDZO -imagekey zlib-level=9 -o "${DMG_NAME}" # This used zlib, and bzip2 based (above) is slower but more compression
 
     rm "${TEMPLATE}"
     mkdir -p "${DMG_DIR}"
-    mv "${FINAL_DMG}" "${DMG_DIR}"/
+    mv "${DMG_NAME}" "${DMG_DIR}"/
 }
 
 #if [ "${VERBOSE}" ]; then
@@ -77,6 +77,11 @@ echo "DMG_DIR: ${DMG_DIR}"
 echo "PACKAGE_TYPE: ${PACKAGE_TYPE}"
 echo "CMAKE_BINARY_DIR: ${CMAKE_BINARY_DIR}"
 echo "README: ${README}"
+if [ -z ${RELEASE_NAME} ]; then # if RELEASE_NAME is unset, or is set to empty string
+    echo "RELEASE_NAME: ${RELEASE_NAME}"
+else
+    echo "RELEASE_NAME: unspecified"
+fi
 echo "pwd: $(pwd)"
 
 if [ ! -e "${PACKAGING_DIR}" ]; then
@@ -126,15 +131,30 @@ case "${PACKAGE_TYPE}" in
         KICAD_GIT_REV=$(cd "${KICAD_SOURCE_DIR}" && git rev-parse --short HEAD)
         MOUNT_NAME='KiCad'
         DMG_SIZE=1G
+        if [ -z "$RELEASE_NAME" ]; then
+            DMG_NAME=kicad-nightly-"${NOW}"-"${KICAD_GIT_REV}".dmg
+        else
+            DMG_NAME=kicad-nightly-"${RELEASE_NAME}".dmg
+        fi
     ;;
     extras)
         MOUNT_NAME='KiCad Extras'
         DMG_SIZE=9.5G
+        if [ -z "$RELEASE_NAME" ]; then
+            DMG_NAME=kicad-extras-"${NOW}".dmg
+        else
+            DMG_NAME=kicad-extras-"${RELEASE_NAME}".dmg
+        fi
     ;;
     unified)
         KICAD_GIT_REV=$(cd "${KICAD_SOURCE_DIR}" && git rev-parse --short HEAD)
         MOUNT_NAME='KiCad'
         DMG_SIZE=10G
+        if [ -z "$RELEASE_NAME" ]; then
+            DMG_NAME=kicad-unified-"${NOW}"-"${KICAD_GIT_REV}".dmg
+        else
+            DMG_NAME=kicad-unified-"${RELEASE_NAME}".dmg
+        fi
     ;;
     *)
         echo "PACKAGE_TYPE must be either \"nightly\", \"extras\", or \"unified\"."
@@ -165,12 +185,10 @@ case "${PACKAGE_TYPE}" in
         cp -r "${CMAKE_BINARY_DIR}"/symbols/src/symbols-build/output/* "${MOUNTPOINT}"/kicad/.
         echo "Copying footprints"
         cp -r "${CMAKE_BINARY_DIR}"/footprints/src/footprints-build/output/* "${MOUNTPOINT}"/kicad/.
-        FINAL_DMG=kicad-nightly-"${NOW}"-"${KICAD_GIT_REV}".dmg
     ;;
     extras)
         echo "Copying packages3d"
         cp -r "${CMAKE_BINARY_DIR}"/packages3d/src/packages3d-build/output/modules/* "${MOUNTPOINT}"/.
-        FINAL_DMG=kicad-extras-"${NOW}".dmg
     ;;
     unified)
         mkdir -p "${MOUNTPOINT}"/KiCad
@@ -191,7 +209,6 @@ case "${PACKAGE_TYPE}" in
         cp -r "${CMAKE_BINARY_DIR}"/packages3d/src/packages3d-build/output/* "${MOUNTPOINT}"/kicad/.
         echo "Copying footprints"
         cp -r "${CMAKE_BINARY_DIR}"/footprints/src/footprints-build/output/* "${MOUNTPOINT}"/kicad/.
-        FINAL_DMG=kicad-unified-"${NOW}"-"${KICAD_GIT_REV}".dmg
     ;;
     *)
         echo "PACKAGE_TYPE must be either \"nightly\", \"extras\", or \"unified\"."
@@ -202,4 +219,4 @@ esac
 
 fixup_and_cleanup
 
-echo "Done creating ${FINAL_DMG} in ${DMG_DIR}"
+echo "Done creating ${DMG_NAME} in ${DMG_DIR}"

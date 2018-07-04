@@ -13,10 +13,11 @@ ExternalProject_Add(
                       KICAD_SOURCE_DIR=${CMAKE_BINARY_DIR}/kicad/src/kicad
                       KICAD_INSTALL_DIR=${KICAD_INSTALL_DIR}
                       TEMPLATE=kicadtemplate.dmg
-                      DMG_DIR=${DMG_DIR}
                       PACKAGE_TYPE=unified
                       CMAKE_BINARY_DIR=${CMAKE_BINARY_DIR}
                       README=${CMAKE_SOURCE_DIR}/README.packaging
+                      DMG_DIR=${DMG_DIR}
+                      RELEASE_NAME=${RELEASE_NAME}
                       ${BIN_DIR}/package.sh
 )
 
