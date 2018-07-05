@@ -73,7 +73,7 @@ def parse_args(args):
     parser.add_argument("--target",
                         help="List of make targets to build. By default, downloads and builds everything, but does "
                              "not package any DMGs. Use package-kicad-nightly for the nightly DMG, "
-                             "package-kicad-extra for the extras DMG, and package-kicad-unified for the all-in-one "
+                             "package-extras for the extras DMG, and package-kicad-unified for the all-in-one "
                              "DMG. See the documentation for details.",
                         nargs="+",
                         )
