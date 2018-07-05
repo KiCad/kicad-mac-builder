@@ -12,10 +12,11 @@ ExternalProject_Add(
         INSTALL_COMMAND VERBOSE=1
                       PACKAGING_DIR=${CMAKE_SOURCE_DIR}/extras-packaging
                       TEMPLATE=kicad-extras-template.dmg
-                      DMG_DIR=${DMG_DIR}
                       PACKAGE_TYPE=extras
                       CMAKE_BINARY_DIR=${CMAKE_BINARY_DIR}
                       README=${CMAKE_SOURCE_DIR}/README.packaging
+                      DMG_DIR=${DMG_DIR}
+                      RELEASE_NAME=${RELEASE_NAME}
                       ${BIN_DIR}/package.sh
 )
 

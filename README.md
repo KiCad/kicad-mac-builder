@@ -7,52 +7,75 @@ This supports macOS 10.11, 10.12, and 10.13.
 
 [![Build Status](https://builder.wayneandlayne.com/buildStatus/icon?job=kicad-mac-builder-10.11-upload)](https://builder.wayneandlayne.com/job/kicad-mac-builder-10.11-upload) (master branch, all three DMGs, built from scratch on a new 10.11 VM for 10.11-10.13)
 
+If you are looking to run KiCad on your Mac, please use the instructions at http://kicad-pcb.org/download/osx/ instead of this.  If you are looking to compile KiCad or improve KiCad packaging on MacOS, kicad-mac-packager may be able to help you.
+
 Setup
 =====
-10.12-10.13
------------
+kicad-mac-builder requires a 10.11+ Mac with homebrew and at least 20G of disk space free.  The instructions assume you are capable of using the command line but they are not intended to require arcane deep knowledge.
+
+You do not need to install anything not listed in this README. If you need to, please let me know because it is a bug in either functionality or documentation.
+
+It may be helpful to run `brew list` before installing any dependencies.  This makes it easier to clean up the new dependencies when uninstalling kicad-mac-builder.
+
+The instructions are split up based on macOS version.
+
+macOS 10.12-10.13
+-----------------
+
+Please use a terminal to run the following command:
 
 `brew install cmake swig glew glm cairo boost doxygen gettext wget brewsci/science/oce bison libtool automake autoconf`
 
-10.11
------
-The Homebrew OCE bottle for 10.11 is broken.  It refers to 10.12's SDK.  You can either build it yourself with:
+You do not need to do any supplemental linking steps implied by the brew output.
+
+macOS 10.11
+-----------
+
+The Homebrew OCE bottle for 10.11 is broken.  It refers to the SDK for 10.12.  You have two options, both of which are commands you run in the terminal.
+
+You can either build it yourself with:
 `brew install --build-from-source brewsci/science/oce`
 or use the bottle I made and include in this repository.
 `brew install -f external/oce-0.18.2.el_capitan.bottle.1.tar.gz`
 
-Once you've done that, install the rest of the dependencies.
+Once you've done that, install the rest of the dependencies using the terminal.
 `brew install cmake swig glew glm cairo boost doxygen gettext wget bison libtool automake autoconf`
 
-Building by hand
-================
-To get up and running the absolute fastest, just use `build.sh`.  However, it builds everything and uses "reasonable" settings.  If you want something special, for now at least, run `cmake` and `make` by hand.  Better documentation is definitely welcomed, but for now, you can look at `build.sh` for reference.
+You do not need to do any supplemental linking steps implied by the brew output.
 
-* `build.sh` create all the DMGs.
-* `build.sh kicad` just builds KiCad, but packages nothing.  This is the same for any other CMake targets.
-* `build.sh package-kicad-nightly` creates a DMG of everything except the 3D models in `build/dmg`.
-* `build.sh package-extras` creates a DMG of the 3D models in `build/dmg`.
-* `build.sh package-kicad-unified` creates a DMG of everything in `build/dmg`.
+Usage
+=====
+To get up and running the absolute fastest, use `build.py`.  It expects to be run from the directory it is in, like;
 
-There is only one special parameter for `build.sh`.  By default, it finds the number of cores in your system and passes that to `make` with `-j`.  If the first argument to `build.sh` is `--NUM_CORES=2`, where 2 can be replaced with a number, `build.sh` will pass that number to `make` with `-j`.  Any other arguments are passed through to `make`.
+`./build.py`
+
+It builds everything and uses "reasonable" settings.  If you want something special, check `./build.py --help`, and if that doesn't help, read the rest of this documentation.  Failing that, run `cmake` and `make` by hand.  Better documentation is definitely welcomed!
+
+By default, dependencies are built once, and unless their build directories are cleaned out, or their source is updated, they will not be built again.  The KiCad files, like the footprints, symbols, 3D models, translations, docs, and KiCad itself, are, by default, built from origin/master of their respective repositories or re-downloaded, ensuring you have the most up-to-date KiCad. 
+
+* `build.py --target kicad` builds KiCad and its source code dependencies, but packages nothing.  This is the same for any other CMake targets.
+* `build.py --target package-kicad-nightly` creates a DMG of everything except the 3D models.
+* `build.py --target package-extras` creates a DMG of the 3D models.
+* `build.py --target package-kicad-unified` creates a DMG of everything.
+* `build.py` create all the DMGs.
+
+During the build, some DMGs may be mounted and Finder may open windows while the script runs.  Unmounting or ejecting the DMGs while the script runs is likely to damage the output DMG.
+
+The output DMGs from `build.py` go into build/dmgs.
+
+KiCad Mac Builder does not install KiCad onto your Mac or modify your currently installed KiCad.
 
 Building inside a VM
 ====================
-There can be value in building inside a VM.  This can help increase isolation and repeatability, by reducing the chances that something "sticks around" between builds, and helps reduce the chances of undocumented steps.  However, it can be slower and take more resources.
+It has been historically very difficult to build and package KiCad on macOS.  Even if the source builds fine, getting the environment setup has been quite difficult.  In order to help both developers who want to use kicad-mac-builder to quickly develop and test on macOS, and to make sure that new developers can follow the instructions and quickly and easily get a working setup, I have some Jenkinsfiles setup in ci/.  These Jenkinsfiles use Vagrant and a blank macOS virtual machine (https://github.com/timsutton/osx-vm-templates).  These machines are freshly installed machines from the macOS install media with security patches and the XCode command line tools installed.  Starting from that blank machine and a checkout of this repository, the scripts in ci/ are used to install brew and any dependencies, and then build and package KiCad.  When its finished, the machine is deleted.  This happens at least once a day.
 
-I do this, however, to make sure that people can build using 10.11, 10.12, and 10.13.  To do this, setup a macOS Vagrant machine.  I use https://github.com/timsutton/osx-vm-templates.  Please note, that as of early 2018, to create a 10.13 VM you must start with a 10.12 VM and upgrade it.
+This is intended to increase reproducibility and reduce the likelihood of undocumented steps and stale documentation.  It does take more resources and is slower, so it is not expected to be the way most developers interact with kicad-mac-builder.
 
-There is an example Vagrantfile and scripts in `vagrant/`.
+Please note, that as of early 2018, to create a 10.13 VM with the osx-vm-templates project, you must start with a 10.12 VM and upgrade it.
 
 Testing KiCad Patches
 =====================
 Any patches inside kicad-mac-builder/patches/kicad/ are applied via git-am, per kicad-mac-builder/kicad.cmake.  This helps make it easy to test patches that may affect KiCad macOS packaging.
-
-New Dependencies
-================
-You cannot assume brew uses default paths, as at least one of the build machines has multiple brew installations.  See `build.sh` for examples.
-
-Make sure you add any new dependencies to this README, as well as to the ci/ scripts.
 
 Issues
 ======
@@ -62,8 +85,40 @@ In May 2018, the OCE bottle for 10.11 refers to the 10.12 SDK internally.  It re
 
 In May 2018, the KiCad 10.11 build machine has an older version of CMake installed.  The included GetPrequisites and BundleUtilties do not work with what we are doing with the packaging.  I included the version from 3.10 using a KiCad patch.  As soon as that machine is upgraded, we should add a minimum CMake version and remove that patch.
 
+Known Errors
+============
+Unfortunately, as of July 2018, there are messages that pop up during build that say error that are not problems.  There is work underway to reduce these to a minimum.
+
+These include, but are not limited to:
+
+```
+==> default: Traceback (most recent call last):
+==> default:   File "<string>", line 1, in <module>
+==> default: ImportError: No module named wx
+```
+
+```
+error: /Library/Developer/CommandLineTools/usr/bin/install_name_tool: for: libGLEW.2.1.dylib (for architecture x86_64) option "-add_rpath @loader_path/../.." would duplicate path, file already has LC_RPATH for: @loader_path/../..
+```
+
+with a variety of paths...
+
+
+Making KiCad Mods
+=================
+When doing some types of work, it can be helpful to have these scripts build KiCad from a location on your computer, rather than the integrated checkout via git.  This can be easily done by removing the 2 GIT_* lines from kicad.cmake, and replace them SOURCE_DIR.
+
+Making changes to KiCad-mac-builder
+===================================
+
+New Dependencies
+----------------
+You cannot assume brew uses default paths, as at least one of the build machines has multiple brew installations.  See `build.py` for examples.
+
+Make sure you add any new dependencies to this README, as well as to the ci/ scripts.  If you don't, the builds from a clean VM will certainly fail.
+
 Linting
-=======
+-------
 To prescreen your changes for style issues, install shellcheck and cmakelint and run the following from the same directory as this README:
 
 `find . -path ./build -prune -o -name \*.sh -exec shellcheck {} \;`
@@ -72,15 +127,11 @@ To prescreen your changes for style issues, install shellcheck and cmakelint and
 
 `find . -path ./build -prune -o -name \*.cmake -exec cmakelint --filter=-linelength,-readability/wonkycase {} \;`
 
-Making KiCad Mods
-=================
-When doing some types of work, it can be helpful to have these scripts build KiCad from a location on your computer, rather than the integrated checkout via git.  This can be easily done by removing the 2 GIT_* lines from kicad.cmake, and replace them SOURCE_DIR.
-
 Test Procedure
 ==============
 Before big releases, we should check to make sure all the component pieces work.
 
-Remove the build/ directory, and run `build.sh`.  Then, rerun `build.sh`, to make sure that everything works with both new and incremental builds.
+Remove the build/ directory, and run `build.py`.  Then, rerun `build.py`, to make sure that everything works with both new and incremental builds.
 
 Basics
 ------

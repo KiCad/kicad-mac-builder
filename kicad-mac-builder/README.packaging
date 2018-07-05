@@ -23,6 +23,12 @@ Upgrading
 
 Read these notes first, before following the Installing section.
 
+You may want to back up your currently installed KiCad before installing this version of KiCad.  You can do that by copying and pasting the following commands into a terminal.
+
+BACKUP_DIR=~/kicad-backup-$(date +%Y%m%d-%H%M%S); mkdir -p $BACKUP_DIR; if [ -e /Applications/KiCad ]; then echo "Backing up /Applications/KiCad"; mkdir -p $BACKUP_DIR/Applications; cp -r /Applications/KiCad $BACKUP_DIR/Applications/; fi; if [ -e /Applications/Kicad ]; then echo "Backing up /Applications/Kicad"; mkdir -p $BACKUP_DIR/Applications; cp -r /Applications/Kicad $BACKUP_DIR/Applications/; fi; if [ -e "/Library/Application Support/kicad" ]; then echo "Backing up /Library/Application Support/kicad"; mkdir -p "$BACKUP_DIR/Library/Application Support"; cp -r "/Library/Application Support/kicad" "$BACKUP_DIR/Library/Application Support/"; fi; if [ -e "$HOME/Library/Application Support/kicad" ]; then echo "Backing up $HOME/Library/Application Support/kicad"; mkdir -p "$BACKUP_DIR/$HOME/Library/Application Support"; cp -r "$HOME/Library/Application Support/kicad" "$BACKUP_DIR/$HOME/Library/Application Support/"; fi; if [ -e "$HOME/Library/Preferences/org.kicad-pcb.*" ]; then echo "Backing up $HOME/Library/Preferences/org.kicad-pcb.*"; mkdir -p "$BACKUP_DIR/$HOME/Library/Preferences"; cp -r "$HOME/Library/Preferences/org.kicad-pcb.*" "$BACKUP_DIR/$HOME/Library/Preferences/"; fi; if [ -e "$HOME/Library/Preferences/kicad" ]; then echo "Backing up $HOME/Library/Preferences/kicad"; mkdir -p "$BACKUP_DIR/$HOME/Library/Preferences"; cp -r "$HOME/Library/Preferences/kicad" "$BACKUP_DIR/$HOME/Library/Preferences/"; fi
+
+It looks complicated, but it copies files from the default locations for the KiCad applications, support files, and preferences into your home directory, in a directory that starts with kicad-backup and then the date and time.
+
 * If you have a directory called Kicad in your Applications directory, and you have a case-insensitive drive (which is the default in macOS), you will need to either rename or delete the directory before dragging the new KiCad directory into Applications, or you'll get an error.
 * There need to be notes on upgrading your footprint table, but they have not been written yet.
 
@@ -36,7 +42,7 @@ There are three different DMGs for KiCad on macOS.
 
 Unified contains the KiCad application and the official symbols, footprints, and 3D models.
 
-Nightly does not contain the 3D models.  The 3D models are large, and the nightlies are intended for testing out changes on a daily basis.
+Nightly does not contain the 3D models.  The 3D models are large, and the nightlies are intended for users who want to test changes on a daily basis.
 
 Extras contains only the 3D models.
 

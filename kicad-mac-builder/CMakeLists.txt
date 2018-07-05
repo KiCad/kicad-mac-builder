@@ -1,5 +1,25 @@
 cmake_minimum_required( VERSION 3.6.2 )
 include( ExternalProject )
+
+if( NOT DEFINED KICAD_TAG )
+  message( FATAL_ERROR "KICAD_TAG must be set.  Please see the README or try build.py." )
+endif ()
+if( NOT DEFINED PACKAGES3D_TAG )
+  message( FATAL_ERROR "PACKAGES3D_TAG must be set.  Please see the README or try build.py." )
+endif ()
+if( NOT DEFINED FOOTPRINTS_TAG )
+  message( FATAL_ERROR "FOOTPRINTS_TAG must be set.  Please see the README or try build.py." )
+endif ()
+if( NOT DEFINED TRANSLATIONS_TAG )
+  message( FATAL_ERROR "TRANSLATIONS_TAG must be set.  Please see the README or try build.py." )
+endif ()
+if( NOT DEFINED SYMBOLS_TAG )
+  message( FATAL_ERROR "SYMBOLS_TAG must be set.  Please see the README or try build.py." )
+endif ()
+if( NOT DEFINED DOCS_TARBALL_URL)
+  message( FATAL_ERROR "DOCS_TARBALL_URL must be set.  Please see the README or try build.py." )
+endif ()
+
 if( NOT DEFINED MACOS_MIN_VERSION )
 message( FATAL_ERROR "MACOS_MIN_VERSION must be set.  For example 'cmake -DMACOS_MIN_VERSION=10.13 ../kicad-mac-builder'" )
 endif ()
@@ -11,7 +31,6 @@ set( PYTHON_VERSION 2.7.13 )
 set( PYTHON_URL https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz )
 set( PYTHON_SHA1 dce2b862a30099ee48c19a7c34e2d7c2eeff5670 )
 set( PYTHON_INSTALL_DIR ${CMAKE_BINARY_DIR}/python-dest/Library/Frameworks ) # Ending in /Library/Frameworks is important here
-include( python.cmake )
 
 set( WXPYTHON_VERSION 3.0.2.0 )
 # set(WXPYTHON_URL http://downloads.sourceforge.net/project/wxpython/wxPython/${WXPYTHON_VERSION}/wxPython-src-${WXPYTHON_VERSION}.tar.bz2 )
@@ -19,14 +38,11 @@ set( WXPYTHON_URL ${CMAKE_SOURCE_DIR}/../external/wxPython-src-${WXPYTHON_VERSIO
 set( WXPYTHON_SHA1 5053f3fa04f4eb3a9d4bfd762d963deb7fa46866 )
 set( wxwidgets_INSTALL_DIR ${CMAKE_BINARY_DIR}/wxwidgets-dest )
 set( wxpython_INSTALL_DIR ${CMAKE_BINARY_DIR}/wxpython-dest )
-include( wxpython.cmake )
 set( six_DIR ${CMAKE_BINARY_DIR}/six/src/six )
 
 set( ngspice_INSTALL_DIR ${CMAKE_BINARY_DIR}/ngspice-dest )
-include( ngspice.cmake)
 
 set( KICAD_URL https://git.launchpad.net/kicad )
-set( KICAD_TAG origin/master )
 set( KICAD_INSTALL_DIR ${CMAKE_BINARY_DIR}/kicad-dest )
 
 # find OCE
@@ -55,14 +71,26 @@ set( KICAD_CMAKE_ARGS ${KICAD_CMAKE_ARGS} -DOCE_DIR=${OCE_DIR} )
 set( KICAD_CMAKE_ARGS ${KICAD_CMAKE_ARGS} -DKICAD_SPICE=ON )
 set( KICAD_CMAKE_ARGS ${KICAD_CMAKE_ARGS} -DNGSPICE_INCLUDE_DIR=${ngspice_INSTALL_DIR}/share/ngspice/include/ )
 set( KICAD_CMAKE_ARGS ${KICAD_CMAKE_ARGS} -DNGSPICE_LIBRARY=${ngspice_INSTALL_DIR}/lib/libngspice.dylib )
-set( KICAD_CMAKE_ARGS ${KICAD_CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release )
+set( KICAD_CMAKE_ARGS ${KICAD_CMAKE_ARGS} -DCMAKE_BUILD_TYPE=RelWithDebInfo )
 
 set( DMG_DIR ${CMAKE_BINARY_DIR}/dmg )
+set( TRANSLATIONS_URL https://github.com/KiCad/kicad-i18n.git )
+
+message( "CMake Setting Summary for kicad-mac-builder" )
+message( "KICAD_TAG: ${KICAD_TAG}" )
+message( "PACKAGES3D_TAG: ${PACKAGES3D_TAG}" )
+message( "SYMBOLS_TAG: ${SYMBOLS_TAG}" )
+message( "FOOTPRINTS_TAG: ${FOOTPRINTS_TAG}" )
+message( "TRANSLATIONS_TAG: ${TRANSLATIONS_TAG}" )
+message( "DOCS_TARBALL_URL: ${DOCS_TARBALL_URL}" )
+message( "KICAD_CMAKE_ARGS: ${KICAD_CMAKE_ARGS}" )
+
+
+include( python.cmake )
+include( wxpython.cmake )
+include( ngspice.cmake)
 include( kicad.cmake )
 include( docs.cmake )
-
-set( TRANSLATIONS_URL https://github.com/KiCad/kicad-i18n.git )
-set( TRANSLATIONS_TAG master )
 include( translations.cmake )
 
 include( footprints.cmake )
