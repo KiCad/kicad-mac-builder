@@ -175,7 +175,7 @@ def build(args):
                   "issue if you cannot fix it after reading the README.")
             raise
 
-    print_and_flush("Build complete.  If you built a DMG, it should be located in {}/build/dmg".format(os.getcwd()))
+    print_and_flush("Build complete.  If you built a DMG, it should be located in {}/dmg".format(os.getcwd()))
 
 
 def main():
