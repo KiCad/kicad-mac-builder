@@ -12,6 +12,11 @@ import subprocess
 import sys
 import time
 
+def print_and_flush(s):
+    # sigh, in Python3 this is build in... :/
+    print s
+    sys.stdout.flush()
+
 
 def get_number_of_cores():
     return int(subprocess.check_output("sysctl -n hw.ncpu", shell=True).strip())
@@ -128,8 +133,6 @@ def build(args):
 
     os.chdir("build")
 
-    print(os.getcwd())
-
     cmake_command = ["cmake",
                      "-DMACOS_MIN_VERSION={}".format(args.macos_min_version),
                      "-DDOCS_TARBALL_URL={}".format(args.docs_tarball_url),
@@ -143,50 +146,49 @@ def build(args):
         cmake_command.append("-DRELEASE_NAME={}".format(args.release_name))
     cmake_command.append("../kicad-mac-builder")
 
-    print "Running {}".format(" ".join(cmake_command))
+    print_and_flush("Running {}".format(" ".join(cmake_command)))
     try:
         subprocess.check_call(cmake_command, env=dict(os.environ, PATH=new_path))
     except subprocess.CalledProcessError:
-        print("Error while running cmake. Please report this issue if you cannot fix it after reading the README.")
+        print_and_flush("Error while running cmake. Please report this issue if you cannot fix it after reading the README.")
         raise
 
     make_command = get_make_command(args)
-    print "Running {}".format(" ".join(make_command))
+    print_and_flush("Running {}".format(" ".join(make_command)))
     try:
         subprocess.check_call(make_command, env=dict(os.environ, PATH=new_path))
     except subprocess.CalledProcessError:
         if args.retry_failed_build and args.jobs > 1:
-            print "Error while running make. Rebuilding with a single job. If this consistently occurs, " \
-                  "please report this issue. "
+            print_and_flush("Error while running make. Rebuilding with a single job. If this consistently occurs, " \
+                  "please report this issue. ")
             args.jobs = 1
             make_command = get_make_command(args)
-            print "Running {}".format(" ".join(make_command))
+            print_and_flush("Running {}".format(" ".join(make_command)))
             try:
                 subprocess.check_call(make_command, env=dict(os.environ, PATH=new_path))
             except subprocess.CalledProcessError:
-                print "Error while running make after rebuilding with a single job. Please report this issue if you " \
-                      "cannot fix it after reading the README."
+                print_and_flush("Error while running make after rebuilding with a single job. Please report this issue if you " \
+                      "cannot fix it after reading the README.")
                 raise
         else:
-            print "Error while running make. It may be helpful to rerun with a single make job. Please report this " \
-                  "issue if you cannot fix it after reading the README. "
+            print_and_flush("Error while running make. It may be helpful to rerun with a single make job. Please report this " \
+                  "issue if you cannot fix it after reading the README.")
             raise
 
-    print "Build complete.  If you built a DMG, it should be located in {}/build/dmg".format(os.getcwd())
+    print_and_flush("Build complete.  If you built a DMG, it should be located in {}/build/dmg".format(os.getcwd()))
 
 
 def main():
     parsed_args = parse_args(sys.argv[1:])
-    print "build.py argument summary:"
+    print_and_flush("build.py argument summary:")
     for attr in sorted(parsed_args.__dict__):
-        print "{}: {}".format(attr, getattr(parsed_args, attr))
+        print_and_flush("{}: {}".format(attr, getattr(parsed_args, attr)))
 
-    print "\nYou can change these settings.  Run ./build.py --help for details."
-    print "\nDepending upon build configuration, what has already been downloaded, what has already been built, " \
-          "the computer and the network connection, this may take multiple hours and approximately 20G of disk space. "
-    print "\nYou can stop the build at any time by pressing Control-C.\n"
+    print_and_flush("\nYou can change these settings.  Run ./build.py --help for details.")
+    print_and_flush("\nDepending upon build configuration, what has already been downloaded, what has already been built, " \
+          "the computer and the network connection, this may take multiple hours and approximately 20G of disk space.")
+    print_and_flush("\nYou can stop the build at any time by pressing Control-C.\n")
     time.sleep(10)
-
     build(parsed_args)
 
 
