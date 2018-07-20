@@ -8,7 +8,7 @@ KiCad targets the current version of macOS with support back to macOS 10.11.
 
 Installing
 ==========
-If you have already installed KiCad from before the V5 release, you may need to upgrade a little differently. Please see the Upgrading section.
+If you have already installed KiCad before the V5 release, you may need to upgrade a little differently. Please see the Upgrading section.
 
 To install KiCad, click and drag the two directory icons to the targets pointed at by the arrows.  
 
@@ -23,14 +23,10 @@ Upgrading
 
 Read these notes first, before following the Installing section.
 
-You may want to back up your currently installed KiCad before installing this version of KiCad.  You can do that by copying and pasting the following commands into a terminal.
-
-BACKUP_DIR=~/kicad-backup-$(date +%Y%m%d-%H%M%S); mkdir -p $BACKUP_DIR; if [ -e /Applications/KiCad ]; then echo "Backing up /Applications/KiCad"; mkdir -p $BACKUP_DIR/Applications; cp -r /Applications/KiCad $BACKUP_DIR/Applications/; fi; if [ -e /Applications/Kicad ]; then echo "Backing up /Applications/Kicad"; mkdir -p $BACKUP_DIR/Applications; cp -r /Applications/Kicad $BACKUP_DIR/Applications/; fi; if [ -e "/Library/Application Support/kicad" ]; then echo "Backing up /Library/Application Support/kicad"; mkdir -p "$BACKUP_DIR/Library/Application Support"; cp -r "/Library/Application Support/kicad" "$BACKUP_DIR/Library/Application Support/"; fi; if [ -e "$HOME/Library/Application Support/kicad" ]; then echo "Backing up $HOME/Library/Application Support/kicad"; mkdir -p "$BACKUP_DIR/$HOME/Library/Application Support"; cp -r "$HOME/Library/Application Support/kicad" "$BACKUP_DIR/$HOME/Library/Application Support/"; fi; if [ -e "$HOME/Library/Preferences/org.kicad-pcb.*" ]; then echo "Backing up $HOME/Library/Preferences/org.kicad-pcb.*"; mkdir -p "$BACKUP_DIR/$HOME/Library/Preferences"; cp -r "$HOME/Library/Preferences/org.kicad-pcb.*" "$BACKUP_DIR/$HOME/Library/Preferences/"; fi; if [ -e "$HOME/Library/Preferences/kicad" ]; then echo "Backing up $HOME/Library/Preferences/kicad"; mkdir -p "$BACKUP_DIR/$HOME/Library/Preferences"; cp -r "$HOME/Library/Preferences/kicad" "$BACKUP_DIR/$HOME/Library/Preferences/"; fi
-
-It looks complicated, but it copies files from the default locations for the KiCad applications, support files, and preferences into your home directory, in a directory that starts with kicad-backup and then the date and time.
-
+* In general, please see http://kicad-pcb.org/help/migration/ when upgrading KiCad to new major version (i.e. V4 to V5).
+* Your footprint table will need to be upgraded.  Instructions are located at http://docs.kicad-pcb.org/master/en/kicad.html#_upgrading_from_version_4_to_version_5.
+* Although it is easy to have both the KiCad V4 and V5 applications installed at the same time, by default, they read from the same location for support files like footprints and symbols.  Because of this, you may want to backup your KiCad installation before upgrading to V5.  The backup-kicad script in this disk image will attempt to do this.  Right-click on the backup-kicad file, and select Open to run it and create a backup into your home directory.
 * If you have a directory called Kicad in your Applications directory, and you have a case-insensitive drive (which is the default in macOS), you will need to either rename or delete the directory before dragging the new KiCad directory into Applications, or you'll get an error.
-* There need to be notes on upgrading your footprint table, but they have not been written yet.
 
 Demos and Example Files
 =======================
