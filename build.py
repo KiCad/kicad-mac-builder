@@ -53,6 +53,9 @@ def parse_args(args):
     parser.add_argument("--packages3d-ref",
                         help="KiCad packages3d git tag, commit, or branch to build from. Defaults to origin/master.",
                         )
+    parser.add_argument("--templates-ref",
+                        help="KiCad templates git tag, commit, or branch to build from. Defaults to origin/master.",
+                        )
     parser.add_argument("--translations-ref",
                         help="KiCad translations git tag, commit, or branch to build from. Defaults to origin/master.",
                         )
@@ -94,16 +97,17 @@ def parse_args(args):
                 parsed_args.footprints_ref is None or \
                 parsed_args.packages3d_ref is None or \
                 parsed_args.translations_ref is None or \
+                parsed_args.templates_ref is None or \
                 parsed_args.docs_tarball_url is None or \
                 parsed_args.release_name is None:
             parser.error(
                 "Release builds require --kicad-ref, --symbols-ref, --footprints-ref, --packages3d-ref, "
-                "--translations-ref, --docs-tarball-url, and --release-name.")
+                "--translations-ref, --templates-ref, --docs-tarball-url, and --release-name.")
     else:
         # not stable
 
         # handle defaults--can't do in argparse because they're conditionally required
-        for ref in "kicad_ref", "symbols_ref", "footprints_ref", "packages3d_ref", "translations_ref":
+        for ref in "kicad_ref", "symbols_ref", "footprints_ref", "packages3d_ref", "translations_ref", "templates_ref":
             if getattr(parsed_args, ref) is None:
                 setattr(parsed_args, ref, "origin/master")
         if parsed_args.docs_tarball_url is None:
@@ -140,6 +144,7 @@ def build(args):
                      "-DKICAD_TAG={}".format(args.kicad_ref),
                      "-DPACKAGES3D_TAG={}".format(args.packages3d_ref),
                      "-DSYMBOLS_TAG={}".format(args.symbols_ref),
+                     "-DTEMPLATES_TAG={}".format(args.templates_ref),
                      "-DTRANSLATIONS_TAG={}".format(args.translations_ref),
                      ]
     if args.release_name:
