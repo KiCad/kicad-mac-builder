@@ -15,6 +15,7 @@ ExternalProject_Add(
                       PACKAGE_TYPE=extras
                       CMAKE_BINARY_DIR=${CMAKE_BINARY_DIR}
                       README=${CMAKE_SOURCE_DIR}/README.packaging
+                      BACKUP_KICAD=${CMAKE_SOURCE_DIR}/bin/backup-kicad.command
                       DMG_DIR=${DMG_DIR}
                       RELEASE_NAME=${RELEASE_NAME}
                       ${BIN_DIR}/package.sh
