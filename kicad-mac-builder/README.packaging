@@ -8,7 +8,7 @@ KiCad targets the current version of macOS with support back to macOS 10.11.
 
 Installing
 ==========
-If you have already installed KiCad from before the V5 release, you may need to upgrade a little differently. Please see the Upgrading section.
+If you have already installed KiCad before the V5 release, you may need to upgrade a little differently. Please see the Upgrading section.
 
 To install KiCad, click and drag the two directory icons to the targets pointed at by the arrows.  
 
@@ -23,9 +23,10 @@ Upgrading
 
 Read these notes first, before following the Installing section.
 
+* In general, please see http://kicad-pcb.org/help/migration/ when upgrading KiCad to new major version (i.e. V4 to V5).
+* Your footprint table will need to be upgraded.  Instructions are located at http://docs.kicad-pcb.org/master/en/kicad.html#_upgrading_from_version_4_to_version_5.
 * Although it is easy to have both the KiCad V4 and V5 applications installed at the same time, by default, they read from the same location for support files like footprints and symbols.  Because of this, you may want to backup your KiCad installation before upgrading to V5.  The backup-kicad script in this disk image will attempt to do this.  Right-click on the backup-kicad file, and select Open to run it and create a backup into your home directory.
 * If you have a directory called Kicad in your Applications directory, and you have a case-insensitive drive (which is the default in macOS), you will need to either rename or delete the directory before dragging the new KiCad directory into Applications, or you'll get an error.
-* There need to be notes on upgrading your footprint table.  They have been written, but they are not available on the kicad docs site yet.
 
 Demos and Example Files
 =======================
