@@ -173,6 +173,7 @@ setup_dmg
 
 cp "${README}" "${MOUNTPOINT}"/README.txt
 cp "${BACKUP_KICAD}" "${MOUNTPOINT}"/backup-kicad.command
+SetFile -a E "${MOUNTPOINT}"/backup-kicad.command
 
 case "${PACKAGE_TYPE}" in 
     nightly)
