@@ -78,7 +78,7 @@ echo "PACKAGE_TYPE: ${PACKAGE_TYPE}"
 echo "CMAKE_BINARY_DIR: ${CMAKE_BINARY_DIR}"
 echo "BACKUP_KICAD: ${BACKUP_KICAD}"
 echo "README: ${README}"
-if [ -z ${RELEASE_NAME} ]; then # if RELEASE_NAME is unset, or is set to empty string
+if [ ! -z ${RELEASE_NAME} ]; then # if RELEASE_NAME is unset, or is set to empty string
     echo "RELEASE_NAME: ${RELEASE_NAME}"
 else
     echo "RELEASE_NAME: unspecified"
