@@ -49,7 +49,6 @@ ExternalProject_Add_Step(
         remove-pyc-and-pyo
         COMMENT "Removing pyc and pyo files"
         DEPENDEES verify-cli-python install-six
-        DEPENDS kicad
         COMMAND find ${KICAD_INSTALL_DIR}/kicad.app/ -type f -name \*.pyc -o -name \*.pyo -delete
 )
 
@@ -67,4 +66,12 @@ ExternalProject_Add_Step(
         COMMENT "Fixing loader dependencies so _pcbnew.so works both internal and external to KiCad."
         DEPENDEES install
         COMMAND ${BIN_DIR}/fixup-pcbnew-so.sh  ${KICAD_INSTALL_DIR}/kicad.app/Contents/Frameworks/
+)
+
+ExternalProject_Add_Step(
+	kicad
+	verify-pcbnew-so-import
+	COMMENT "Verifying python can import _pcbnew.so"
+	DEPENDEES fixup-pcbnew-so install-six remove-pyc-and-pyo verify-cli-python verify-app
+	COMMAND ${BIN_DIR}/verify-pcbnew-so-import.sh  ${KICAD_INSTALL_DIR}/kicad.app/
 )
