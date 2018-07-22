@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 # Many thanks to metacollin.
 
 if [ $# -ne 1 ] ; then
