@@ -12,7 +12,7 @@ EXITCODE=$?
 if [ $EXITCODE -eq 0 ]; then
    exit 0
 elif [ $EXITCODE -eq 1 ]; then
-   if echo "$OUTPUT" | grep 'would duplicate path, file already has LC_RPATH for' ; then
+   if echo "$OUTPUT" | grep --quiet 'would duplicate path, file already has LC_RPATH for' ; then
       exit 0
    fi
 fi
