@@ -41,6 +41,9 @@ def parse_args(args):
                         help="Build for a release.",
                         action="store_true"
                         )
+    parser.add_argument("--build-type",
+                        help="Build type passed to CMake like Debug, Release, or RelWithDebInfo.  Defaults to Debug, unless --release is set."
+                        )
     parser.add_argument("--kicad-ref",
                         help="KiCad source code git tag, commit, or branch to build from. Defaults to origin/master.",
                         )
@@ -92,6 +95,11 @@ def parse_args(args):
         parsed_args.target = [""]
 
     if parsed_args.release:
+        if parsed_args.build_type is None:
+            parsed_args.build_type = "Release"
+        elif parsed_args.build_type != "Release":
+            parser.error("Release builds imply --build-type Release.")
+
         if parsed_args.kicad_ref is None or \
                 parsed_args.symbols_ref is None or \
                 parsed_args.footprints_ref is None or \
@@ -112,6 +120,8 @@ def parse_args(args):
                 setattr(parsed_args, ref, "origin/master")
         if parsed_args.docs_tarball_url is None:
             parsed_args.docs_tarball_url = docs_tarball_url_default
+        if parsed_args.build_type is None:
+            parsed_args.build_type = "Debug"
 
     return parsed_args
 
@@ -146,6 +156,7 @@ def build(args):
                      "-DSYMBOLS_TAG={}".format(args.symbols_ref),
                      "-DTEMPLATES_TAG={}".format(args.templates_ref),
                      "-DTRANSLATIONS_TAG={}".format(args.translations_ref),
+                     "-DKICAD_CMAKE_BUILD_TYPE={}".format(args.build_type),
                      ]
     if args.release_name:
         cmake_command.append("-DRELEASE_NAME={}".format(args.release_name))
