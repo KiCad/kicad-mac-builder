@@ -92,7 +92,7 @@ def parse_args(args):
     parsed_args = parser.parse_args(args)
 
     if parsed_args.target is None:
-        parsed_args.target = [""]
+        parsed_args.target = []
 
     if parsed_args.release:
         if parsed_args.build_type is None:
