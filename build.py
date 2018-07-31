@@ -175,8 +175,10 @@ def build(args):
         subprocess.check_call(make_command, env=dict(os.environ, PATH=new_path))
     except subprocess.CalledProcessError:
         if args.retry_failed_build and args.jobs > 1:
-            print_and_flush("Error while running make. Rebuilding with a single job. If this consistently occurs, " \
-                  "please report this issue. ")
+            print_and_flush("Error while running make.")
+            print_summary(args)
+            print_and_flush("Rebuilding with a single job. If this consistently occurs, " \
+                            "please report this issue. ")
             args.jobs = 1
             make_command = get_make_command(args)
             print_and_flush("Running {}".format(" ".join(make_command)))
@@ -185,20 +187,24 @@ def build(args):
             except subprocess.CalledProcessError:
                 print_and_flush("Error while running make after rebuilding with a single job. Please report this issue if you " \
                       "cannot fix it after reading the README.")
+                print_summary(args)
                 raise
         else:
             print_and_flush("Error while running make. It may be helpful to rerun with a single make job. Please report this " \
                   "issue if you cannot fix it after reading the README.")
+            print_summary(args)
             raise
 
     print_and_flush("Build complete.  If you built a DMG, it should be located in {}/dmg".format(os.getcwd()))
 
+def print_summary(args):
+    print_and_flush("build.py argument summary:")
+    for attr in sorted(args.__dict__):
+        print_and_flush("{}: {}".format(attr, getattr(args, attr)))
 
 def main():
     parsed_args = parse_args(sys.argv[1:])
-    print_and_flush("build.py argument summary:")
-    for attr in sorted(parsed_args.__dict__):
-        print_and_flush("{}: {}".format(attr, getattr(parsed_args, attr)))
+    print_summary(parsed_args)
 
     print_and_flush("\nYou can change these settings.  Run ./build.py --help for details.")
     print_and_flush("\nDepending upon build configuration, what has already been downloaded, what has already been built, " \
