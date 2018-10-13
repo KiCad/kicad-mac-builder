@@ -1,7 +1,7 @@
 KiCad Mac Builder
 =================
 
-This is the V5+ KiCad Mac builder and packager.  This is known to work on macOS 10.11, 10.12, and 10.13.  If it does not work with newer versions, this will be addressed and this list will be amended.
+This is the V5+ KiCad Mac builder and packager.  This is known to work on macOS 10.11, 10.12, 10.13, and 10.14.  If it does not work with newer versions, this will be addressed and this list will be amended.
 
 [![Build Status](https://builder.wayneandlayne.com/buildStatus/icon?job=kicad-mac-builder-10.11-upload)](https://builder.wayneandlayne.com/job/kicad-mac-builder-10.11-upload) (master branch, all three DMGs, built from scratch on a new 10.11 VM for 10.11-10.13)
 
@@ -17,7 +17,7 @@ It may be helpful to run `brew list` before installing any dependencies.  This m
 
 The instructions are split up based on macOS version.
 
-macOS 10.12-10.13
+macOS 10.12-10.14
 -----------------
 
 Please use a terminal to run the following command:
@@ -69,7 +69,7 @@ It has been historically very difficult to build and package KiCad on macOS.  Ev
 
 This is intended to increase reproducibility and reduce the likelihood of undocumented steps and stale documentation.  It does take more resources and is slower, so it is not expected to be the way most developers interact with kicad-mac-builder.
 
-Please note, that as of early 2018, to create a 10.13 VM with the osx-vm-templates project, you must start with a 10.12 VM and upgrade it.
+Please note, that as of early 2018, to create a 10.13 or 10.14 VM with the osx-vm-templates project, you must start with a 10.12 VM and upgrade it.
 
 Testing KiCad Patches
 =====================
