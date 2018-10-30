@@ -95,7 +95,7 @@ ExternalProject_Add_Step(
 	python
 	upgrade_pip
 	COMMENT "Upgrade pip"
-	DEPENDEES verify_fixup
+	DEPENDEES install_pip
 	COMMAND PIP_REQUIRE_VIRTUALENV=false ${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/pip install --upgrade pip
 )
 
