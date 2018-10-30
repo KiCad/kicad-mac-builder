@@ -82,11 +82,36 @@ ExternalProject_Add_Step(
 	COMMAND ${BIN_DIR}/verify-cli-python.sh "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/python"
 )
 
+
+ExternalProject_Add_Step(
+	python
+	install_pip
+	COMMENT "Install pip"
+	DEPENDEES verify_fixup
+	COMMAND ${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/python -m ensurepip --default-pip
+)
+
+ExternalProject_Add_Step(
+	python
+	upgrade_pip
+	COMMENT "Upgrade pip"
+	DEPENDEES verify_fixup
+	COMMAND PIP_REQUIRE_VIRTUALENV=false ${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/pip install --upgrade pip
+)
+
+ExternalProject_Add_Step(
+	python
+	install_certifi
+	COMMENT "Install certifi"
+	DEPENDEES upgrade_pip
+	COMMAND PIP_REQUIRE_VIRTUALENV=false ${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/pip install certifi
+)
+
 ExternalProject_Add_Step(
 	python
 	verify_ssl
 	COMMENT "Make sure SSL is included"
-	DEPENDEES verify_fixup
+	DEPENDEES install_certifi
 	COMMAND ${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/python -c "import ssl"
 )
 
