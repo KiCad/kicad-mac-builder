@@ -33,9 +33,9 @@ endif ()
 set( CMAKE_VERBOSE_MAKEFILE ON )
 set( BIN_DIR ${CMAKE_SOURCE_DIR}/bin )
 
-set( PYTHON_VERSION 2.7.13 )
+set( PYTHON_VERSION 2.7.15 )
 set( PYTHON_URL https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz )
-set( PYTHON_SHA1 dce2b862a30099ee48c19a7c34e2d7c2eeff5670 )
+set( PYTHON_SHA1 c9750707d127d39a6868e1e55f7cd8c7be006b89 )
 set( PYTHON_INSTALL_DIR ${CMAKE_BINARY_DIR}/python-dest/Library/Frameworks ) # Ending in /Library/Frameworks is important here
 
 set( WXPYTHON_VERSION 3.0.2.0 )
