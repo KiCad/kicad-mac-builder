@@ -1,0 +1,41 @@
+pipeline {
+    agent { label 'macos10.12' }
+    options { disableConcurrentBuilds() }
+
+    stages {
+        stage('build') {
+            steps {
+                dir('ci/10.12') {
+                  setBuildStatus("In Progress", "PENDING", "10.12 Clean Build")
+                  sh 'PATH=$PATH:/usr/local/bin vagrant destroy -f || true'
+                  sh 'rm -rf .vagrant'
+                  sh 'PATH=$PATH:/usr/local/bin vagrant up'
+                }
+            }
+        }
+    }
+    post {
+        always {
+                dir('ci/10.12') {
+                  sh 'PATH=$PATH:/usr/local/bin vagrant halt'
+                }
+        }
+        success {
+                dir('ci/10.12') {
+                  sh 'PATH=$PATH:/usr/local/bin vagrant destroy -f'
+                }
+               setBuildStatus("Complete", "SUCCESS", "10.12 Clean Build")
+       }
+    }
+}
+
+def setBuildStatus(String message, String state, String context) {
+   step([
+     $class: "GitHubCommitStatusSetter",
+     reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/wayneandlayne/kicad-mac-builder/"],
+     contextSource: [$class: "ManuallyEnteredCommitContextSource", context: context],
+     errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+     statusBackrefSource: [$class: "ManuallyEnteredBackrefSource", backref: "${BUILD_URL}flowGraphTable/"],
+     statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
+   ]);
+}
