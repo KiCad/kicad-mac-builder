@@ -18,5 +18,5 @@ export HOMEBREW_NO_ANALYTICS=1
 #brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/eaf0d6c78c8d49ffeaa158eb307101f034944795/Formula/cmake.rb
 #cmake --version
 echo "Installing some dependencies"
-brew install swig glew glm cairo boost doxygen gettext wget bison libtool autoconf automake
+brew install swig glew glm cairo boost doxygen gettext wget bison libtool autoconf automake cmake
 brew install -f /vagrant/external/oce*tar.gz
