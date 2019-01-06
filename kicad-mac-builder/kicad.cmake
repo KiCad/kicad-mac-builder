@@ -3,7 +3,7 @@ include(ExternalProject)
 ExternalProject_Add(
         kicad
         PREFIX  kicad
-        DEPENDS python wxpython wxwidgets six ngspice
+        DEPENDS python wxpython wxwidgets six ngspice docs
         GIT_REPOSITORY ${KICAD_URL}
         GIT_TAG ${KICAD_TAG}
         UPDATE_COMMAND          git fetch
