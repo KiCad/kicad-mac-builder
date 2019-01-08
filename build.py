@@ -41,6 +41,9 @@ def parse_args(args):
                         help="Build for a release.",
                         action="store_true"
                         )
+    parser.add_argument("--extra-version",
+                        help="Sets the version to the git version, a hyphen, and then this string.",
+                        required=False)
     parser.add_argument("--build-type",
                         help="Build type passed to CMake like Debug, Release, or RelWithDebInfo.  Defaults to Debug, unless --release is set."
                         )
@@ -158,6 +161,8 @@ def build(args):
                      "-DTRANSLATIONS_TAG={}".format(args.translations_ref),
                      "-DKICAD_CMAKE_BUILD_TYPE={}".format(args.build_type),
                      ]
+    if args.extra_version:
+        cmake_command.append("-DKICAD_VERSION_EXTRA={}".format(args.extra_version))
     if args.release_name:
         cmake_command.append("-DRELEASE_NAME={}".format(args.release_name))
     cmake_command.append("../kicad-mac-builder")
