@@ -10,7 +10,7 @@ ExternalProject_Add(
         COMMAND                 echo "Making sure we aren't in the middle of a crashed git-am"
         COMMAND                 git am --abort || true
         COMMAND                 git reset --hard ${KICAD_TAG}
-        COMMAND                 ${BIN_DIR}/git-multipatch.sh ${CMAKE_SOURCE_DIR}/patches/kicad/*.patch
+        COMMAND                 ${BIN_DIR}/multipatch.py ${CMAKE_SOURCE_DIR}/patches/kicad/*.patch
         CMAKE_ARGS  ${KICAD_CMAKE_ARGS}
 )
 
