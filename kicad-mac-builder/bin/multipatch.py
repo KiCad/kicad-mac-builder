@@ -22,7 +22,7 @@ def main():
     real_patches = []
     for patch in patches:
         real_patches.extend(glob.glob(patch))
-
+    real_patches = sorted(real_patches)
     print("Patches:")
     print(real_patches)
 
