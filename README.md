@@ -55,7 +55,7 @@ By default, dependencies are built once, and unless their build directories are 
 * `build.py --target package-kicad-nightly` creates a DMG of everything except the 3D models.
 * `build.py --target package-extras` creates a DMG of the 3D models.
 * `build.py --target package-kicad-unified` creates a DMG of everything.
-* `build.py` create all the DMGs.
+* `build.py` downloads and builds everything, but does not package any DMGs.
 
 During the build, some DMGs may be mounted and Finder may open windows while the script runs.  Unmounting or ejecting the DMGs while the script runs is likely to damage the output DMG.
 
