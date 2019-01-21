@@ -1,5 +1,6 @@
 include(ExternalProject)
 
+if(DEFINED RELEASE_NAME)
 ExternalProject_Add(
         kicad
         PREFIX  kicad
@@ -10,9 +11,27 @@ ExternalProject_Add(
         COMMAND                 echo "Making sure we aren't in the middle of a crashed git-am"
         COMMAND                 git am --abort || true
         COMMAND                 git reset --hard ${KICAD_TAG}
-        COMMAND                 ${BIN_DIR}/multipatch.py -p1 -- ${CMAKE_SOURCE_DIR}/patches/kicad/*.patch
+#        COMMAND                 ${BIN_DIR}/multipatch.py -p1 -- ${CMAKE_SOURCE_DIR}/patches/kicad/*.patch
+        COMMAND                 ${BIN_DIR}/git-multipatch.sh ${CMAKE_SOURCE_DIR}/patches/kicad/*.patch
+        COMMAND                 git tag -a ${RELEASE_NAME} -m "${RELEASE_NAME}"
         CMAKE_ARGS  ${KICAD_CMAKE_ARGS}
 )
+else()
+ExternalProject_Add(
+        kicad
+        PREFIX  kicad
+        DEPENDS python wxpython wxwidgets six ngspice docs
+        GIT_REPOSITORY ${KICAD_URL}
+        GIT_TAG ${KICAD_TAG}
+        UPDATE_COMMAND          git fetch
+        COMMAND                 echo "Making sure we aren't in the middle of a crashed git-am"
+        COMMAND                 git am --abort || true
+        COMMAND                 git reset --hard ${KICAD_TAG}
+#        COMMAND                 ${BIN_DIR}/multipatch.py -p1 -- ${CMAKE_SOURCE_DIR}/patches/kicad/*.patch
+        COMMAND                 ${BIN_DIR}/git-multipatch.sh ${CMAKE_SOURCE_DIR}/patches/kicad/*.patch
+        CMAKE_ARGS  ${KICAD_CMAKE_ARGS}
+)
+endif()
 
 ExternalProject_Add_Step(
         kicad
