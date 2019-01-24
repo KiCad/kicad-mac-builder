@@ -27,7 +27,7 @@ def get_local_macos_version():
 
 
 def parse_args(args):
-    docs_tarball_url_default = "http://docs.kicad-pcb.org/master/kicad-doc-HEAD.tar.gz"
+    docs_tarball_url_default = "http://docs.kicad-pcb.org/kicad-doc-HEAD.tar.gz"
 
     parser = argparse.ArgumentParser(description='Build and package KiCad for macOS. Part of kicad-mac-builder.',
                                      epilog="Further details are available in the README file.")
