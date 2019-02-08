@@ -22,5 +22,5 @@ echo "Installing glm 0.9.9.2"
 brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/9ce61eaa2776d0ab011e0559a86afff588f6eccb/Formula/glm.rb
 echo "Installing some dependencies"
 brew install swig glew cairo boost doxygen gettext wget bison libtool autoconf automake cmake
-brew tap brewsci/science
-brew install brewsci/science/oce
+brew install -f /vagrant/external/oce*tar.gz
+
