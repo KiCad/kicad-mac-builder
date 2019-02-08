@@ -23,3 +23,4 @@ brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/9ce61eaa27
 echo "Installing some dependencies"
 brew install swig glew cairo boost doxygen gettext wget bison libtool autoconf automake cmake
 brew install -f /vagrant/external/oce*tar.gz
+
