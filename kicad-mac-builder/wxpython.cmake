@@ -10,7 +10,6 @@ ExternalProject_Add(
                             --with-opengl
                             --enable-monolithic
                             --enable-aui
-                            --enable-utf8
                             --enable-html
                             --enable-stl
                             --disable-mediactrl
