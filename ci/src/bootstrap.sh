@@ -23,9 +23,7 @@ brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/9ce61eaa27
 # version pinning boost
 echo "Installing boost"
 brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/b4de2e1ce084ec249ca61c3eff6f96617e38c081/Formula/boost.rb
-echo "Instaling swig"
-brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/5cf8527323475aec3299180aa4f4f63c09ddc99a/Formula/swig.rb
 echo "Installing some dependencies"
-brew install glew cairo doxygen gettext wget bison libtool autoconf automake cmake
+brew install glew cairo doxygen gettext wget bison libtool autoconf automake cmake swig
 brew install -f /vagrant/external/oce*tar.gz
 
