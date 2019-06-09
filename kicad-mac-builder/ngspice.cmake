@@ -4,7 +4,7 @@ ExternalProject_Add(
         ngspice
         PREFIX  ngspice
         GIT_REPOSITORY git://git.code.sf.net/p/ngspice/ngspice
-        GIT_TAG 99a20162d5038a328d335d11da69c9eee0549fdc
+        GIT_TAG ngspice-30-2
         UPDATE_COMMAND      ""
         PATCH_COMMAND       ""
         CONFIGURE_COMMAND  ./autogen.sh
