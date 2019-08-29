@@ -11,11 +11,11 @@ import time
 
 
 def get_number_of_cores():
-    return int(subprocess.check_output("sysctl -n hw.ncpu", shell=True).strip())
+    return int(subprocess.check_output("sysctl -n hw.ncpu", shell=True, text=True).strip())
 
 
 def get_local_macos_version():
-    return subprocess.check_output("sw_vers -productVersion | cut -d. -f1-2", shell=True).strip()
+    return subprocess.check_output("sw_vers -productVersion | cut -d. -f1-2", shell=True, text=True).strip()
 
 
 def parse_args(args):
