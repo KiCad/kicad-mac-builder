@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 
-# This script is python2 :( because it supports 10.11 out of the box.
-# As soon as we move beyond that, let's reevaluate for sure.
-
 # Try not to use any packages that aren't included with Python, please.
 
 import argparse
@@ -11,11 +8,6 @@ import os
 import subprocess
 import sys
 import time
-
-def print_and_flush(s):
-    # sigh, in Python3 this is build in... :/
-    print s
-    sys.stdout.flush()
 
 
 def get_number_of_cores():
@@ -167,54 +159,62 @@ def build(args):
         cmake_command.append("-DRELEASE_NAME={}".format(args.release_name))
     cmake_command.append("../kicad-mac-builder")
 
-    print_and_flush("Running {}".format(" ".join(cmake_command)))
+    print("Running {}".format(" ".join(cmake_command)), flush=True)
     try:
         subprocess.check_call(cmake_command, env=dict(os.environ, PATH=new_path))
     except subprocess.CalledProcessError:
-        print_and_flush("Error while running cmake. Please report this issue if you cannot fix it after reading the README.")
+        print(
+            "Error while running cmake. Please report this issue if you cannot fix it after reading the README.",
+            flush=True)
         raise
 
     make_command = get_make_command(args)
-    print_and_flush("Running {}".format(" ".join(make_command)))
+    print("Running {}".format(" ".join(make_command)), flush=True)
     try:
         subprocess.check_call(make_command, env=dict(os.environ, PATH=new_path))
     except subprocess.CalledProcessError:
         if args.retry_failed_build and args.jobs > 1:
-            print_and_flush("Error while running make.")
+            print("Error while running make.", flush=True)
             print_summary(args)
-            print_and_flush("Rebuilding with a single job. If this consistently occurs, " \
-                            "please report this issue. ")
+            print("Rebuilding with a single job. If this consistently occurs, " \
+                  "please report this issue. ", flush=True)
             args.jobs = 1
             make_command = get_make_command(args)
-            print_and_flush("Running {}".format(" ".join(make_command)))
+            print("Running {}".format(" ".join(make_command)), flush=True)
             try:
                 subprocess.check_call(make_command, env=dict(os.environ, PATH=new_path))
             except subprocess.CalledProcessError:
-                print_and_flush("Error while running make after rebuilding with a single job. Please report this issue if you " \
-                      "cannot fix it after reading the README.")
+                print(
+                    "Error while running make after rebuilding with a single job. Please report this issue if you " \
+                    "cannot fix it after reading the README.", flush=True)
                 print_summary(args)
                 raise
         else:
-            print_and_flush("Error while running make. It may be helpful to rerun with a single make job. Please report this " \
-                  "issue if you cannot fix it after reading the README.")
+            print(
+                "Error while running make. It may be helpful to rerun with a single make job. Please report this " \
+                "issue if you cannot fix it after reading the README.", flush=True)
             print_summary(args)
             raise
 
-    print_and_flush("Build complete.  If you built a DMG, it should be located in {}/dmg".format(os.getcwd()))
+    print("Build complete.  If you built a DMG, it should be located in {}/dmg".format(os.getcwd()), flush=True)
+
 
 def print_summary(args):
-    print_and_flush("build.py argument summary:")
+    print("build.py argument summary:", flush=True)
     for attr in sorted(args.__dict__):
-        print_and_flush("{}: {}".format(attr, getattr(args, attr)))
+        print("{}: {}".format(attr, getattr(args, attr)), flush=True)
+
 
 def main():
     parsed_args = parse_args(sys.argv[1:])
     print_summary(parsed_args)
 
-    print_and_flush("\nYou can change these settings.  Run ./build.py --help for details.")
-    print_and_flush("\nDepending upon build configuration, what has already been downloaded, what has already been built, " \
-          "the computer and the network connection, this may take multiple hours and approximately 20G of disk space.")
-    print_and_flush("\nYou can stop the build at any time by pressing Control-C.\n")
+    print("\nYou can change these settings.  Run ./build.py --help for details.", flush=True)
+    print(
+        "\nDepending upon build configuration, what has already been downloaded, what has already been built, " \
+        "the computer and the network connection, this may take multiple hours and approximately 20G of disk space.",
+        flush=True)
+    print("\nYou can stop the build at any time by pressing Control-C.\n", flush=True)
     time.sleep(10)
     build(parsed_args)
 

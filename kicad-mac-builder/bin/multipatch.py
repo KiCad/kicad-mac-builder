@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from __future__ import print_function
 
 import sys, subprocess, os, glob
 
@@ -37,6 +36,7 @@ def main():
         except OSError as e:
             failed = True
             print("execution failed:", e)
+
         if status != 0:
             failed = True
             print("patch returned non-zero status code: ", status)
