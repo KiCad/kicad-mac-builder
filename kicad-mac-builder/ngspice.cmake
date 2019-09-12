@@ -8,7 +8,7 @@ ExternalProject_Add(
         UPDATE_COMMAND      ""
         PATCH_COMMAND       ""
         CONFIGURE_COMMAND  ./autogen.sh
-        COMMAND  ./configure --with-ngshared --enable-xspice --enable-cider --prefix=${ngspice_INSTALL_DIR}
+        COMMAND  ./configure --with-ngshared --enable-xspice --enable-cider --prefix=${ngspice_INSTALL_DIR} --enable-debug=yes
         BUILD_COMMAND ${MAKE}
         BUILD_IN_SOURCE 1
         INSTALL_COMMAND make install
