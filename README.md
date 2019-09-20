@@ -22,7 +22,7 @@ macOS 10.12-10.14
 
 Please use a terminal to run the following command:
 
-`brew install cmake swig glew glm cairo boost doxygen gettext wget brewsci/science/oce bison libtool automake autoconf`
+`brew install cmake swig glew glm cairo boost doxygen gettext wget brewsci/science/oce bison libtool automake autoconf libressl`
 
 You do not need to do any supplemental linking steps implied by the brew output.
 

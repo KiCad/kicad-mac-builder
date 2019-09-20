@@ -23,6 +23,14 @@ include(ExternalProject)
 
 # If someone can get BundleUtilities to replace the manual install_name_tool step I'd love to see it!
 
+# On getting ssl included:
+# CPPFLAGS and LDFLAGS from the environment aren't getting passed to the actual compilation steps by setup.py.  If we set them at the configure step, they do.
+
+execute_process(COMMAND brew --prefix libressl OUTPUT_VARIABLE SSL_BASEDIR RESULT_VARIABLE FOUND_SSL_BASEDIR_EXIT_CODE OUTPUT_STRIP_TRAILING_WHITESPACE)
+if (NOT ${FOUND_SSL_BASEDIR_EXIT_CODE} EQUAL 0)
+  message( FATAL_ERROR "Unable to find the SSL base directory from brew.  Make sure you have installed all the dependencies per the README. Exiting." )
+endif()
+
 ExternalProject_Add(
         python
         PREFIX  python
@@ -30,7 +38,8 @@ ExternalProject_Add(
         URL_HASH SHA1=${PYTHON_SHA1}
         UPDATE_COMMAND      ""
         PATCH_COMMAND       ""
-        CONFIGURE_COMMAND MACOSX_DEPLOYMENT_TARGET=${MACOS_MIN_VERSION} ./configure
+        CONFIGURE_COMMAND MACOSX_DEPLOYMENT_TARGET=${MACOS_MIN_VERSION} CPPFLAGS=-I${SSL_BASEDIR}/include LDFLAGS=-L${SSL_BASEDIR}/lib LD_RUN_PATH=${SSL_BASEDIR}/lib ./configure
+                    --with-openssl=${SSL_BASEDIR}
                     --enable-framework=${PYTHON_INSTALL_DIR}
                     --prefix=${PYTHON_INSTALL_DIR}
         BUILD_COMMAND ${MAKE}
@@ -38,6 +47,7 @@ ExternalProject_Add(
         PATCH_COMMAND ${BIN_DIR}/multipatch.py -p1 -- ${CMAKE_SOURCE_DIR}/patches/python/*.patch
         INSTALL_COMMAND make -j1 install
 )
+
 
 # This step executes whether or not install is new. Is there a way to make it only execute when make -j1 install *does* something?
 # Because I didn't see an obvious way to do that, I wrote a script that will not error when adding rpaths that are already on the object.
@@ -65,11 +75,44 @@ ExternalProject_Add_Step(
 
 ExternalProject_Add_Step(
 	python
-	verify
+	verify_fixup
 	COMMENT "Test bin/python and bin/pythonw"
 	DEPENDEES fixup
 	COMMAND ${BIN_DIR}/verify-cli-python.sh "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/pythonw"
 	COMMAND ${BIN_DIR}/verify-cli-python.sh "${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/python"
+)
+
+
+ExternalProject_Add_Step(
+	python
+	install_pip
+	COMMENT "Install pip"
+	DEPENDEES verify_fixup
+	COMMAND ${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/python -m ensurepip --default-pip
+)
+
+ExternalProject_Add_Step(
+	python
+	upgrade_pip
+	COMMENT "Upgrade pip"
+	DEPENDEES install_pip
+	COMMAND PIP_REQUIRE_VIRTUALENV=false ${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/pip install --upgrade pip
+)
+
+ExternalProject_Add_Step(
+	python
+	install_certifi
+	COMMENT "Install certifi"
+	DEPENDEES upgrade_pip
+	COMMAND PIP_REQUIRE_VIRTUALENV=false ${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/pip install certifi
+)
+
+ExternalProject_Add_Step(
+	python
+	verify_ssl
+	COMMENT "Make sure SSL is included"
+	DEPENDEES install_certifi
+	COMMAND ${PYTHON_INSTALL_DIR}/Python.framework/Versions/2.7/bin/python -c "import ssl"
 )
 
 ExternalProject_Add(
