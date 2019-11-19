@@ -1,5 +1,13 @@
 include(ExternalProject)
 
+if (NOT DEFINED KICAD_CMAKE_BUILD_TYPE )
+	message( FATAL_ERROR "KICAD_CMAKE_BUILD_TYPE must be set.  Please see the README or try build.py." )
+elseif ( KICAD_CMAKE_BUILD_TYPE STREQUAL "Release" )
+	set(wxwdgets_MAKE_ARGS BUILD=release)
+else ( ) # assume debug
+	set(wxwdgets_MAKE_ARGS "")
+endif()
+
 ExternalProject_Add(
         wxwidgets
         PREFIX  wxwidgets
@@ -24,7 +32,7 @@ ExternalProject_Add(
                             CC=clang
                             CXX=clang++
         UPDATE_COMMAND ""
-        BUILD_COMMAND ${MAKE}
+	BUILD_COMMAND ${MAKE} ${wxwidgets_MAKE_ARGS}
         BUILD_IN_SOURCE 1
 )
 
