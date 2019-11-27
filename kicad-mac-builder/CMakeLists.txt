@@ -49,7 +49,7 @@ set( six_DIR ${CMAKE_BINARY_DIR}/six/src/six )
 
 set( ngspice_INSTALL_DIR ${CMAKE_BINARY_DIR}/ngspice-dest )
 
-set( KICAD_URL https://git.launchpad.net/kicad )
+set( KICAD_URL https://gitlab.com/kicad/code/kicad.git )
 set( KICAD_INSTALL_DIR ${CMAKE_BINARY_DIR}/kicad-dest )
 
 # find OCE

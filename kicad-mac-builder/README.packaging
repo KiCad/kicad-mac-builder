@@ -46,10 +46,6 @@ Documentation
 =============
 Documentation is available online at http://kicad-pcb.org/help/documentation/.  It is also available inside the various KiCad programs under the Help menu, and after installing from this disk image, is also available at /Library/Application Support/kicad/help.
 
-Changelog
-=========
-You can browse the changelog at https://bazaar.launchpad.net/~kicad-product-committers/kicad/product/changes.
-
 Reporting Issues
 ================
 The KiCad developers work hard to provide quality releases to our users.
